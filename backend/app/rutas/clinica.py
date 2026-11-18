@@ -13,7 +13,7 @@ from .comun import PERSONAL, archivo
 r = APIRouter(prefix="/api", tags=["clínica"])
 
 
-@r.get("/salud")
+@r.api_route("/salud", methods=["GET", "HEAD"])
 def salud():
     """Para el monitor (UptimeRobot): no toca la base de datos, así Neon puede dormir."""
     return {"sistema": config.NOMBRE_SISTEMA, "clinica": config.NOMBRE_CLINICA, "aviso": config.AVISO}

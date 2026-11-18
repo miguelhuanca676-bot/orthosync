@@ -435,3 +435,11 @@ def test_cnn_caida_no_impide_guardar(principal, cab, paciente):
     r2 = cab["doc"].post(f"/api/estudios/{r.json()['id']}/analizar")
     assert r2.status_code == 200 and r2.json()["estado_analisis"] in ("sin_modelos", "listo")
     assert cab["doc"].delete(f"/api/estudios/{r.json()['id']}").status_code == 204
+
+
+
+
+def test_salud_responde_a_head():
+    """UptimeRobot revisa con HEAD; antes respondía 405 y el monitor marcaba caído."""
+    assert nuevo_cliente().head("/api/salud").status_code == 200
+    
