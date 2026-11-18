@@ -1,0 +1,71 @@
+@import "@fontsource-variable/onest";
+@import "tailwindcss";
+@custom-variant dark (&:where(.oscuro, .oscuro *));
+
+/* Orthosync: superficies clínicas claras y "negatoscopios" (paneles oscuros retroiluminados) donde viven las imágenes. */
+@theme {
+  --color-noche: #0a1a3a;
+  --color-noche-2: #102552;
+  --color-marino: #0b3d91;
+  --color-marino-oscuro: #082b68;
+  --color-azul: #1f5fd6;
+  --color-celeste: #5cc8f5;
+  --color-cielo: #e8f1fc;
+  --color-indigo-profundo: #1e1b6e;
+  --color-violeta: #7c4ddb;
+  --color-lavanda: #f1edff;
+  --color-superficie: #f2f5fb;
+  --color-panel: #ffffff;
+  --color-linea: #dce3f0;
+  --color-tinta: #0f1f3d;
+  --color-fuerte: #0a1a3a;
+  --color-suave: #5b6b86;
+  --font-sans: "Onest Variable", "Segoe UI", system-ui, sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+/* Modo oscuro: mismas piezas, otra luz. La barra lateral y los negatoscopios ya son oscuros en ambos modos. */
+.oscuro {
+  color-scheme: dark;
+  --color-superficie: #071226;
+  --color-panel: #0d1b38;
+  --color-linea: #1f3260;
+  --color-tinta: #d6e0f3;
+  --color-fuerte: #eef3fd;
+  --color-suave: #94a6c9;
+  --color-cielo: #132a55;
+  --color-lavanda: #251b4d;
+  --color-marino: #9cc4ff;
+  --color-violeta: #b39cff;
+  --color-azul: #4f8dff;
+}
+.oscuro .bg-red-50 { background-color: rgb(239 68 68 / .14); }
+.oscuro .bg-emerald-50 { background-color: rgb(16 185 129 / .14); }
+.oscuro .bg-amber-50 { background-color: rgb(245 158 11 / .14); }
+.oscuro :is(.text-red-700, .text-red-800, .text-red-900, .text-red-600) { color: #fca5a5; }
+.oscuro :is(.text-emerald-700, .text-emerald-800, .text-emerald-900, .text-emerald-600) { color: #6ee7b7; }
+.oscuro :is(.text-amber-800, .text-amber-900) { color: #fcd34d; }
+.oscuro :is(.border-red-200, .border-emerald-200, .border-amber-200) { border-color: rgb(255 255 255 / .12); }
+.oscuro .ring-amber-200 { --tw-ring-color: rgb(245 158 11 / .35); }
+.oscuro .hover\:bg-red-50:hover { background-color: rgb(239 68 68 / .14); }
+.oscuro .boton-claro, .oscuro .boton-peligro { background-color: var(--color-panel); }
+body { @apply bg-superficie text-tinta antialiased; font-feature-settings: "tnum" 1; }
+:focus-visible { outline: 2px solid var(--color-azul); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition: none !important; animation: none !important; } }
+
+@layer components {
+  .boton { @apply inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-azul via-indigo-600 to-violeta px-4 py-2.5 text-sm font-semibold text-white shadow-sm shadow-indigo-900/20 transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50; }
+  .boton-claro { @apply inline-flex items-center justify-center gap-2 rounded-lg border border-linea bg-panel px-4 py-2.5 text-sm font-semibold text-marino transition hover:border-azul/40 hover:bg-cielo disabled:opacity-50; }
+  .boton-peligro { @apply inline-flex items-center justify-center gap-2 rounded-lg border border-red-200 bg-panel px-3 py-2 text-sm font-semibold text-red-700 transition hover:bg-red-50; }
+  .campo { @apply w-full rounded-lg border border-linea bg-panel px-3 py-2 text-sm text-tinta placeholder:text-slate-400 focus:border-azul focus:outline-none focus:ring-2 focus:ring-celeste/40; }
+  .etiqueta { @apply mb-1 block text-[13px] font-medium text-suave; }
+  .tarjeta { @apply rounded-xl border border-linea bg-panel p-5; }
+  .titulo { @apply text-[26px] font-semibold leading-tight tracking-[-0.015em] text-fuerte; }
+  .subtitulo { @apply text-[15px] font-semibold text-fuerte; }
+  .chip { @apply inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-semibold; }
+  /* Negatoscopio: panel oscuro con luz de fondo celeste, para radiografías y el modelo 3D */
+  .negatoscopio { @apply relative overflow-hidden rounded-xl bg-noche;
+    background-image: radial-gradient(120% 80% at 50% 0%, rgba(92,200,245,.16), transparent 60%), radial-gradient(90% 70% at 100% 100%, rgba(124,77,219,.18), transparent 60%);
+    box-shadow: inset 0 0 0 1px rgba(92,200,245,.22), 0 1px 2px rgba(10,26,58,.2); }
+}

@@ -1,0 +1,6 @@
+[Unit]
+Description=Orthosync - trae los cambios de GitHub y reinicia si hay novedades
+After=network-online.target
+[Service]
+Type=oneshot
+ExecStart=/bin/bash /opt/orthosync/despliegue/oracle/actualizar.sh

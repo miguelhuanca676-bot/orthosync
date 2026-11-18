@@ -1,0 +1,28 @@
+{
+  // F5 en VS Code: elige "Sistema completo" para correr la CNN y la API con depurador (puntos de parada).
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "API (backend)",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "uvicorn",
+      "args": ["app.main:app", "--port", "8000", "--reload"],
+      "cwd": "${workspaceFolder}/backend",
+      "python": "${workspaceFolder}/backend/.venv/Scripts/python.exe",
+      "env": { "ORTHOSYNC_DOCS": "1" }
+    },
+    {
+      "name": "CNN (inferencia)",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "uvicorn",
+      "args": ["cnn.main:app", "--port", "8001"],
+      "cwd": "${workspaceFolder}/inferencia",
+      "python": "${workspaceFolder}/inferencia/.venv/Scripts/python.exe"
+    }
+  ],
+  "compounds": [
+    { "name": "Sistema completo", "configurations": ["CNN (inferencia)", "API (backend)"] }
+  ]
+}

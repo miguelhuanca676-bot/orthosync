@@ -1,0 +1,7 @@
+.venv
+__pycache__
+tests
+archivos
+secretos
+*.db
+modelos

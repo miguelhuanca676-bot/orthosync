@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+<defs><linearGradient id="g" x1="0" y1="0" x2=".35" y2="1"><stop offset="0" stop-color="#5cc8f5"/><stop offset=".5" stop-color="#1f5fd6"/><stop offset="1" stop-color="#7c4ddb"/></linearGradient>
+<filter id="b" x="-20%" y="-200%" width="140%" height="500%"><feGaussianBlur stdDeviation="2.2"/></filter></defs>
+<path d="M24 30 V22 H32 M68 22 H76 V30 M76 60 V68 H68 M32 68 H24 V60" fill="none" stroke="#ffffff" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M44 74 L44 27 C44 24 40 22 37 19 C33 15 36 8 42 9 C45 9.5 47 12 50 12 C53 12 55 9.5 58 9 C64 8 67 15 63 19 C60 22 56 24 56 27 L56 74 C56 77 60 79 63 82 C67 86 64 93 58 92 C55 91.5 53 89 50 89 C47 89 45 91.5 42 92 C36 93 33 86 37 82 C40 79 44 77 44 74 Z" fill="none" stroke="#ffffff" stroke-width="4.2" stroke-linejoin="round"/>
+<line x1="20" y1="45" x2="80" y2="45" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round"/></svg>

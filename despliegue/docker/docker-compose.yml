@@ -1,0 +1,52 @@
+# Todo el sistema en contenedores (alternativa a la instalación en Oracle; útil para escalar o para
+# levantar el sistema completo en cualquier máquina con Docker).
+#   cd despliegue/docker
+#   cp .env.ejemplo .env      (y completa los valores)
+#   docker compose up --build
+# Luego abre http://localhost:8080
+services:
+  bd:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: orthosync
+      POSTGRES_PASSWORD: ${CLAVE_BD:?Define CLAVE_BD en .env}
+      POSTGRES_DB: orthosync
+    volumes: [bd:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U orthosync"]
+      interval: 5s
+      retries: 10
+
+  cnn:
+    build: ../../inferencia
+    environment:
+      ORTHOSYNC_INFERENCIA_TOKEN: ${TOKEN_CNN:?Define TOKEN_CNN en .env}
+    volumes: [../../inferencia/modelos:/modelos:ro]
+
+  api:
+    build: ../../backend
+    depends_on:
+      bd: { condition: service_healthy }
+      cnn: { condition: service_started }
+    environment:
+      ORTHOSYNC_BD: postgresql://orthosync:${CLAVE_BD}@bd:5432/orthosync
+      ORTHOSYNC_ARCHIVOS: /datos/archivos
+      ORTHOSYNC_SECRETOS: /datos/secretos
+      ORTHOSYNC_INTERFAZ: /nada
+      ORTHOSYNC_INFERENCIA_URL: http://cnn:8001
+      ORTHOSYNC_INFERENCIA_TOKEN: ${TOKEN_CNN}
+      ORTHOSYNC_ADMIN_CLAVE: ${CLAVE_ADMIN:?Define CLAVE_ADMIN en .env}
+      ORTHOSYNC_PROXY: "1"
+    volumes: [datos:/datos]
+
+  web:
+    image: nginx:alpine
+    depends_on: [api]
+    ports: ["8080:80"]
+    volumes:
+      - ../../frontend/dist:/usr/share/nginx/html:ro
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+
+volumes:
+  bd:
+  datos:

@@ -1,0 +1,21 @@
+# Caddy: https automático y puerta de entrada del servidor.
+# Solo deja pasar a la API los pedidos que traen el secreto de Cloudflare Pages.
+__DOMINIO__ {
+	encode gzip
+	request_body {
+		max_size 45MB
+	}
+	@desde_cloudflare {
+		path /api/*
+		header X-Proxy-Secreto "__SECRETO__"
+	}
+	handle @desde_cloudflare {
+		reverse_proxy 127.0.0.1:8000
+	}
+	handle /api/salud {
+		reverse_proxy 127.0.0.1:8000
+	}
+	handle {
+		redir __PAGINAS__{uri} 302
+	}
+}

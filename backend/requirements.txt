@@ -1,0 +1,18 @@
+# API de Orthosync (no incluye la CNN: esa vive en ../inferencia)
+fastapi
+uvicorn[standard]
+sqlalchemy>=2
+psycopg[binary]           # PostgreSQL (Neon)
+pyjwt
+python-multipart
+email-validator
+pillow
+numpy
+opencv-python-headless    # recorte automático de radiografías dentro de PDF
+pymupdf                   # lectura de PDF
+pydicom                   # lectura de DICOM
+fpdf2                     # informes PDF
+qrcode                    # QR de verificación en los informes
+cryptography              # cifrado de las radiografías en disco
+httpx                     # cliente del servicio de inferencia
+pytest

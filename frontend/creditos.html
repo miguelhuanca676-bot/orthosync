@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Créditos y licencias · Orthosync | SpineBolivia</title>
+    <meta name="description" content="Autoría, datos de entrenamiento, imágenes y licencias del software de código abierto usado en Orthosync." />
+    <meta name="author" content="Juan Miguel Huanca Uruña" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#0b3d91" />
+    <link rel="canonical" href="%VITE_SITIO%/creditos.html" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+    <link rel="stylesheet" href="/src/estilos.css" />
+  </head>
+  <body class="bg-white">
+    <a href="#contenido" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:text-marino">Saltar al contenido</a>
+    <header class="bg-gradient-to-r from-marino-oscuro via-indigo-950 to-violet-950">
+      <nav class="mx-auto flex max-w-4xl items-center justify-between px-5 py-4" aria-label="Principal">
+        <a href="/" class="flex items-center gap-2.5 text-white"><img src="/img/logo-blanco.svg" alt="" width="32" height="32" class="h-8 w-8" /><span class="text-lg font-bold">Orthosync</span></a>
+        <a href="/app" class="rounded-lg bg-white px-4 py-2 text-sm font-semibold text-indigo-900 hover:bg-lavanda">Ingresar</a>
+      </nav>
+    </header>
+    <main id="contenido" class="mx-auto max-w-4xl px-5 py-12">
+      <h1 class="titulo text-3xl md:text-4xl">Créditos y licencias</h1>
+      <p class="mt-2 text-sm text-slate-600">Última actualización: <span data-clinica="actualizado"></span></p>
+      <div class="mt-4 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">Orthosync es un <strong>prototipo académico</strong>. Este texto es un modelo: antes de usar el sistema con pacientes reales debe revisarlo un profesional del derecho y adecuarse a la normativa vigente en Bolivia.</div>
+      <article class="legal mt-8 space-y-8 text-[15px] leading-relaxed text-slate-700">
+        <section>
+          <h2 class="text-xl font-bold text-indigo-950">Autoría</h2>
+          <div class="mt-3 space-y-3"><p>Orthosync fue desarrollado por <span data-clinica="autor"></span> como proyecto de grado (<span data-clinica="universidad"></span>), para <span data-clinica="nombre"></span>.</p></div>
+        </section>
+        <section>
+          <h2 class="text-xl font-bold text-indigo-950">Datos de entrenamiento</h2>
+          <div class="mt-3 space-y-3"><p>Los modelos se entrenaron con el conjunto público <strong>BTXRD</strong>: Yao S, Huang Y, Wang X, et al. <em>A Radiograph Dataset for the Classification, Localization, and Segmentation of Primary Bone Tumors.</em> Scientific Data 12, 88 (2025). doi:10.1038/s41597-024-04311-y. Se usa con atribución a sus autores, según la licencia publicada en su ficha de figshare.</p></div>
+        </section>
+        <section>
+          <h2 class="text-xl font-bold text-indigo-950">Imágenes</h2>
+          <div class="mt-3 space-y-3"><ul class="list-disc space-y-1.5 pl-6"><li>Las ilustraciones del sitio (portada, logotipo y fondos) fueron generadas por el autor para este proyecto con Google Gemini.</li><li>Los modelos 3D de los huesos fueron construidos por el autor con código (Three.js); no provienen de bancos de modelos.</li><li>Las radiografías de ejemplo pertenecen al conjunto BTXRD. No se usan fotografías de personas ni imágenes de bancos de terceros.</li></ul></div>
+        </section>
+        <section>
+          <h2 class="text-xl font-bold text-indigo-950">Software de código abierto</h2>
+          <div class="mt-3 space-y-3"><div class="overflow-x-auto"><table class="w-full min-w-[480px] text-left text-sm"><thead class="bg-gradient-to-r from-sky-50 via-indigo-50 to-lavanda text-indigo-900"><tr><th class="px-3 py-2">Componentes</th><th class="px-3 py-2">Licencia</th></tr></thead><tbody class="divide-y divide-slate-100"><tr><td class="px-3 py-2">React, React Router, Recharts, Three.js, Tailwind CSS, Vite</td><td class="px-3 py-2">MIT</td></tr><tr><td class="px-3 py-2">FastAPI, SQLAlchemy, Pydantic, PyJWT, ONNX Runtime, pydicom</td><td class="px-3 py-2">MIT</td></tr><tr><td class="px-3 py-2">Uvicorn, NumPy, scikit-learn, PyTorch, torchvision</td><td class="px-3 py-2">BSD</td></tr><tr><td class="px-3 py-2">OpenCV, cryptography</td><td class="px-3 py-2">Apache 2.0 (cryptography: Apache 2.0 o BSD)</td></tr><tr><td class="px-3 py-2">Pillow</td><td class="px-3 py-2">MIT-CMU (HPND)</td></tr><tr><td class="px-3 py-2">fpdf2</td><td class="px-3 py-2">LGPL-3.0</td></tr><tr><td class="px-3 py-2">PyMuPDF</td><td class="px-3 py-2">AGPL-3.0</td></tr><tr><td class="px-3 py-2">Ultralytics YOLO (entrenamiento del detector)</td><td class="px-3 py-2">AGPL-3.0</td></tr></tbody></table></div><p><strong>Importante:</strong> PyMuPDF y Ultralytics usan la licencia AGPL-3.0. Si el sistema se ofrece a otras personas por internet, su código fuente debe estar disponible para ellas. El código de Orthosync está en: <span data-clinica="repositorio"></span>. Un uso comercial requeriría licencias comerciales de esos componentes o reemplazarlos.</p></div>
+        </section>
+        <section>
+          <h2 class="text-xl font-bold text-indigo-950">Servicios de terceros</h2>
+          <div class="mt-3 space-y-3"><p>El sitio no incluye servicios de terceros: no hay analítica, publicidad, redes sociales, fuentes externas ni CDN. Toda la información se procesa en el servidor de la clínica.</p></div>
+        </section>
+      </article>
+    </main>
+    <footer class="border-t border-slate-200">
+      <div class="mx-auto flex max-w-4xl flex-col gap-3 px-5 py-8 text-sm text-slate-600 md:flex-row md:items-center md:justify-between">
+        <p><strong class="text-indigo-900">Orthosync</strong> · <span data-clinica="nombre"></span> · Proyecto de grado de <span data-clinica="autor"></span></p>
+        <nav aria-label="Información legal" class="flex flex-wrap gap-x-4 gap-y-1">
+          <a class="hover:text-indigo-800 hover:underline" href="/privacidad.html">Privacidad</a>
+          <a class="hover:text-indigo-800 hover:underline" href="/terminos.html">Términos</a>
+          <a class="hover:text-indigo-800 hover:underline" href="/cookies.html">Cookies</a>
+          <a class="hover:text-indigo-800 hover:underline" href="/creditos.html">Créditos</a>
+        </nav>
+      </div>
+    </footer>
+    <script src="/clinica.js" defer></script>
+    <script src="/aviso-cookies.js" defer></script>
+  </body>
+</html>

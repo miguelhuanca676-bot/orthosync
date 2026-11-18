@@ -1,0 +1,19 @@
+[Unit]
+Description=Orthosync - API (backend por capas)
+After=network-online.target orthosync-cnn.service
+Wants=orthosync-cnn.service
+[Service]
+User=orthosync
+Group=orthosync
+WorkingDirectory=/opt/orthosync/backend
+EnvironmentFile=/etc/orthosync.env
+ExecStart=/opt/orthosync/backend/.venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 8000 --workers 1 --proxy-headers --forwarded-allow-ips 127.0.0.1
+Restart=always
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/orthosync
+[Install]
+WantedBy=multi-user.target

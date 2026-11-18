@@ -1,0 +1,18 @@
+[Unit]
+Description=Orthosync - servicio de inferencia (CNN)
+After=network-online.target
+[Service]
+User=orthosync
+Group=orthosync
+WorkingDirectory=/opt/orthosync/inferencia
+EnvironmentFile=/etc/orthosync.env
+ExecStart=/opt/orthosync/inferencia/.venv/bin/uvicorn cnn.main:app --host 127.0.0.1 --port 8001 --workers 1
+Restart=always
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadOnlyPaths=/var/lib/orthosync/modelos
+[Install]
+WantedBy=multi-user.target

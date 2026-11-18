@@ -1,0 +1,29 @@
+# --- secretos y datos de pacientes: NUNCA a GitHub ---
+.env
+*.env
+!.env.ejemplo
+**/secretos/
+**/archivos/
+*.db
+*.db-journal
+*.sqlite
+
+# --- modelos (pesados; se copian aparte, ver docs/despliegue.md) ---
+inferencia/modelos/*
+!inferencia/modelos/LEEME.md
+*.onnx
+*.pt
+
+# --- entornos y compilados ---
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+node_modules/
+frontend/dist/
+.wrangler/
+
+# --- sistema ---
+.DS_Store
+Thumbs.db

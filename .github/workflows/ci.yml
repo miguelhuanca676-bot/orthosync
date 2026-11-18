@@ -1,0 +1,52 @@
+# Integración continua: en cada push o pull request se prueban las tres partes del sistema.
+# Si algo falla, GitHub marca el commit con una ✗ roja (y el servidor no se debería actualizar a ciegas).
+name: Pruebas
+on:
+  push:
+  pull_request:
+
+jobs:
+  inferencia:
+    name: CNN (inferencia)
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: inferencia } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12", cache: pip, cache-dependency-path: inferencia/requirements.txt }
+      - run: pip install -r requirements.txt
+      - run: pytest -q
+
+  backend:
+    name: API (SQLite y PostgreSQL)
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env: { POSTGRES_PASSWORD: prueba, POSTGRES_DB: orthosync }
+        ports: ["5432:5432"]
+        options: --health-cmd pg_isready --health-interval 5s --health-retries 10
+    defaults: { run: { working-directory: backend } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12", cache: pip, cache-dependency-path: "**/requirements.txt" }
+      - run: pip install -r requirements.txt -r ../inferencia/requirements.txt
+      - name: Pruebas con SQLite
+        run: pytest -q
+      - name: Pruebas con PostgreSQL (como Neon)
+        run: pytest -q
+        env:
+          ORTHOSYNC_BD_PRUEBAS: postgresql://postgres:prueba@localhost:5432/orthosync
+          ORTHOSYNC_BD_SIN_POOL: "1"
+
+  frontend:
+    name: Frontend (compilación)
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: frontend } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version-file: frontend/.node-version, cache: npm, cache-dependency-path: frontend/package-lock.json }
+      - run: npm ci
+      - run: npm run build
