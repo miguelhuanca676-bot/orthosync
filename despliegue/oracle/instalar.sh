@@ -121,19 +121,20 @@ done
 netfilter-persistent save >/dev/null 2>&1 || iptables-save > /etc/iptables/rules.v4
 
 echo "==> 8/9 Base de datos"
+# -H: el usuario orthosync usa SU carpeta personal (si no, PostgreSQL busca certificados en /root y falla)
 cargar_env() { set -a; . $ENV; set +a; }
 if [ -n "$NEON" ] && [ -f $DATOS/orthosync.db ] && [ ! -f $DATOS/.migrado_a_neon ]; then
   echo "   Copiando los datos de SQLite a Neon..."
-  (cd $APP/backend && cargar_env && sudo -u orthosync -E .venv/bin/python scripts/migrar_a_postgres.py \
+  (cd $APP/backend && cargar_env && sudo -u orthosync -E -H .venv/bin/python scripts/migrar_a_postgres.py \
       "sqlite:///$DATOS/orthosync.db" "$ORTHOSYNC_BD") && touch $DATOS/.migrado_a_neon
 fi
 CREDS_DEMO=""
-HAY=$(cd $APP/backend && cargar_env && sudo -u orthosync -E .venv/bin/python -c "
+HAY=$(cd $APP/backend && cargar_env && sudo -u orthosync -E -H .venv/bin/python -c "
 from app.db.migraciones import crear_tablas; crear_tablas()
 from app.db.base import Sesion; from app.db.modelos import Paciente; from sqlalchemy import select
 print(1 if Sesion().scalar(select(Paciente)) else 0)")
 if [ "$HAY" = 0 ]; then
-  CREDS_DEMO="$(cd $APP/backend && cargar_env && sudo -u orthosync -E ORTHOSYNC_DEMO_ALEATORIO=1 .venv/bin/python scripts/sembrar_demo.py)"
+  CREDS_DEMO="$(cd $APP/backend && cargar_env && sudo -u orthosync -E -H ORTHOSYNC_DEMO_ALEATORIO=1 .venv/bin/python scripts/sembrar_demo.py)"
 fi
 
 echo "==> 9/9 Arrancando"
