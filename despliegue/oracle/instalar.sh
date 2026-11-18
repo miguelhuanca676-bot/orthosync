@@ -22,12 +22,13 @@ if [ -z "$PAGINAS" ] || [[ "$PAGINAS" == *sslip.io* ]]; then
 fi
 PAGINAS="${PAGINAS%/}"
 [[ "$PAGINAS" == https://* ]] || { echo "Debe empezar con https://"; exit 1; }
-NEON="$(grep -s '^ORTHOSYNC_BD=postgresql' $ENV | cut -d= -f2- || true)"
+NEON="$(grep -s "^ORTHOSYNC_BD='postgresql" $ENV | cut -d= -f2- | tr -d "'" || true)"
 if [ -z "$NEON" ]; then
   echo "Pega la cadena de conexión de Neon (no se mostrará en pantalla)."
   echo "Déjala vacía y presiona Enter para seguir con SQLite en este servidor."
   read -rsp "Neon: " NEON; echo
-  NEON="${NEON#psql }"; NEON="${NEON//\'/}"
+  NEON="${NEON#psql }"; NEON="${NEON//\'/}"; NEON="${NEON//\"/}"; NEON="$(echo "$NEON" | tr -d '[:space:]')"
+  [ -z "$NEON" ] || [[ "$NEON" == postgresql://* ]] || { echo "La cadena de Neon debe empezar con postgresql://"; exit 1; }
 fi
 
 echo "==> 1/9 Memoria de intercambio"
@@ -85,7 +86,8 @@ TOKEN_CNN="$(viejo ORTHOSYNC_INFERENCIA_TOKEN)"; [ -n "$TOKEN_CNN" ] || TOKEN_CN
 BD="${NEON:-sqlite:///$DATOS/orthosync.db}"
 cat > $ENV <<CONF
 # Configuración de Orthosync en este servidor. NO se sube a GitHub. Permisos: solo root.
-ORTHOSYNC_BD=$BD
+# entre comillas: la cadena de Neon trae '&'
+ORTHOSYNC_BD='$BD'
 ORTHOSYNC_BD_SIN_POOL=1
 ORTHOSYNC_ARCHIVOS=$DATOS/archivos
 ORTHOSYNC_SECRETOS=$DATOS/secretos
