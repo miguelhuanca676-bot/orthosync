@@ -2,7 +2,8 @@
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-import { ALTO, aplicarLesion, geometriasHueso, preparar, TipoLesion, Zona } from "./hueso3d";
+import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
+import { ALTO, aplicarLesion, cargarHueso, HUESOS_3D, preparar, TipoLesion, Zona } from "./hueso3d";
 
 export const COLORES = { maligno: "#e5484d", benigno: "#f5a524", neutro: "#ff7a45", paciente: "#ff8a3d" };
 type Tono = keyof typeof COLORES;
@@ -16,22 +17,38 @@ export default function Visor3D({ hueso, lado, zona, tono = "neutro", tipo = "ma
   const r = useRef<any>({});
   const [girando, setGirando] = useState(false);
   const [falla, setFalla] = useState(false);
+  const [estado, setEstado] = useState<"cargando" | "anatomico" | "simple">("cargando");
+  const [version, setVersion] = useState(0);   // avisa al efecto de la lesión que la escena ya está lista
   const avisar = useRef(alListo); avisar.current = alListo;
 
   // Escena: se arma de nuevo solo si cambia el hueso o el lado
   useEffect(() => {
-    const el = caja.current; if (!el) return;
-    const crudas = geometriasHueso(hueso); if (!crudas) return;
+    let vivo = true, limpiar: (() => void) | null = null;
+    setEstado("cargando");
+    cargarHueso(hueso).then((res) => {
+      if (!vivo || !res) return;
+      limpiar = armar(res.geos);
+      if (limpiar) { setEstado(res.anatomico ? "anatomico" : "simple"); setVersion((v) => v + 1); }
+    });
+    return () => { vivo = false; limpiar?.(); };
+  }, [hueso, lado, alto]);
+
+  function armar(crudas: THREE.BufferGeometry[]): (() => void) | null {
+    const el = caja.current; if (!el) return null;
     let renderer: THREE.WebGLRenderer;
     try { renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true }); }
-    catch { setFalla(true); return; }
+    catch { setFalla(true); return null; }
     const geos = preparar(crudas);
+    renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 0.88;
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setSize(el.clientWidth, alto);
     renderer.domElement.setAttribute("aria-hidden", "true");
     el.appendChild(renderer.domElement);
 
     const escena = new THREE.Scene();
+    const pmrem = new THREE.PMREMGenerator(renderer);
+    const entorno = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;   // reflejos suaves de estudio
+    escena.environment = entorno; escena.environmentIntensity = 0.35;
     const camara = new THREE.PerspectiveCamera(35, el.clientWidth / alto, 0.05, 200);
     escena.add(new THREE.HemisphereLight("#dbe8ff", "#0b1830", 1.05));
     const luz = new THREE.DirectionalLight("#ffffff", 1.7); luz.position.set(6, 12, 10); escena.add(luz);
@@ -39,7 +56,8 @@ export default function Visor3D({ hueso, lado, zona, tono = "neutro", tipo = "ma
     camara.add(new THREE.PointLight("#ffffff", 0.6, 0, 0)); escena.add(camara);   // luz que acompaña a la cámara (ilumina el interior del hueco)
 
     const grupo = new THREE.Group();
-    const material = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.6, metalness: 0.03, side: THREE.DoubleSide });
+    const material = new THREE.MeshPhysicalMaterial({ vertexColors: true, roughness: 0.55, metalness: 0, side: THREE.DoubleSide,
+      clearcoat: 0.12, clearcoatRoughness: 0.6, sheen: 0.25, sheenRoughness: 0.8, sheenColor: new THREE.Color("#fff3dc") });
     geos.forEach((g) => grupo.add(new THREE.Mesh(g, material)));
     if (lado === "izquierdo") grupo.scale.x = -1;          // espejo para el lado izquierdo
     escena.add(grupo);
@@ -98,26 +116,27 @@ export default function Visor3D({ hueso, lado, zona, tono = "neutro", tipo = "ma
     ajustar.observe(el);
     return () => {
       vivo = false; avisar.current?.(null); ajustar.disconnect(); controles.dispose();
-      geos.forEach((g) => g.dispose()); material.dispose();
+      geos.forEach((g) => g.dispose()); material.dispose(); entorno.dispose(); pmrem.dispose();
       renderer.dispose(); renderer.domElement.remove(); r.current = {};
     };
-  }, [hueso, lado, alto]);
+  }
 
   // Lesión: se redibuja sin rearmar la escena
   useEffect(() => {
     if (!r.current.dibujar) return;
     r.current.dibujar(zona, COLORES[tono], tipo);
     if (r.current.primera && zona) { r.current.primera = false; setTimeout(() => r.current.acercar?.(), 600); }
-  }, [hueso, lado, alto, zona?.posicion, zona?.extension, zona?.angulo, tono, tipo]);
+  }, [version, zona?.posicion, zona?.extension, zona?.angulo, tono, tipo]);
 
-  useEffect(() => { if (r.current.controles) r.current.controles.autoRotate = girando; }, [girando, hueso, lado]);
+  useEffect(() => { if (r.current.controles) r.current.controles.autoRotate = girando; }, [girando, version]);
 
-  if (!geometriasHueso(hueso)) return <p className="rounded-xl bg-cielo p-4 text-sm text-marino">El modelo 3D no está disponible para este hueso.</p>;
+  if (!HUESOS_3D.includes(hueso)) return <p className="rounded-xl bg-cielo p-4 text-sm text-marino">El modelo 3D no está disponible para este hueso.</p>;
   if (falla) return <p className="rounded-xl bg-cielo p-4 text-sm text-marino">Este navegador no permite mostrar gráficos 3D.</p>;
   const boton = "rounded-lg bg-white/15 px-3 py-1.5 text-xs font-semibold text-white ring-1 ring-white/25 backdrop-blur hover:bg-white/25";
   return (
     <div className="negatoscopio">
       <div ref={caja} role="img" aria-label={`Modelo 3D ilustrativo del hueso. ${zona ? NOMBRE_TIPO[tipo] : "Sin lesión marcada"}.`} style={{ height: alto }} />
+      {estado === "cargando" && <p className="pointer-events-none absolute inset-0 grid place-items-center text-sm text-blue-100">Cargando modelo anatómico…</p>}
       <div className="absolute right-3 top-3 flex flex-wrap justify-end gap-2">
         {zona && <button className={boton} onClick={() => r.current.acercar?.()}>Acercar a la lesión</button>}
         <button className={boton} onClick={() => r.current.completo?.()}>Hueso completo</button>
@@ -125,7 +144,8 @@ export default function Visor3D({ hueso, lado, zona, tono = "neutro", tipo = "ma
       </div>
       <div className="pointer-events-none absolute inset-x-3 bottom-3 flex flex-wrap items-center justify-between gap-2 text-xs text-blue-100">
         {zona ? <span className="flex items-center gap-2"><span className="h-3 w-3 rounded-full" style={{ background: COLORES[tono] }} />{NOMBRE_TIPO[tipo]} · ubicación aproximada</span> : <span>Sin lesión marcada</span>}
-        <span className="hidden sm:inline">Arrastra para girar · rueda o pellizco para acercar</span>
+        <span className="hidden text-right sm:inline">Arrastra para girar · rueda o pellizco para acercar
+          {estado === "anatomico" && <><br /><span className="opacity-70">Modelo: BodyParts3D © DBCLS (CC BY-SA 2.1 JP)</span></>}</span>
       </div>
     </div>
   );

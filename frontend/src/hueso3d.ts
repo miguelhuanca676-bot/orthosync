@@ -128,6 +128,40 @@ export function geometriasHueso(hueso: string): THREE.BufferGeometry[] | null {
   }
 }
 
+/** Huesos con modelo 3D. Los anatómicos (BodyParts3D, preparados con herramientas/modelos3d) están en /modelos3d. */
+export const HUESOS_3D = ["femur", "tibia", "perone", "humero", "radio", "cubito", "mano", "pie", "cadera"];
+
+/**
+ * Carga el modelo anatómico high poly del hueso. Si no se puede (sin conexión, archivo faltante),
+ * usa la versión construida con geometría como respaldo.
+ */
+export async function cargarHueso(hueso: string): Promise<{ geos: THREE.BufferGeometry[]; anatomico: boolean } | null> {
+  if (!HUESOS_3D.includes(hueso)) return null;
+  try {
+    const [{ GLTFLoader }, { MeshoptDecoder }] = await Promise.all([
+      import("three/examples/jsm/loaders/GLTFLoader.js"),
+      import("three/examples/jsm/libs/meshopt_decoder.module.js"),
+    ]);
+    const cargador = new GLTFLoader();
+    cargador.setMeshoptDecoder(MeshoptDecoder);
+    const gltf = await cargador.loadAsync(`/modelos3d/${hueso}.glb`);
+    const geos: THREE.BufferGeometry[] = [];
+    gltf.scene.updateMatrixWorld(true);
+    gltf.scene.traverse((o) => {
+      const m = o as THREE.Mesh;
+      if (m.isMesh) {
+        const g = m.geometry.clone();
+        g.applyMatrix4(m.matrixWorld);
+        for (const k of Object.keys(g.attributes)) if (k !== "position") g.deleteAttribute(k);
+        geos.push(g);
+      }
+    });
+    if (geos.length) return { geos, anatomico: true };
+  } catch { /* se usa el respaldo */ }
+  const g = geometriasHueso(hueso);
+  return g ? { geos: g, anatomico: false } : null;
+}
+
 export type TipoLesion = "cavidad" | "crecimiento" | "mancha";
 export type Zona = { posicion: number; extension: number; angulo?: number; tipo?: TipoLesion | null };
 
@@ -146,11 +180,8 @@ export function preparar(geos: THREE.BufferGeometry[]) {
 const ruido = (x: number, y: number, z: number) =>
   (Math.sin(x * 4.1 + y * 1.7) + Math.sin(y * 3.3 - z * 2.9 + 1.3) + Math.sin(z * 4.7 + x * 2.3 + 0.7)) / 3;
 
-/** Punto de la superficie donde está la lesión, dirección hacia afuera y grosor local del hueso. */
-export function puntoLesion(geos: THREE.BufferGeometry[], zona: Zona) {
-  const yc = ALTO * (1 - zona.posicion), th = ((zona.angulo ?? 0) * Math.PI) / 180;
-  const dir = V(Math.sin(th), 0, Math.cos(th));
-  // centro del hueso a esa altura
+/** Centro del hueso a la altura yc y punto más saliente hacia dir (en las geometrías indicadas). */
+function buscar(geos: THREE.BufferGeometry[], yc: number, dir: THREE.Vector3) {
   let minX = Infinity, maxX = -Infinity, minZ = Infinity, maxZ = -Infinity, n = 0;
   for (const g of geos) {
     const o = g.userData.original as Float32Array;
@@ -159,17 +190,32 @@ export function puntoLesion(geos: THREE.BufferGeometry[], zona: Zona) {
     }
   }
   const centro = n ? V((minX + maxX) / 2, yc, (minZ + maxZ) / 2) : V(0, yc, 0);
-  // el punto más saliente hacia la dirección elegida
-  let mejor = -Infinity; const p = centro.clone();
-  for (const g of geos) {
+  let mejor = -Infinity, indice = 0; const p = centro.clone();
+  geos.forEach((g, k) => {
     const o = g.userData.original as Float32Array;
     for (let i = 0; i < o.length; i += 3) {
       if (Math.abs(o[i + 1] - yc) > 0.18) continue;
       const proy = (o[i] - centro.x) * dir.x + (o[i + 2] - centro.z) * dir.z;
-      if (proy > mejor) { mejor = proy; p.set(o[i], o[i + 1], o[i + 2]); }
+      if (proy > mejor) { mejor = proy; indice = k; p.set(o[i], o[i + 1], o[i + 2]); }
     }
+  });
+  return { centro, punto: p, mejor, indice };
+}
+
+/**
+ * Punto de la superficie donde está la lesión, dirección hacia afuera y grosor local del hueso.
+ * En la mano y el pie (varios huesos) se queda con el hueso donde cae la lesión, para que el
+ * grosor sea el de ese hueso y no el de toda la mano.
+ */
+export function puntoLesion(geos: THREE.BufferGeometry[], zona: Zona) {
+  const yc = ALTO * (1 - zona.posicion), th = ((zona.angulo ?? 0) * Math.PI) / 180;
+  const dir = V(Math.sin(th), 0, Math.cos(th));
+  let b = buscar(geos, yc, dir), indice: number | null = null;
+  if (geos.length > 1) {
+    indice = b.indice;
+    b = buscar([geos[indice]], yc, dir);
   }
-  return { punto: p, centro, dir, radio: Math.max(mejor, 0.15) };
+  return { punto: b.punto, centro: b.centro, dir, radio: Math.max(b.mejor, 0.15), indice };
 }
 
 /**
@@ -179,11 +225,12 @@ export function puntoLesion(geos: THREE.BufferGeometry[], zona: Zona) {
  *  - mancha: solo color
  */
 export function aplicarLesion(geos: THREE.BufferGeometry[], zona: Zona | null, color: string, tipo: TipoLesion) {
-  const base = new THREE.Color("#ece5d3"), lesion = new THREE.Color(color), oscuro = new THREE.Color("#2a0a0a"), c = new THREE.Color();
+  const base = new THREE.Color("#e6dac0"), lesion = new THREE.Color(color), oscuro = new THREE.Color("#2a0a0a"), c = new THREE.Color();
   const L = zona ? puntoLesion(geos, zona) : null;
   const rv = zona ? Math.max((zona.extension * ALTO) / 2, 0.18) : 1;
   const rh = L ? Math.min(Math.max(rv * 0.8, 0.18), L.radio * 1.15) : 1;
-  for (const g of geos) {
+  geos.forEach((g, k) => {
+    const propia = !L || L.indice === null || L.indice === k;   // solo se deforma y colorea el hueso de la lesión
     const o = g.userData.original as Float32Array;
     const pos = g.getAttribute("position") as THREE.BufferAttribute;
     let col = g.getAttribute("color") as THREE.BufferAttribute | undefined;
@@ -192,7 +239,7 @@ export function aplicarLesion(geos: THREE.BufferGeometry[], zona: Zona | null, c
     for (let i = 0; i < pos.count; i++) {
       const x = o[i * 3], y = o[i * 3 + 1], z = o[i * 3 + 2];
       let w = 0, hx = 0, hz = 0;
-      if (L) {
+      if (L && propia) {
         hx = x - L.centro.x; hz = z - L.centro.z;
         const hl = Math.hypot(hx, hz) || 1; hx /= hl; hz /= hl;
         const cara = Math.min(1, Math.max(0, ((hx * L.dir.x + hz * L.dir.z) - 0.05) / 0.45)); // solo la cara elegida
@@ -206,12 +253,14 @@ export function aplicarLesion(geos: THREE.BufferGeometry[], zona: Zona | null, c
         pos.setXYZ(i, x + hx * desp, y, z + hz * desp);
       }
       const marca = Math.min(1, w * 3.5);
-      c.copy(base).lerp(lesion, marca * 0.95);
+      // leve variación del tono, como la superficie porosa del hueso real
+      const poro = 0.93 + 0.07 * ruido(x * 9 + 1.7, y * 9, z * 9 - 2.1);
+      c.copy(base).multiplyScalar(poro).lerp(lesion, marca * 0.95);
       if (tipo === "cavidad") c.lerp(oscuro, Math.pow(w, 1.4) * 0.75);
       col.setXYZ(i, c.r, c.g, c.b);
     }
     pos.needsUpdate = true; col.needsUpdate = true;
     g.computeVertexNormals();
-  }
+  });
   return L;
 }
