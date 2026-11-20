@@ -472,3 +472,28 @@ body {
  .orthosync-app main { padding-inline:16px; }
  .osh-brand-wolf { width:116px;height:116px; }
 }
+
+
+/* Radiology study, CNN validation and scheduled clinical follow-up */
+.osh-clinical-banner { isolation:isolate; position:relative; min-height:183px; border:1px solid rgba(67,183,253,.5); border-radius:23px; overflow:hidden;
+ background:radial-gradient(ellipse at 73% 50%,rgba(22,106,222,.25),transparent 59%),linear-gradient(110deg,#071e43,#092b52 65%,#06152f);
+ box-shadow:0 16px 38px rgba(3,17,41,.2),inset 0 0 0 1px rgba(130,217,255,.045); }
+.osh-clinical-banner-content { position:relative; z-index:2; padding:26px 32px; max-width:680px; }
+.osh-clinical-kicker { display:flex; align-items:center; gap:10px; color:#61d5ff; font-size:10px; font-weight:850; letter-spacing:.16em; text-transform:uppercase; }
+.osh-clinical-banner h1 { margin-top:14px; font-size:clamp(25px,3vw,40px); font-weight:900; line-height:1.12; letter-spacing:-.045em; color:#fff; }
+.osh-clinical-banner h1 span { color:#5cdaff; }
+.osh-clinical-banner-content>p:not(.osh-clinical-kicker) { margin-top:10px; font-size:13px; line-height:1.65; color:#cae1fa; }
+.osh-clinical-banner-content>.osh-clinical-disclaimer { color:#8caccd!important; font-size:11px!important; margin-top:6px!important; }
+.osh-clinical-banner-art { position:absolute; right:0; top:0; width:48%; height:100%;object-fit:cover;object-position:70% 35%;opacity:.67;mask-image:linear-gradient(90deg,transparent,black 40%); }
+.osh-study-layout .negatoscopio { border:1px solid rgba(47,180,245,.37); background-color:#06152c; box-shadow:0 16px 48px rgba(0,11,35,.22); }
+.osh-study-layout .tarjeta { border-top:2px solid rgba(45,169,234,.3); }
+.osh-study-imaging { outline:1px solid rgba(59,197,251,.1); outline-offset:4px; }
+.orthosync-app .chip { font-weight:750; letter-spacing:.005em; }
+.orthosync-app .tarjeta :is(input,textarea,select,button) { font-family:inherit; }
+@media(max-width:850px) {
+ .osh-clinical-banner-content { padding:22px; }
+ .osh-clinical-banner-art { width:72%;opacity:.25; }
+ .osh-clinical-banner h1 { font-size:27px; }
+ .osh-clinical-banner { min-height:170px; }
+ .orthosync-app :is(table, .overflow-x-auto) { max-width:100%; }
+}
