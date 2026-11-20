@@ -99,26 +99,26 @@ export function Marco({ children }: { children: ReactNode }) {
   const personal = usuario.rol !== "paciente";
   const iniciales = usuario.nombre.replace(/^(Dra?\.|Lic\.)\s*/, "").split(/\s+/).slice(0, 2).map((x) => x[0]).join("");
   return (
-    <div className="min-h-screen lg:flex">
+    <div className="orthosync-app min-h-screen lg:flex">
       <header className="flex items-center justify-between bg-noche px-4 py-3 text-white lg:hidden">
         <span className="flex items-center gap-2 font-semibold"><img src="/img/logo-blanco.svg" alt="" className="h-7 w-7" />Orthosync</span>
         <div className="flex items-center gap-2"><BotonTema className="text-sky-100 hover:bg-white/10" />
           <button className="rounded-md px-3 py-1.5 text-sm ring-1 ring-white/30" aria-expanded={abierto} onClick={() => setAbierto(!abierto)}>Menú</button></div>
       </header>
-      <aside className={`${abierto ? "flex" : "hidden"} flex-col bg-noche text-white lg:sticky lg:top-0 lg:flex lg:h-screen lg:w-64 lg:shrink-0`}
+      <aside className={`${abierto ? "flex" : "hidden"} orthosync-sidebar flex-col bg-noche text-white lg:sticky lg:top-0 lg:flex lg:h-screen lg:w-72 lg:shrink-0`}
         style={{ backgroundImage: "radial-gradient(140% 50% at 0% 0%, rgba(92,200,245,.18), transparent 60%), radial-gradient(120% 45% at 100% 100%, rgba(124,77,219,.28), transparent 60%)" }}>
-        <div className="hidden items-center gap-3 px-6 pb-6 pt-7 lg:flex">
-          <img src="/img/logo-blanco.svg" alt="" className="h-9 w-9" />
-          <div><p className="text-[17px] font-semibold leading-tight">Orthosync</p><p className="text-xs text-sky-200/80">SpineBolivia</p></div>
+        <div className="hidden items-center gap-3 border-b border-white/10 px-6 pb-7 pt-8 lg:flex">
+          <img src="/img/logo-blanco.svg" alt="" className="h-12 w-12 rounded-xl bg-white/10 p-2 ring-1 ring-white/20" />
+          <div><p className="text-[19px] font-extrabold uppercase leading-tight tracking-[.06em]">Ortho<span className="text-celeste">sync</span></p><p className="mt-1 text-[11px] tracking-wide text-sky-200/80">Radiología inteligente · SpineBolivia</p></div>
         </div>
-        <nav aria-label="Secciones" className="flex-1 px-3 py-2">
-          <ul className="space-y-0.5">
+        <nav aria-label="Secciones" className="flex-1 overflow-y-auto px-3 py-6">
+          <ul className="space-y-1.5">
             {enlaces.map(([ruta, nombre, icono]) => {
               const activo = pathname === ruta || pathname.startsWith(ruta + "/") || (ruta === "/pacientes" && pathname.startsWith("/estudios/"));
               return (
                 <li key={ruta}>
                   <Enlace a={ruta} alHacer={() => setAbierto(false)}
-                    className={`relative flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition ${activo ? "bg-white/10 text-white" : "text-sky-100/75 hover:bg-white/5 hover:text-white"}`}>
+                    className={`relative flex items-center gap-3 rounded-xl px-3.5 py-3 text-sm font-medium transition ${activo ? "bg-gradient-to-r from-azul/85 to-celeste/20 text-white shadow-lg shadow-blue-950/40 ring-1 ring-celeste/35" : "text-sky-100/75 hover:bg-white/10 hover:text-white"}`}>
                     {activo && <span aria-hidden="true" className="absolute inset-y-2 left-0 w-[3px] rounded-full bg-celeste" />}
                     <Icono n={icono} />{nombre}
                   </Enlace>
@@ -127,14 +127,14 @@ export function Marco({ children }: { children: ReactNode }) {
             })}
           </ul>
         </nav>
-        <div className="m-3 flex items-center gap-3 rounded-xl bg-white/5 p-3">
+        <div className="m-3 flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-3 shadow-lg shadow-black/10">
           <span aria-hidden="true" className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-celeste to-violeta text-xs font-semibold">{iniciales}</span>
           <div className="min-w-0 flex-1"><p className="truncate text-sm font-medium">{usuario.nombre}</p><p className="text-xs text-sky-200/70">{ROLES[usuario.rol]}</p></div>
           <button title="Cerrar sesión" aria-label="Cerrar sesión" className="rounded-md p-1.5 text-sky-100/80 hover:bg-white/10 hover:text-white" onClick={async () => { await salir(); ir("/"); }}><Icono n="salir" /></button>
         </div>
       </aside>
       <div className="flex min-w-0 flex-1 flex-col">
-        <div className="sticky top-0 z-20 hidden items-center justify-between gap-6 border-b border-linea bg-superficie/90 px-10 py-3 backdrop-blur lg:flex">
+        <div className="sticky top-0 z-20 hidden items-center justify-between gap-6 border-b border-linea bg-panel/90 px-10 py-4 shadow-sm backdrop-blur-xl lg:flex">
           <p className="text-sm text-suave first-letter:uppercase">{hoy()}</p>
           <div className="flex w-full max-w-md items-center justify-end gap-2">
           {personal && (
@@ -147,7 +147,7 @@ export function Marco({ children }: { children: ReactNode }) {
           <BotonTema className="border border-linea bg-panel text-suave hover:text-fuerte" />
           </div>
         </div>
-        <main className="w-full max-w-[1680px] flex-1 px-4 py-6 sm:px-6 lg:px-10 lg:py-8">{children}</main>
+        <main className="w-full max-w-[1680px] flex-1 px-4 py-7 sm:px-6 lg:px-10 lg:py-10">{children}</main>
         <PieLegal />
       </div>
     </div>
