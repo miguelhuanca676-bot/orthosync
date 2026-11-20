@@ -1,7 +1,7 @@
 // Service worker de Orthosync: permite instalar la app y abrirla más rápido.
 // Solo guarda archivos públicos (código, estilos, imágenes de la interfaz). NUNCA guarda respuestas de /api/,
 // así que ningún dato de pacientes queda en el dispositivo.
-const VERSION = "orthosync-v1";
+const VERSION = "orthosync-v2-20261120";
 const BASICOS = ["/app", "/manifest.webmanifest", "/img/logo.svg", "/img/logo-blanco.svg", "/img/icono-192.png"];
 
 self.addEventListener("install", (e) => {
@@ -24,11 +24,20 @@ self.addEventListener("fetch", (e) => {
     }).catch(() => caches.match(url.pathname === "/" ? "/" : "/app").then((r) => r || caches.match("/app"))));
     return;
   }
-  // archivos con huella en el nombre (/assets/...) e imágenes de la interfaz: primero la copia guardada
-  if (url.pathname.startsWith("/assets/") || url.pathname.startsWith("/img/") || url.pathname.endsWith(".woff2")) {
-    e.respondWith(caches.match(e.request).then((g) => g || fetch(e.request).then((r) => {
-      if (r.ok) { const copia = r.clone(); caches.open(VERSION).then((c) => c.put(e.request, copia)); }
-      return r;
+  // Recursos de marca: consultar la red primero para no mostrar logos antiguos tras actualizar.
+  // Fuera de línea, usar únicamente las copias públicas de interfaz ya guardadas.
+  if (url.pathname.startsWith("/img/")) {
+    e.respondWith(fetch(e.request).then((resp) => {
+      if (resp.ok) { const copia = resp.clone(); caches.open(VERSION).then((c) => c.put(e.request, copia)); }
+      return resp;
+    }).catch(() => caches.match(e.request)));
+    return;
+  }
+  // Los recursos /assets/ tienen huella de contenido y pueden almacenarse sin quedar obsoletos.
+  if (url.pathname.startsWith("/assets/") || url.pathname.endsWith(".woff2")) {
+    e.respondWith(caches.match(e.request).then((g) => g || fetch(e.request).then((resp) => {
+      if (resp.ok) { const copia = resp.clone(); caches.open(VERSION).then((c) => c.put(e.request, copia)); }
+      return resp;
     })));
   }
 });
