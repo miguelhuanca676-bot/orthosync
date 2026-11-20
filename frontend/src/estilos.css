@@ -69,3 +69,62 @@ body { @apply bg-superficie text-tinta antialiased; font-feature-settings: "tnum
     background-image: radial-gradient(120% 80% at 50% 0%, rgba(92,200,245,.16), transparent 60%), radial-gradient(90% 70% at 100% 100%, rgba(124,77,219,.18), transparent 60%);
     box-shadow: inset 0 0 0 1px rgba(92,200,245,.22), 0 1px 2px rgba(10,26,58,.2); }
 }
+
+
+/* ORTHOSYNC · Medical Premium × Future Radiology
+   Capa visual exclusivamente: no modifica navegación, estado, API ni CNN. */
+:root {
+  --orthosync-glow: rgba(49, 190, 255, .23);
+  --orthosync-shadow: 0 16px 48px rgba(7, 24, 55, .075);
+}
+body {
+  background-image: radial-gradient(ellipse 60% 30% at 96% 0%, rgba(92,200,245,.085), transparent 70%);
+  background-attachment: fixed;
+}
+@layer components {
+  .tarjeta {
+    border-radius: 1.125rem;
+    box-shadow: var(--orthosync-shadow);
+    transition: border-color .2s ease, box-shadow .2s ease;
+  }
+  .tarjeta:hover { border-color: color-mix(in srgb, var(--color-celeste) 48%, var(--color-linea)); }
+  .boton { border-radius: .85rem; box-shadow: 0 8px 22px rgba(31,95,214,.20); }
+  .boton-claro, .boton-peligro { border-radius: .85rem; }
+  .campo { min-height: 42px; border-radius: .8rem; transition: border-color .18s ease, box-shadow .18s ease; }
+  .campo:focus { box-shadow: 0 0 0 3px rgba(92,200,245,.16); }
+  .titulo { letter-spacing: -.035em; }
+  .negatoscopio {
+    border-radius: 1.15rem;
+    background-image:
+      radial-gradient(ellipse 90% 65% at 50% 15%, rgba(33,133,231,.20), transparent 70%),
+      linear-gradient(145deg, #07152e, #0a2347 60%, #09152d);
+    box-shadow: inset 0 0 0 1px rgba(92,200,245,.28), 0 18px 42px rgba(5,21,49,.18);
+  }
+}
+.oscuro { --orthosync-shadow: 0 16px 48px rgba(0,0,0,.17); }
+.oscuro body { background-image: none; }
+@media (prefers-reduced-motion: reduce) {
+  .tarjeta, .campo { transition: none; }
+}
+
+/* Hero: identidad visual sin estadísticas ficticias ni imágenes de pacientes. */
+.orthosync-hero {
+  background-color: #071831;
+  background-image:
+    radial-gradient(ellipse 52% 110% at 92% 12%, rgba(58,181,251,.24), transparent 70%),
+    radial-gradient(ellipse 45% 95% at 42% 100%, rgba(63,84,222,.27), transparent 75%),
+    linear-gradient(115deg, #07152e 0%, #0a2852 55%, #07172f 100%);
+}
+.orthosync-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .22;
+  background-image: linear-gradient(rgba(130,216,255,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(130,216,255,.12) 1px,transparent 1px);
+  background-size: 42px 42px;
+  mask-image: linear-gradient(90deg,transparent 10%,black 100%);
+}
+.orthosync-sidebar { border-right: 1px solid rgba(92,200,245,.18); }
+.orthosync-app .tarjeta { backdrop-filter: blur(8px); }
+.orthosync-app .subtitulo { letter-spacing: -.015em; }
