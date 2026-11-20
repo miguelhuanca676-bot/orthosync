@@ -160,7 +160,7 @@ export default function Visor3D({ hueso, lado, zona, tono = "neutro", tipo = "ma
       {estado === "cargando" && <p className="pointer-events-none absolute inset-0 grid place-items-center text-sm text-blue-100">Cargando modelo anatómico…</p>}
       {estado === "error" && <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-noche/90 p-6 text-center text-sm text-sky-100"><p>No fue posible cargar el modelo anatómico.</p><button className="rounded-xl bg-celeste px-4 py-2 font-semibold text-noche" onClick={() => setReintentos((n) => n + 1)}>Reintentar</button></div>}
       <div className="absolute left-3 top-3 max-w-[40%] rounded-lg border border-celeste/20 bg-noche/65 px-3 py-2 text-[11px] font-medium text-sky-100 backdrop-blur-md">{estado === "anatomico" ? "Modelo anatómico de referencia" : estado === "simple" ? "Vista ilustrativa de respaldo" : estado === "error" ? "Modelo no disponible" : "Preparando visualización 3D"}</div>
-      <div className="absolute right-3 top-3 flex flex-wrap justify-end gap-2">
+      <div className="absolute right-3 top-14 flex max-w-[calc(100%-1.5rem)] flex-wrap justify-end gap-2 sm:top-3 sm:max-w-[65%]">
         {zona && <button className={boton} onClick={() => r.current.acercar?.()}>Acercar a la lesión</button>}
         <button className={boton} onClick={() => r.current.completo?.()}>Hueso completo</button>
         <button className={boton} aria-label="Acercar vista" onClick={() => r.current.zoom?.(0.78)}>+</button>
