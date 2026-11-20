@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 580 650" role="img" aria-labelledby="title">
+<title id="title">Husky blanco de ORTHOSYNC, mascota tecnológica</title>
+<defs>
+ <linearGradient id="fur" x1=".16" y1=".1" x2=".9" y2="1"><stop stop-color="#fff"/><stop offset=".48" stop-color="#d9ecfa"/><stop offset="1" stop-color="#7faccb"/></linearGradient>
+ <linearGradient id="night" x1="0" x2="1" y2="1"><stop stop-color="#08132b"/><stop offset=".65" stop-color="#142e59"/><stop offset="1" stop-color="#050c1e"/></linearGradient>
+ <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#70e7ff"/><stop offset=".45" stop-color="#1788ff"/><stop offset="1" stop-color="#5131ff"/></linearGradient>
+ <linearGradient id="collar" x1="0" x2="1"><stop stop-color="#0b244b"/><stop offset=".5" stop-color="#1167ca"/><stop offset="1" stop-color="#081c3d"/></linearGradient>
+ <filter id="glow"><feGaussianBlur stdDeviation="8"/></filter>
+ <filter id="shade"><feDropShadow dx="0" dy="18" stdDeviation="14" flood-color="#00081e" flood-opacity=".65"/></filter>
+</defs>
+<g opacity=".7"><circle cx="288" cy="314" r="246" fill="none" stroke="#18a9ff" stroke-width="4" stroke-dasharray="370 36 130 36" transform="rotate(-60 288 314)"/><circle cx="288" cy="314" r="215" fill="none" stroke="#60eaff" stroke-opacity=".27" stroke-width="2"/><circle cx="288" cy="314" r="270" fill="none" stroke="#2485ff" stroke-opacity=".16" stroke-width="2"/></g>
+<path d="M76 587Q91 489 157 440L177 310 160 218 171 90 251 149Q284 137 310 142L389 65 408 246 430 347 401 441Q495 489 527 618L431 645H142Z" fill="url(#night)" stroke="#3175bd" stroke-width="7" stroke-linejoin="round" filter="url(#shade)"/>
+<path d="M174 124 193 231 248 196 261 167Z" fill="#86c5f8"/><path d="M378 106 319 172 354 214 386 236Z" fill="#9bdcfb"/>
+<path d="M150 382 104 439 162 424 127 496 182 459 166 531 240 479 333 486 405 535 413 461 477 496 444 425 496 440 435 367 425 305 387 244 348 204 306 183 273 191 218 225 173 283Z" fill="url(#fur)" stroke="#a5d8f0" stroke-width="5" stroke-linejoin="round"/>
+<path d="M171 270 217 228 279 230 303 254 325 229 373 211 414 257 406 337 371 370 365 319 336 302 305 317 273 301 249 327 234 387 191 359 175 318Z" fill="#162b4b"/>
+<path d="M179 315 223 303 252 320 232 347 197 346Z" fill="#0b1933"/><path d="M318 316 366 293 403 307 374 337 338 342Z" fill="#0b1933"/>
+<path d="M184 310 219 290 252 307 230 321 207 325Z" fill="#f2faff"/><path d="M316 311 359 285 396 305 372 319 340 326Z" fill="#f2faff"/>
+<path d="M199 311 220 301 235 311 218 319Z" fill="#3feaff"/><path d="M342 312 365 299 378 306 360 319Z" fill="#3feaff"/>
+<circle cx="218" cy="310" r="6" fill="#06182e"/><circle cx="359" cy="309" r="6" fill="#06182e"/>
+<path d="M241 335 266 319 295 339 324 316 346 337 354 384 336 433 288 477 236 435 215 388Z" fill="#fff" stroke="#c3e7f5" stroke-width="4"/>
+<path d="M241 367Q270 341 289 359Q303 338 339 368L315 399 286 415 258 396Z" fill="#c7e3f1"/>
+<path d="M262 381 286 369 310 380 287 403Z" fill="#06182d"/><path d="M287 400v23m0 0q-12 20-29 4m29-4q13 21 31 3" stroke="#234568" stroke-width="5" fill="none" stroke-linecap="round"/>
+<path d="M230 429 282 479 343 434 383 453 380 515Q333 558 289 561 238 556 193 508L190 449Z" fill="#e1f3fc" opacity=".92"/>
+<path d="M180 501Q284 535 405 493L431 554Q296 611 158 548Z" fill="url(#collar)" stroke="#48bfff" stroke-width="7"/>
+<path d="M178 525Q293 567 417 520" fill="none" stroke="#58dcff" stroke-width="5" stroke-opacity=".7"/>
+<path d="M260 538 315 544 318 602 283 622 252 601Z" fill="#061b3a" stroke="#57d9ff" stroke-width="7"/>
+<path d="M284 559v45M263 581h43" stroke="#6eeaff" stroke-width="8" stroke-linecap="round"/>
+<g opacity=".95"><path d="M190 215Q158 272 160 313" fill="none" stroke="#60e4ff" stroke-opacity=".46" stroke-width="3"/><path d="M390 193Q428 261 415 319" fill="none" stroke="#60e4ff" stroke-opacity=".42" stroke-width="3"/></g>
+</svg>
