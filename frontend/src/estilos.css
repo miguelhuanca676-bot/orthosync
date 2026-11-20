@@ -143,3 +143,111 @@ body {
 @media (max-width: 640px) {
   .orthosync-public-hero h1 { text-wrap: balance; }
 }
+
+
+/* ORTHOSYNC 2.0 — interfaz clínica reconstruida.
+   El sistema usa valores de la API para toda cifra clínica. */
+.osh-dashboard, .osh-login { --osh-ice: #56d8ff; --osh-deep: #071326; }
+.orthosync-sidebar {
+  background: radial-gradient(ellipse at 30% -10%, rgba(35,157,255,.19), transparent 65%),
+              linear-gradient(180deg, #07172f 0%, #07152d 58%, #050d1f 100%) !important;
+  box-shadow: 8px 0 38px rgba(2, 13, 31, .13);
+}
+.orthosync-sidebar nav a { font-weight: 600; letter-spacing: -.014em; }
+.orthosync-sidebar nav a:hover { transform: translateX(2px); }
+.osh-sidebar-assistant {
+  background: linear-gradient(130deg, rgba(25,117,223,.18), rgba(32,193,246,.06));
+  border: 1px solid rgba(78,196,250,.21);
+  box-shadow: inset 0 1px rgba(255,255,255,.045);
+}
+.osh-topbar { box-shadow: 0 1px 24px rgba(0, 16, 35, .08); }
+.osh-dashboard-hero {
+  min-height: 325px;
+  background: radial-gradient(circle at 75% 45%, rgba(45,163,255,.32), transparent 43%),
+              radial-gradient(circle at 15% 110%, rgba(52,62,208,.18), transparent 60%),
+              linear-gradient(122deg, #06152e 5%, #0a2a56 52%, #06142d 100%);
+  box-shadow: 0 26px 54px rgba(6,22,57,.17);
+}
+.osh-dashboard-hero::before, .osh-login-visual::before, .osh-model-viewport::before {
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image: linear-gradient(rgba(113,207,255,.11) 1px, transparent 1px),
+                    linear-gradient(90deg,rgba(113,207,255,.11) 1px, transparent 1px);
+  background-size: 34px 34px;
+  mask-image: radial-gradient(ellipse at 75% 50%, black, transparent 75%);
+}
+.osh-kicker {
+  display: inline-flex; align-items: center; gap: .625rem;
+  padding: .55rem .85rem; border-radius: 999px;
+  border: 1px solid rgba(86,216,255,.35); color: #70dbff;
+  background: rgba(44,173,246,.10);
+  font-size: 10px; font-weight: 800; letter-spacing: .15em;
+}
+.osh-live-dot { display: inline-block; height: 8px; width: 8px; flex-shrink: 0;
+  border-radius: 50%; background: #40e6b5; box-shadow: 0 0 17px rgba(64,230,181,.9); }
+.osh-hero-emblem { position: absolute; width: 315px; height: 315px; right: 2.5%; top: 5%;
+  display: grid; place-items: center; pointer-events: none; opacity: .88; }
+.osh-hero-emblem img { width: 225px; height: 225px; filter: drop-shadow(0 14px 35px rgba(50,181,254,.35)); }
+.osh-hero-ring { position: absolute; inset: 0; border: 2px solid rgba(93,211,255,.2);
+  border-radius: 50%; box-shadow: 0 0 0 23px rgba(57,144,244,.055), 0 0 80px rgba(56,154,254,.2); }
+.osh-hero-grid { position: absolute; bottom: 0; inset-inline: 0; height: 52%;
+  background: linear-gradient(transparent 0%, rgba(4,13,33,.35) 100%); pointer-events: none; }
+.osh-primary-link, .osh-outline-link { display: inline-flex; min-height: 43px; gap: .6rem; align-items: center;
+  justify-content: center; padding: .7rem 1.1rem; border-radius: 13px; font-size: 13px; font-weight: 800;
+  transition: transform .2s ease, background-color .2s ease; }
+.osh-primary-link { background: linear-gradient(100deg, #43cbff,#87e4ff); color: #061a38;
+  box-shadow: 0 10px 24px rgba(64,204,255,.2); }
+.osh-outline-link { color: white; border: 1px solid rgba(255,255,255,.25); background: rgba(255,255,255,.08); }
+.osh-primary-link:hover, .osh-outline-link:hover { transform: translateY(-2px); }
+.osh-outline-link:hover { background: rgba(255,255,255,.14); }
+.osh-kpi { background: linear-gradient(135deg, var(--color-panel), color-mix(in srgb, var(--color-panel), var(--color-celeste) 5%));
+  border: 1px solid color-mix(in srgb, var(--color-linea), var(--color-celeste) 20%);
+  box-shadow: 0 10px 35px rgba(5,31,81,.07);
+  transition: border-color .2s, transform .2s, box-shadow .2s;
+}
+.osh-kpi:hover { transform: translateY(-3px); border-color: rgba(64,195,251,.45);
+  box-shadow: 0 16px 44px rgba(5,31,81,.13); }
+.osh-kpi-icon { display: grid; height: 48px; width: 48px; place-items: center; color: #4ecbff;
+  border: 1px solid rgba(58,182,243,.22); border-radius: 14px;
+  background: linear-gradient(150deg, rgba(56,198,248,.16), rgba(60,93,239,.08)); }
+.osh-feature-panel { background: linear-gradient(145deg, #07162d 0%, #0a2345 75%, #091934 100%);
+  box-shadow: 0 15px 40px rgba(6,19,41,.15); }
+.osh-model-viewport { position: relative; background: radial-gradient(ellipse at 50% 50%,rgba(28,114,221,.15),transparent 65%); }
+.osh-model-viewport > * { position: relative; }
+.osh-action-tile { display: flex; flex-direction: column; align-items: flex-start; gap: .65rem;
+  min-height: 96px; padding: 1rem; border-radius: 15px; color: #dff4ff; font-size: 12px; font-weight: 700;
+  background: rgba(66,150,255,.09); border: 1px solid rgba(116,199,255,.15);
+  transition: transform .2s, background-color .2s, border-color .2s; }
+.osh-action-tile svg { color: #5bd3ff; }
+.osh-action-tile:hover { background: rgba(45,159,255,.2); border-color: rgba(91,211,255,.45); transform: translateY(-2px); }
+.osh-login { background: var(--color-superficie); }
+.osh-login-hero {
+  background: radial-gradient(ellipse at 64% 55%,rgba(31,133,243,.32),transparent 55%),
+              radial-gradient(ellipse at 0% 85%,rgba(94,75,229,.23),transparent 54%),
+              linear-gradient(135deg,#07142b,#0b2953 66%,#08162f);
+}
+.osh-login-stars { background-image: linear-gradient(rgba(90,182,255,.055) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(90,182,255,.055) 1px,transparent 1px);
+  background-size: 52px 52px; }
+.osh-login-visual { background: rgba(5,20,46,.65); box-shadow: 0 20px 70px rgba(0,22,61,.32); }
+.osh-login-visual > * { position: relative; }
+.osh-login-visual .negatoscopio { border-radius: 0; border: none; box-shadow: none; }
+.osh-login-feature { display:flex; flex-direction:column; gap:.4rem; padding: 12px;
+  background: rgba(16,112,226,.13); border-radius: 13px; border: 1px solid rgba(93,211,255,.17);
+  font-size:11px; line-height:1.4; color: #d6efff; }
+.osh-login-feature span { font-weight: 900; letter-spacing: .1em; font-size: 10px; }
+.osh-login-right { background: radial-gradient(ellipse at 80% 20%,rgba(31,126,225,.10),transparent 55%),var(--color-superficie); }
+.osh-login-card { background: var(--color-panel); border: 1px solid var(--color-linea);
+  box-shadow: 0 26px 85px rgba(5,26,60,.16); }
+.osh-login-label { display:inline-block; font-weight:800; font-size:10px; letter-spacing:.19em; color:var(--color-azul); }
+.osh-login-input { min-height: 50px; border-radius: 13px; padding-left: 16px; padding-right: 16px; }
+.osh-login-submit { min-height: 51px; font-size: 14px; border-radius: 13px; }
+@media (max-width: 1250px) {
+  .osh-hero-emblem { right: -80px; opacity: .28; }
+}
+@media (max-width: 750px) {
+  .osh-dashboard-hero { min-height: 340px; }
+  .osh-hero-emblem { top: auto; bottom: -120px; right: -100px; opacity: .2; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .osh-kpi, .osh-primary-link, .osh-outline-link, .osh-action-tile { transition: none; }
+}
