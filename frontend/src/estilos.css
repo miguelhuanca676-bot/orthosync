@@ -128,3 +128,18 @@ body {
 .orthosync-sidebar { border-right: 1px solid rgba(92,200,245,.18); }
 .orthosync-app .tarjeta { backdrop-filter: blur(8px); }
 .orthosync-app .subtitulo { letter-spacing: -.015em; }
+
+
+/* Portada pública ORTHOSYNC: visual coherente con el nuevo panel interno. */
+.orthosync-public-hero {
+  background-image:
+    radial-gradient(ellipse 58% 80% at 87% 29%, rgba(36,151,245,.27), transparent 75%),
+    radial-gradient(ellipse 45% 65% at 8% 95%, rgba(98,76,225,.18), transparent 70%),
+    linear-gradient(120deg, #061326 3%, #092551 55%, #07152e 100%);
+}
+.orthosync-public-figure {
+  filter: drop-shadow(0 34px 65px rgba(4, 10, 35, .26));
+}
+@media (max-width: 640px) {
+  .orthosync-public-hero h1 { text-wrap: balance; }
+}

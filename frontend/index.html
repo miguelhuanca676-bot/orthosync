@@ -59,11 +59,11 @@
   <body class="bg-white">
     <a href="#contenido" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:text-marino">Saltar al contenido</a>
 
-    <header class="absolute inset-x-0 top-0 z-20">
+    <header class="absolute inset-x-0 top-0 z-20 border-b border-white/10 bg-[#06142b]/40 backdrop-blur-md">
       <nav class="mx-auto flex max-w-7xl items-center justify-between px-6 py-5" aria-label="Principal">
         <a href="/" class="flex items-center gap-2.5 text-white">
-          <img src="/img/logo-blanco.svg" alt="" width="36" height="36" class="h-9 w-9" />
-          <span class="text-xl font-semibold tracking-tight">Orthosync</span>
+          <img src="/img/logo-blanco.svg?v=orthosync-2026" alt="Mascota husky de ORTHOSYNC" width="44" height="44" class="h-11 w-11 rounded-xl border border-celeste/40 bg-white/10 p-1" />
+          <span class="text-xl font-extrabold uppercase tracking-[.08em]">Ortho<span class="text-celeste">sync</span></span>
         </a>
         <ul class="hidden items-center gap-8 text-sm font-medium text-sky-100/80 md:flex">
           <li><a class="hover:text-white" href="#funciones">Funciones</a></li>
@@ -71,22 +71,22 @@
           <li><a class="hover:text-white" href="#roles">Para quién</a></li>
           <li><a class="hover:text-white" href="#limites">Alcance</a></li>
         </ul>
-        <a href="/app" class="rounded-lg bg-white px-4 py-2 text-sm font-semibold text-noche hover:bg-cielo">Ingresar</a>
+        <a href="/app" class="rounded-xl bg-celeste px-5 py-2.5 text-sm font-bold text-noche shadow-lg shadow-sky-500/20 hover:bg-white">Abrir sistema</a>
       </nav>
     </header>
 
     <main id="contenido">
-      <section class="relative isolate overflow-hidden bg-noche">
+      <section class="orthosync-public-hero relative isolate overflow-hidden bg-noche">
         <div class="absolute inset-0 -z-10 bg-[radial-gradient(55%_60%_at_78%_35%,rgba(31,95,214,0.35),transparent_65%),radial-gradient(45%_55%_at_5%_100%,rgba(124,77,219,0.35),transparent_60%)]"></div>
         <div class="absolute inset-0 -z-10 opacity-[0.07] [background-image:linear-gradient(rgba(255,255,255,.6)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.6)_1px,transparent_1px)] [background-size:56px_56px] [mask-image:radial-gradient(70%_70%_at_70%_40%,#000,transparent)]"></div>
-        <div class="mx-auto grid max-w-7xl items-center gap-16 px-6 pb-24 pt-32 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:pt-36">
+        <div class="mx-auto grid min-h-[760px] max-w-7xl items-center gap-16 px-6 pb-24 pt-36 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:pt-44">
           <div>
-            <p class="mb-5 text-sm font-medium text-sky-200/90">Para el servicio de traumatología de SpineBolivia</p>
-            <h1 class="max-w-xl text-4xl font-semibold leading-[1.06] tracking-[-0.03em] text-white md:text-[60px]">Una segunda mirada para cada radiografía de hueso</h1>
-            <p class="mt-6 max-w-lg text-lg leading-relaxed text-sky-100/80">Orthosync revisa la placa con redes neuronales y le muestra al traumatólogo dónde puede haber una lesión tumoral, qué aspecto tiene y cómo cambia entre un control y otro.</p>
+            <p class="mb-6 inline-flex items-center gap-2 rounded-full border border-celeste/30 bg-celeste/10 px-4 py-2 text-xs font-bold uppercase tracking-[.12em] text-celeste"><span aria-hidden="true" class="h-2 w-2 rounded-full bg-celeste shadow-[0_0_14px_#5cc8f5]"></span> ORTHOSYNC · Medical Premium</p>
+            <h1 class="max-w-xl text-4xl font-extrabold leading-[1.06] tracking-[-0.055em] text-white md:text-[64px]">Radiología <span class="text-celeste">inteligente.</span><br/>Una nueva forma de analizar imágenes óseas.</h1>
+            <p class="mt-6 max-w-lg text-lg leading-relaxed text-sky-100/80">Orthosync combina inteligencia artificial, herramientas de análisis de radiografías y modelos anatómicos 3D de referencia para apoyar las decisiones del traumatólogo, sin sustituir su valoración.</p>
             <div class="mt-9 flex flex-wrap gap-3">
-              <a href="/app" class="rounded-lg bg-gradient-to-r from-sky-500 via-azul to-violeta px-6 py-3 text-base font-semibold text-white shadow-lg shadow-violet-950/40 hover:brightness-110">Ingresar al sistema</a>
-              <a href="#como-funciona" class="rounded-lg px-6 py-3 text-base font-semibold text-white ring-1 ring-white/25 hover:bg-white/10">Ver cómo funciona</a>
+              <a href="/app" class="rounded-xl bg-celeste px-7 py-3.5 text-base font-extrabold text-noche shadow-lg shadow-sky-500/20 transition hover:-translate-y-0.5 hover:bg-white">Ingresar a ORTHOSYNC</a>
+              <a href="#como-funciona" class="rounded-xl border border-white/25 bg-white/10 px-6 py-3.5 text-base font-semibold text-white transition hover:bg-white/20">Conoce la plataforma</a>
             </div>
             <dl class="mt-12 grid max-w-lg grid-cols-3 gap-6 border-t border-white/10 pt-6">
               <div><dt class="text-xs text-sky-200/70">Detección de lesión</dt><dd class="mt-1 text-xl font-semibold text-white sm:text-2xl">AUC 0,95</dd></div>
@@ -95,11 +95,11 @@
             </dl>
           </div>
 
-          <figure class="relative mx-auto w-full max-w-[640px] pb-16 lg:pb-10" aria-label="Vista del sistema con datos de ejemplo">
-            <div class="negatoscopio">
+          <figure class="orthosync-public-figure relative mx-auto w-full max-w-[640px] pb-16 lg:pb-10" aria-label="Vista del sistema con datos de ejemplo">
+            <div class="negatoscopio border border-celeste/30 shadow-[0_24px_90px_rgba(0,147,255,0.16)]">
               <div class="flex items-center justify-between border-b border-white/10 px-4 py-3 text-sm">
-                <span class="font-medium text-white">Modelo 3D de la zona afectada</span>
-                <span class="text-xs text-sky-200/60">Datos de ejemplo</span>
+                <span class="font-semibold text-white">Explorador anatómico 3D</span>
+                <span class="rounded-full bg-celeste/15 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-celeste">Vista ilustrativa</span>
               </div>
               <img src="/img/3d-lesion.webp" alt="Fémur en 3D con una lesión lítica marcada en rojo cerca de la rodilla" width="1100" height="712" fetchpriority="high" class="block w-full" />
             </div>
@@ -205,7 +205,7 @@
 
     <footer class="border-t border-linea bg-white">
       <div class="mx-auto flex max-w-7xl flex-col gap-3 px-6 py-8 text-sm text-slate-500 md:flex-row md:items-center md:justify-between">
-        <p class="flex items-center gap-2"><img src="/img/logo.svg" alt="" width="24" height="24" class="h-6 w-6" /> <strong class="text-noche">Orthosync</strong> <span>SpineBolivia</span></p>
+        <p class="flex items-center gap-2"><img src="/img/logo.svg?v=orthosync-2026" alt="" width="24" height="24" class="h-6 w-6" /> <strong class="text-noche">Orthosync</strong> <span>SpineBolivia</span></p>
         <p>Proyecto de grado de <span class="font-medium text-slate-700">Juan Miguel Huanca Uruña</span>, Universidad Privada del Valle (UNIVALLE)</p>
       </div>
       <nav aria-label="Información legal" class="mx-auto flex max-w-7xl flex-wrap gap-x-5 gap-y-1 px-6 pb-8 text-sm text-slate-600">
