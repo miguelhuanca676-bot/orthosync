@@ -1,6 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-<defs><linearGradient id="g" x1="0" y1="0" x2=".35" y2="1"><stop offset="0" stop-color="#5cc8f5"/><stop offset=".5" stop-color="#1f5fd6"/><stop offset="1" stop-color="#7c4ddb"/></linearGradient>
-<filter id="b" x="-20%" y="-200%" width="140%" height="500%"><feGaussianBlur stdDeviation="2.2"/></filter></defs>
-<path d="M24 30 V22 H32 M68 22 H76 V30 M76 60 V68 H68 M32 68 H24 V60" fill="none" stroke="url(#g)" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M44 74 L44 27 C44 24 40 22 37 19 C33 15 36 8 42 9 C45 9.5 47 12 50 12 C53 12 55 9.5 58 9 C64 8 67 15 63 19 C60 22 56 24 56 27 L56 74 C56 77 60 79 63 82 C67 86 64 93 58 92 C55 91.5 53 89 50 89 C47 89 45 91.5 42 92 C36 93 33 86 37 82 C40 79 44 77 44 74 Z" fill="none" stroke="url(#g)" stroke-width="4.2" stroke-linejoin="round"/><line x1="18" y1="45" x2="82" y2="45" stroke="#5cc8f5" stroke-width="7" stroke-linecap="round" opacity=".28" filter="url(#b)"/>
-<line x1="20" y1="45" x2="80" y2="45" stroke="#5cc8f5" stroke-width="2.6" stroke-linecap="round"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="ORTHOSYNC, husky blanco">
+<defs><linearGradient id="a" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#65e6ff"/><stop offset=".55" stop-color="#2389ed"/><stop offset="1" stop-color="#7c4ddb"/></linearGradient></defs>
+<circle cx="50" cy="50" r="46" fill="#091b3a" stroke="url(#a)" stroke-width="3"/>
+<path d="M21 40 27 11 44 27 55 24 73 9 79 43 84 57 71 79 53 89 30 78 17 57Z" fill="#edf7ff" stroke="#8bdcff" stroke-width="1.5" stroke-linejoin="round"/>
+<path d="M26 22 34 35 44 39 50 35 62 39 72 22 72 46 65 53 76 55 65 74 51 82 34 73 24 55 35 52 27 45Z" fill="#243b65"/>
+<path d="M36 50 45 52 50 60 55 52 65 50 61 69 50 78 39 69Z" fill="#f7fbff"/>
+<path d="M32 48 44 45 40 53 35 53ZM56 45 68 48 65 53 60 53Z" fill="#67dfff"/>
+<path d="m45 62 5-3 5 3-5 5Z" fill="#13294d"/><path d="M45 69q5 6 10 0" stroke="#13294d" stroke-width="2" fill="none" stroke-linecap="round"/>
+<path d="M13 68a42 42 0 0 0 74 0" fill="none" stroke="url(#a)" stroke-width="3" stroke-linecap="round"/>
+</svg>
