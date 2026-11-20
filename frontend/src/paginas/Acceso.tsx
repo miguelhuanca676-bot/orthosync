@@ -12,7 +12,7 @@ export function Ingreso() {
   };
   return (
     <div className="grid min-h-screen lg:grid-cols-2">
-      <div className="relative hidden overflow-hidden bg-noche lg:flex lg:flex-col lg:justify-between lg:p-12">
+      <div className="orthosync-hero relative hidden overflow-hidden bg-noche lg:flex lg:flex-col lg:justify-between lg:p-12">
         <div className="absolute inset-0 bg-[radial-gradient(60%_50%_at_70%_40%,rgba(31,95,214,0.35),transparent_65%),radial-gradient(50%_50%_at_0%_100%,rgba(124,77,219,0.35),transparent_60%)]" />
         <div className="absolute inset-0 opacity-[0.07] [background-image:linear-gradient(rgba(255,255,255,.6)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.6)_1px,transparent_1px)] [background-size:56px_56px] [mask-image:radial-gradient(70%_70%_at_60%_45%,#000,transparent)]" />
         <a href="/" className="relative flex items-center gap-3 text-white"><img src="/img/logo-blanco.svg" alt="" className="h-9 w-9" /><span className="text-lg font-semibold">Orthosync</span></a>
