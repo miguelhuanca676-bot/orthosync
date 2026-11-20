@@ -41,6 +41,8 @@ export function Enlace({ a, className, children, alHacer }: { a: string; classNa
 const TRAZOS: Record<string, string> = {
   resumen: "M4 13h6V4H4zM14 20h6v-9h-6zM4 20h6v-4H4zM14 7h6V4h-6z",
   panel: "M3 10l9-7 9 7M5 9v11h14V9M9 20v-7h6v7",
+  estudios: "M3 4h18v16H3zM7 16l3-4 3 3 3-6 2 3",
+  modelo3d: "M12 2 21 7v10l-9 5-9-5V7zM3 7l9 5 9-5M12 12v10",
   usuarios: "M16 19v-1a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v1M9 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6M22 19v-1a4 4 0 0 0-3-3.9M16 4.1a3 3 0 0 1 0 5.8",
   pacientes: "M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v0a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2M9 13h6M9 17h4",
   solicitudes: "M4 4h16v16H4zM4 9h16M9 14h6",
@@ -80,7 +82,7 @@ export function BotonTema({ className = "" }: { className?: string }) {
 
 // ---------------------------------------------------------------- marco
 const MENU: Record<string, [string, string, string][]> = {
-  administrador: [["/resumen", "Resumen", "resumen"], ["/usuarios", "Usuarios", "usuarios"], ["/pacientes", "Pacientes", "pacientes"], ["/controles", "Controles", "controles"], ["/validacion", "Validación del modelo", "validacion"], ["/solicitudes", "Solicitudes de datos", "solicitudes"], ["/auditoria", "Auditoría", "auditoria"]],
+  administrador: [["/resumen", "Dashboard", "panel"], ["/usuarios", "Usuarios", "usuarios"], ["/pacientes", "Pacientes", "pacientes"], ["/controles", "Controles", "controles"], ["/validacion", "Validación del modelo", "validacion"], ["/solicitudes", "Solicitudes de datos", "solicitudes"], ["/auditoria", "Auditoría", "auditoria"]],
   traumatologo: [["/panel", "Dashboard", "panel"], ["/pacientes", "Pacientes", "pacientes"], ["/controles", "Controles", "controles"], ["/validacion", "Validación del modelo", "validacion"]],
   recepcion: [["/panel", "Dashboard", "panel"], ["/pacientes", "Pacientes", "pacientes"], ["/controles", "Controles", "controles"]],
   paciente: [["/portal", "Mi evolución", "portal"]],
@@ -106,14 +108,15 @@ export function Marco({ children }: { children: ReactNode }) {
         <div className="flex items-center gap-2"><BotonTema className="text-sky-100 hover:bg-white/10" />
           <button className="rounded-md px-3 py-1.5 text-sm ring-1 ring-white/30" aria-expanded={abierto} onClick={() => setAbierto(!abierto)}>Menú</button></div>
       </header>
-      <aside className={`${abierto ? "flex" : "hidden"} orthosync-sidebar flex-col bg-noche text-white lg:sticky lg:top-0 lg:flex lg:h-screen lg:w-[278px] lg:shrink-0`}
+      <aside className={`${abierto ? "flex" : "hidden"} orthosync-sidebar flex-col bg-noche text-white lg:sticky lg:top-0 lg:flex lg:h-screen lg:w-[250px] xl:w-[272px] lg:shrink-0`}
         style={{ backgroundImage: "radial-gradient(140% 50% at 0% 0%, rgba(92,200,245,.18), transparent 60%), radial-gradient(120% 45% at 100% 100%, rgba(124,77,219,.28), transparent 60%)" }}>
-        <div className="hidden items-center gap-3 border-b border-white/10 px-6 pb-7 pt-8 lg:flex">
-          <img src="/img/logo-blanco.svg" alt="" className="h-12 w-12 rounded-xl bg-white/10 p-2 ring-1 ring-white/20" />
-          <div><p className="text-[19px] font-extrabold uppercase leading-tight tracking-[.06em]">Ortho<span className="text-celeste">sync</span></p><p className="mt-1 text-[11px] tracking-wide text-sky-200/80">Radiología inteligente · SpineBolivia</p></div>
+        <div className="osh-brand-zone hidden flex-col items-center border-b border-celeste/15 px-5 pb-5 pt-6 lg:flex">
+          <img src="/img/husky-guardian.svg" alt="Mascota husky blanco de ORTHOSYNC" className="osh-brand-wolf" />
+          <p className="osh-brand-wordmark">ORTHO<span>SYNC</span></p>
+          <p className="mt-1 text-center text-[11px] leading-5 text-sky-100/70">Sistema inteligente de<br/>radiología ortopédica</p>
         </div>
         <nav aria-label="Secciones" className="flex-1 overflow-y-auto px-3 py-6">
-          <p className="mb-4 px-3 text-[10px] font-extrabold uppercase tracking-[.22em] text-celeste/60">Área de trabajo</p>
+          <p className="mb-4 px-3 text-[10px] font-extrabold uppercase tracking-[.22em] text-celeste/60">Navegación principal</p>
           <ul className="space-y-1.5">
             {enlaces.map(([ruta, nombre, icono]) => {
               const activo = pathname === ruta || pathname.startsWith(ruta + "/") || (ruta === "/pacientes" && pathname.startsWith("/estudios/"));
@@ -129,7 +132,7 @@ export function Marco({ children }: { children: ReactNode }) {
             })}
           </ul>
         </nav>
-        {personal && <div className="osh-sidebar-assistant mx-3 mb-3 rounded-2xl p-4"><div className="flex items-center gap-3"><img src="/img/logo-blanco.svg" alt="" className="h-11 w-11" /><div><p className="text-sm font-bold text-white">ORTHOSYNC AI</p><p className="text-[11px] text-celeste">Asistencia radiológica</p></div></div><p className="mt-3 text-[11px] leading-5 text-sky-100/65">Análisis y visualización de estudios óseos con revisión profesional.</p></div>}
+        {personal && <div className="osh-sidebar-wolf hidden lg:block" aria-hidden="true"><img src="/img/husky-guardian.svg" alt="" /></div>}
         <div className="m-3 flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-3 shadow-lg shadow-black/10">
           <span aria-hidden="true" className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-celeste to-violeta text-xs font-semibold">{iniciales}</span>
           <div className="min-w-0 flex-1"><p className="truncate text-sm font-medium">{usuario.nombre}</p><p className="text-xs text-sky-200/70">{ROLES[usuario.rol]}</p></div>
@@ -138,7 +141,7 @@ export function Marco({ children }: { children: ReactNode }) {
       </aside>
       <div className="flex min-w-0 flex-1 flex-col">
         <div className="osh-topbar sticky top-0 z-20 hidden items-center justify-between gap-6 border-b border-linea bg-panel/90 px-10 py-4 shadow-sm backdrop-blur-xl lg:flex">
-          <p className="text-sm text-suave first-letter:uppercase">{hoy()}</p>
+          <div className="flex items-center gap-3"><span className="osh-topbar-indicator"/><div><p className="text-[11px] font-bold uppercase tracking-[.16em] text-celeste">ORTHOSYNC · SISTEMA CLÍNICO</p><p className="mt-1 text-xs text-suave first-letter:uppercase">{hoy()}</p></div></div>
           <div className="flex w-full max-w-md items-center justify-end gap-2">
           {personal && (
             <form role="search" className="relative w-full max-w-sm" onSubmit={(e) => { e.preventDefault(); ir("/pacientes", { state: { buscar } }); setBuscar(""); }}>
@@ -147,7 +150,8 @@ export function Marco({ children }: { children: ReactNode }) {
               <input id="busqueda-global" type="search" placeholder="Buscar paciente por nombre, código o CI" className="campo pl-9" value={buscar} onChange={(e) => setBuscar(e.target.value)} />
             </form>
           )}
-          <BotonTema className="border border-linea bg-panel text-suave hover:text-fuerte" />
+          <BotonTema className="osh-topbar-theme border border-linea bg-panel text-suave hover:text-fuerte" />
+          <div className="osh-topbar-user flex shrink-0 items-center gap-2 rounded-xl border border-celeste/15 px-2.5 py-1.5"><span className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-azul to-violeta text-xs font-bold text-white">{iniciales}</span><span className="hidden xl:block"><span className="block max-w-36 truncate text-xs font-bold text-fuerte">{usuario.nombre}</span><span className="block text-[10px] text-suave">{ROLES[usuario.rol]}</span></span></div>
           </div>
         </div>
         <main className="w-full max-w-[1680px] flex-1 px-4 py-7 sm:px-6 lg:px-10 lg:py-10">{children}</main>
