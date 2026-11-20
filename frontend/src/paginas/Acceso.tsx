@@ -1,4 +1,4 @@
-import React, { FormEvent, lazy, Suspense, useState } from "react";
+import React, { FormEvent, lazy, Suspense, useEffect, useState } from "react";
 const Visor3D = lazy(() => import("../Visor3D"));
 import { api } from "../api";
 import { BotonTema, Encabezado, Mensaje, PieLegal, useSesion } from "../componentes";
@@ -7,6 +7,13 @@ export function Ingreso() {
   const { entrar } = useSesion();
   const [correo, setCorreo] = useState(""); const [clave, setClave] = useState("");
   const [error, setError] = useState(""); const [enviando, setEnviando] = useState(false);
+  const [vistaAmplia, setVistaAmplia] = useState(() => window.matchMedia("(min-width: 1024px)").matches);
+  useEffect(() => {
+    const media = window.matchMedia("(min-width: 1024px)");
+    const actualizar = () => setVistaAmplia(media.matches);
+    media.addEventListener("change", actualizar);
+    return () => media.removeEventListener("change", actualizar);
+  }, []);
   const enviar = async (e: FormEvent) => {
     e.preventDefault(); setError(""); setEnviando(true);
     try { await entrar(correo, clave); } catch (err: any) { setError(err.message); } finally { setEnviando(false); }
@@ -30,9 +37,9 @@ export function Ingreso() {
               <span className="inline-flex items-center gap-2 text-xs font-bold text-white"><span className="osh-live-dot"/> VISUALIZACIÓN ANATÓMICA</span>
               <span className="text-[10px] font-semibold tracking-[.12em] text-celeste">3D · REFERENCIA</span>
             </div>
-            <Suspense fallback={<div className="grid h-[320px] place-items-center text-sm text-sky-100/70">Preparando visor anatómico…</div>}>
+            {vistaAmplia && <Suspense fallback={<div className="grid h-[320px] place-items-center text-sm text-sky-100/70">Preparando visor anatómico…</div>}>
               <Visor3D hueso="femur" zona={null} alto={320}/>
-            </Suspense>
+            </Suspense>}
           </div>
           <div className="mt-5 grid grid-cols-3 gap-3">
             <div className="osh-login-feature"><span className="text-celeste">01</span><strong>Detección asistida</strong></div>
