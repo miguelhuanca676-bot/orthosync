@@ -106,3 +106,25 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .tarjeta, .campo { transition: none; }
 }
+
+/* Hero: identidad visual sin estadísticas ficticias ni imágenes de pacientes. */
+.orthosync-hero {
+  background-color: #071831;
+  background-image:
+    radial-gradient(ellipse 52% 110% at 92% 12%, rgba(58,181,251,.24), transparent 70%),
+    radial-gradient(ellipse 45% 95% at 42% 100%, rgba(63,84,222,.27), transparent 75%),
+    linear-gradient(115deg, #07152e 0%, #0a2852 55%, #07172f 100%);
+}
+.orthosync-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .22;
+  background-image: linear-gradient(rgba(130,216,255,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(130,216,255,.12) 1px,transparent 1px);
+  background-size: 42px 42px;
+  mask-image: linear-gradient(90deg,transparent 10%,black 100%);
+}
+.orthosync-sidebar { border-right: 1px solid rgba(92,200,245,.18); }
+.orthosync-app .tarjeta { backdrop-filter: blur(8px); }
+.orthosync-app .subtitulo { letter-spacing: -.015em; }
