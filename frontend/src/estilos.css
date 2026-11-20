@@ -409,3 +409,66 @@ body {
  .osh-console-gauge { width:112px; height:112px; flex-basis:112px; border-width:8px; }
  .osh-console-gauge strong { font-size:32px; }
 }
+
+
+/* Shell premium consistent for administration, radiology and patient workflow */
+.orthosync-app {
+ --color-superficie:#07142b; --color-panel:#0c1e3b; --color-linea:#244c77;
+ --color-tinta:#e2efff; --color-fuerte:#f3f9ff; --color-suave:#92afcb;
+ --color-cielo:#112b4c; --color-lavanda:#241e4d;
+ --color-marino:#74bfff; --color-violeta:#ac9cff; --color-azul:#4b98ff;
+ background:radial-gradient(ellipse 72% 50% at 82% 10%,rgba(20,85,165,.13),transparent 68%),#061126;
+ color:#e6f3ff;
+}
+.orthosync-app .tarjeta {
+ background:linear-gradient(145deg,#0d2243,#091b37);
+ border:1px solid #28527d;
+ box-shadow:inset 0 1px rgba(97,194,247,.07),0 12px 35px rgba(0,12,36,.18);
+ border-radius:20px;
+}
+.orthosync-app .tarjeta:hover { border-color:#3679af; }
+.orthosync-app .subtitulo { font-size:16px; font-weight:800; letter-spacing:-.02em; }
+.orthosync-app .campo {
+ background:#0c1f3e; border:1px solid #2a4a73; color:#e9f6ff;
+ border-radius:12px; min-height:45px;
+}
+.orthosync-app .campo:focus { border-color:#3ec4ff; box-shadow:0 0 0 3px rgba(54,184,255,.13); }
+.orthosync-app .campo::placeholder { color:#7796ba; }
+.orthosync-app .boton { background:linear-gradient(115deg,#1979ed,#13b8f4); border:1px solid rgba(132,225,255,.24); box-shadow:0 6px 22px rgba(16,136,244,.22); }
+.orthosync-app .boton-claro { background:#10274a; color:#abddff; border-color:#315c8a; }
+.orthosync-app .boton-claro:hover { background:#16335e; }
+.orthosync-app :is(table thead, .bg-superficie\/60) { border-color:#275179; }
+.orthosync-app table tbody tr:hover { background:rgba(43,133,228,.10); }
+.orthosync-sidebar { position:relative; overflow:hidden; background:#06142c!important; border-right:1px solid #175b91; }
+.orthosync-sidebar::before { content:"";pointer-events:none;position:absolute;inset:0;background:
+ radial-gradient(ellipse at 55% 13%,rgba(11,95,194,.24),transparent 48%),
+ linear-gradient(180deg,rgba(6,33,76,.1),#040d20); }
+.orthosync-sidebar > * { position:relative; z-index:1; }
+.osh-brand-zone { background:radial-gradient(ellipse at 50% 50%,rgba(35,151,251,.14),transparent 75%); }
+.osh-brand-wolf { display:block; width:142px;height:142px;object-fit:contain;filter:drop-shadow(0 8px 20px rgba(19,140,231,.28)); }
+.osh-brand-wordmark { margin-top:-10px; font-size:25px; font-style:italic; font-weight:950; letter-spacing:-.07em; text-shadow:0 0 19px rgba(21,155,244,.35); }
+.osh-brand-wordmark span { color:#54d7ff; }
+.orthosync-sidebar nav a { padding-top:13px;padding-bottom:13px;border:1px solid transparent; }
+.orthosync-sidebar nav a:hover { border-color:rgba(67,177,249,.20); background:rgba(18,94,191,.19); }
+.orthosync-sidebar nav a:has(.bg-celeste) { border-color:rgba(83,193,255,.46); }
+.osh-sidebar-wolf { margin:0 12px 12px; height:112px; overflow:hidden; position:relative; border-radius:17px;
+ background:radial-gradient(ellipse at 60% 100%,rgba(35,123,215,.26),transparent 80%); }
+.osh-sidebar-wolf img { display:block; position:absolute; width:165px;height:165px; bottom:-33px;left:50%;transform:translateX(-50%);opacity:.93; }
+.osh-topbar { min-height:72px; background:#07172f!important; border-bottom-color:#22466d!important; }
+.osh-topbar-indicator { width:10px;height:10px;border-radius:50%;background:#35e5b7;box-shadow:0 0 16px rgba(53,229,183,.6); }
+.osh-topbar-theme { width:43px!important;height:43px!important; border-radius:13px!important; }
+.osh-topbar-user { background:rgba(28,99,182,.12); }
+.osh-admin-section-title { display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px; }
+.osh-admin-section-title h2 { font-size:23px; font-weight:850;letter-spacing:-.04em;color:#f7fbff; }
+.orthosync-app .negatoscopio { border-color:#1d67a6; }
+@media(max-width:1023px) {
+ .orthosync-sidebar { width:100%;border-bottom:1px solid #285a88; }
+ .orthosync-sidebar nav { max-height:65vh; }
+ .orthosync-app .osh-topbar { display:none; }
+}
+@media(min-width:1024px) and (max-width:1270px) {
+ .orthosync-sidebar { max-width:236px; }
+ .orthosync-app .osh-topbar { padding-inline:18px; }
+ .orthosync-app main { padding-inline:16px; }
+ .osh-brand-wolf { width:116px;height:116px; }
+}
