@@ -23,8 +23,8 @@ export function Ingreso() {
       <section className="osh-login-hero relative isolate hidden min-h-screen flex-col overflow-hidden px-8 pb-8 pt-9 text-white lg:flex xl:px-14">
         <div className="osh-login-stars pointer-events-none absolute inset-0 -z-10"/>
         <a href="/" className="relative z-10 inline-flex w-fit items-center gap-3">
-          <img src="/img/logo-blanco.svg" alt="" className="h-14 w-14 rounded-2xl border border-celeste/30 bg-white/10 p-1"/>
-          <span><span className="block text-2xl font-extrabold uppercase tracking-[.09em]">Ortho<span className="text-celeste">sync</span></span><span className="mt-1 block text-[11px] uppercase tracking-[.2em] text-celeste/80">Medical Intelligence</span></span>
+          <img src="/img/husky-guardian.svg" alt="" className="h-16 w-16 object-contain drop-shadow-[0_0_15px_rgba(46,175,255,.36)]"/>
+          <span><span className="block text-2xl font-extrabold italic uppercase tracking-[-.04em]">ORTHO<span className="text-celeste">SYNC</span></span><span className="mt-1 block text-[11px] uppercase tracking-[.2em] text-celeste/80">Radiología ortopédica inteligente</span></span>
         </a>
         <div className="relative z-10 mx-auto flex w-full max-w-[760px] flex-1 flex-col justify-center py-12">
           <span className="osh-kicker w-fit"><span className="osh-live-dot" /> RADIOLOGÍA · VISIÓN INTELIGENTE</span>
@@ -33,6 +33,7 @@ export function Ingreso() {
           </h1>
           <p className="mt-4 max-w-[580px] text-sm leading-7 text-sky-100/75 xl:text-base">Análisis asistido por inteligencia artificial, gestión clínica y visualización anatómica 3D en un solo lugar.</p>
           <div className="osh-login-visual relative mt-7 overflow-hidden rounded-[26px] border border-celeste/30">
+            <img src="/img/radiology-bg.svg" alt="" aria-hidden="true" className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-25"/>
             <div className="flex items-center justify-between border-b border-white/10 px-5 py-3">
               <span className="inline-flex items-center gap-2 text-xs font-bold text-white"><span className="osh-live-dot"/> VISUALIZACIÓN ANATÓMICA</span>
               <span className="text-[10px] font-semibold tracking-[.12em] text-celeste">3D · REFERENCIA</span>
@@ -53,7 +54,7 @@ export function Ingreso() {
         <BotonTema className="absolute right-5 top-5 border border-linea bg-panel text-suave hover:text-fuerte" />
         <div className="osh-login-card relative w-full max-w-[480px] overflow-hidden rounded-[30px] p-7 sm:p-10">
           <a href="/" className="mb-8 flex items-center gap-3">
-            <img src="/img/logo.svg" alt="ORTHOSYNC" className="h-14 w-14 rounded-2xl border border-celeste/25 bg-noche/15 p-1"/>
+            <img src="/img/husky-guardian.svg" alt="ORTHOSYNC" className="h-16 w-16 rounded-2xl border border-celeste/25 bg-noche p-1"/>
             <span><span className="block text-[23px] font-extrabold uppercase tracking-[.06em] text-fuerte">ORTHO<span className="text-celeste">SYNC</span></span><span className="text-[11px] font-semibold uppercase tracking-[.13em] text-suave">Acceso clínico seguro</span></span>
           </a>
           <span className="osh-login-label">BIENVENIDO DE NUEVO</span>
