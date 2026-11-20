@@ -39,7 +39,8 @@ export default function Visor3D({ hueso, lado, zona, tono = "neutro", tipo = "ma
     try { renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true }); }
     catch { setFalla(true); return null; }
     const geos = preparar(crudas);
-    renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 0.88;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.08;
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setSize(el.clientWidth, alto);
     renderer.domElement.setAttribute("aria-hidden", "true");
@@ -48,16 +49,16 @@ export default function Visor3D({ hueso, lado, zona, tono = "neutro", tipo = "ma
     const escena = new THREE.Scene();
     const pmrem = new THREE.PMREMGenerator(renderer);
     const entorno = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;   // reflejos suaves de estudio
-    escena.environment = entorno; escena.environmentIntensity = 0.35;
+    escena.environment = entorno; escena.environmentIntensity = 0.55;
     const camara = new THREE.PerspectiveCamera(35, el.clientWidth / alto, 0.05, 200);
-    escena.add(new THREE.HemisphereLight("#dbe8ff", "#0b1830", 1.05));
-    const luz = new THREE.DirectionalLight("#ffffff", 1.7); luz.position.set(6, 12, 10); escena.add(luz);
-    const contra = new THREE.DirectionalLight("#7fb2ff", 0.9); contra.position.set(-8, 4, -10); escena.add(contra);
+    escena.add(new THREE.HemisphereLight("#eaf5ff", "#1b2940", 1.4));
+    const luz = new THREE.DirectionalLight("#fff9ed", 2.1); luz.position.set(6, 12, 10); escena.add(luz);
+    const contra = new THREE.DirectionalLight("#7fb2ff", 1.15); contra.position.set(-8, 4, -10); escena.add(contra);
     camara.add(new THREE.PointLight("#ffffff", 0.6, 0, 0)); escena.add(camara);   // luz que acompaña a la cámara (ilumina el interior del hueco)
 
     const grupo = new THREE.Group();
-    const material = new THREE.MeshPhysicalMaterial({ vertexColors: true, roughness: 0.55, metalness: 0, side: THREE.DoubleSide,
-      clearcoat: 0.12, clearcoatRoughness: 0.6, sheen: 0.25, sheenRoughness: 0.8, sheenColor: new THREE.Color("#fff3dc") });
+    const material = new THREE.MeshPhysicalMaterial({ vertexColors: true, roughness: 0.76, metalness: 0, side: THREE.DoubleSide,
+      clearcoat: 0.06, clearcoatRoughness: 0.85, sheen: 0.16, sheenRoughness: 0.9, sheenColor: new THREE.Color("#fff3dc") });
     geos.forEach((g) => grupo.add(new THREE.Mesh(g, material)));
     if (lado === "izquierdo") grupo.scale.x = -1;          // espejo para el lado izquierdo
     escena.add(grupo);
@@ -137,6 +138,7 @@ export default function Visor3D({ hueso, lado, zona, tono = "neutro", tipo = "ma
     <div className="negatoscopio">
       <div ref={caja} role="img" aria-label={`Modelo 3D ilustrativo del hueso. ${zona ? NOMBRE_TIPO[tipo] : "Sin lesión marcada"}.`} style={{ height: alto }} />
       {estado === "cargando" && <p className="pointer-events-none absolute inset-0 grid place-items-center text-sm text-blue-100">Cargando modelo anatómico…</p>}
+      <div className="absolute left-3 top-3 max-w-[40%] rounded-lg border border-celeste/20 bg-noche/65 px-3 py-2 text-[11px] font-medium text-sky-100 backdrop-blur-md">{estado === "anatomico" ? "Modelo anatómico de referencia" : estado === "simple" ? "Vista ilustrativa de respaldo" : "Preparando visualización 3D"}</div>
       <div className="absolute right-3 top-3 flex flex-wrap justify-end gap-2">
         {zona && <button className={boton} onClick={() => r.current.acercar?.()}>Acercar a la lesión</button>}
         <button className={boton} onClick={() => r.current.completo?.()}>Hueso completo</button>
