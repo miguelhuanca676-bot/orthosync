@@ -1,8 +1,9 @@
 import { lazy, Suspense, useEffect, useState } from "react";
-import { api, fecha, HUESOS, pct } from "../api";
+import { api, fecha, HUESOS } from "../api";
 import { Cargando, Enlace, Icono, Mensaje, useDatos, useSesion } from "../componentes";
 
 const Visor3D = lazy(() => import("../Visor3D"));
+const SIN_PACIENTES: any[] = [];
 const OPCIONES = [
   { id: "femur", label: "Fémur", sigla: "FEM" },
   { id: "tibia", label: "Tibia", sigla: "TIB" },
@@ -53,9 +54,9 @@ export function InicioClinico() {
   const { usuario } = useSesion();
   const { datos, error } = useDatos<any[]>("/pacientes?buscar=");
   const [hueso, setHueso] = useState("femur");
-  const [vista, setVista] = useState<"3d" | "modelo">("3d");
+  
   const [mostrar3d, setMostrar3d] = useState(false);
-  const pacientes = Array.isArray(datos) ? datos : [];
+  const pacientes = Array.isArray(datos) ? datos : SIN_PACIENTES;
   const estudios = pacientes.reduce((sum, p) => sum + (Number(p.n_estudios) || 0), 0);
   const pendientes = pacientes.reduce((sum, p) => sum + (Number(p.por_valorar) || 0), 0);
   const conEstudios = pacientes.filter((p) => Number(p.n_estudios) > 0).length;
@@ -107,18 +108,18 @@ export function InicioClinico() {
         <div className="osh-console-cardhead"><div><span className="osh-console-eyebrow">VISUALIZACIÓN MÉDICA</span><h2 id="osh-title-anatomy"><Icono n="modelo3d"/> Visor 3D anatómico</h2></div><span className="osh-console-pill">Modelos de referencia</span></div>
         <div className="osh-console-anatomy-body">
           <div className="osh-console-bonelist" role="group" aria-label="Seleccionar hueso">
-            {OPCIONES.map((o)=><button key={o.id} type="button" onClick={()=>{setHueso(o.id);setVista("3d")}} aria-pressed={hueso===o.id} className={`osh-console-bone ${hueso===o.id?"is-active":""}`}>
+            {OPCIONES.map((o)=><button key={o.id} type="button" onClick={()=>setHueso(o.id)} aria-pressed={hueso===o.id} className={`osh-console-bone ${hueso===o.id?"is-active":""}`}>
               <Icono n="modelo3d" className="h-5 w-5"/><span>{o.label}</span><small>{o.sigla}</small></button>)}
           </div>
           <div className="osh-console-model">
-            {vista==="3d" && mostrar3d ? <Suspense fallback={<div className="grid h-[420px] place-items-center text-sm text-sky-100/80">Preparando visor…</div>}>
+            {mostrar3d ? <Suspense fallback={<div className="grid h-[420px] place-items-center text-sm text-sky-100/80">Preparando visor…</div>}>
               <Visor3D key={hueso} hueso={hueso} zona={null} alto={420}/>
             </Suspense> : <div className="osh-console-model-placeholder">
               <img src="/img/radiology-bg.svg" alt="" className="osh-console-model-bg"/>
-              <p className="text-[11px] font-bold uppercase tracking-[.18em] text-celeste">{vista==="3d"?"Anatomía en 3 dimensiones":"Modelo anatómico de referencia"}</p>
+              <p className="text-[11px] font-bold uppercase tracking-[.18em] text-celeste">Anatomía en 3 dimensiones</p>
               <h3>{OPCIONES.find(o=>o.id===hueso)?.label}</h3>
               <p>Visualiza y gira el hueso mediante el visor interactivo.</p>
-              <button type="button" onClick={()=>{setMostrar3d(true);setVista("3d")}} className="osh-console-launch"><Icono n="modelo3d"/> Iniciar visor 3D</button>
+              <button type="button" onClick={()=>setMostrar3d(true)} className="osh-console-launch"><Icono n="modelo3d"/> Iniciar visor 3D</button>
             </div>}
           </div>
         </div>
