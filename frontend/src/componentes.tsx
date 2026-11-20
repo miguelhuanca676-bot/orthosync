@@ -82,9 +82,9 @@ export function BotonTema({ className = "" }: { className?: string }) {
 
 // ---------------------------------------------------------------- marco
 const MENU: Record<string, [string, string, string][]> = {
-  administrador: [["/resumen", "Dashboard", "panel"], ["/usuarios", "Usuarios", "usuarios"], ["/pacientes", "Pacientes", "pacientes"], ["/controles", "Controles", "controles"], ["/validacion", "Validación del modelo", "validacion"], ["/solicitudes", "Solicitudes de datos", "solicitudes"], ["/auditoria", "Auditoría", "auditoria"]],
-  traumatologo: [["/panel", "Dashboard", "panel"], ["/pacientes", "Pacientes", "pacientes"], ["/controles", "Controles", "controles"], ["/validacion", "Validación del modelo", "validacion"]],
-  recepcion: [["/panel", "Dashboard", "panel"], ["/pacientes", "Pacientes", "pacientes"], ["/controles", "Controles", "controles"]],
+  administrador: [["/resumen", "Dashboard", "panel"], ["/pacientes", "Pacientes", "pacientes"], ["/anatomia", "Visor 3D", "modelo3d"], ["/usuarios", "Usuarios", "usuarios"], ["/controles", "Controles", "controles"], ["/validacion", "Validación del modelo", "validacion"], ["/solicitudes", "Solicitudes de datos", "solicitudes"], ["/auditoria", "Auditoría", "auditoria"]],
+  traumatologo: [["/panel", "Dashboard", "panel"], ["/pacientes", "Pacientes", "pacientes"], ["/estudios", "Estudios", "estudios"], ["/anatomia", "Visor 3D", "modelo3d"], ["/controles", "Controles", "controles"], ["/validacion", "Validación del modelo", "validacion"]],
+  recepcion: [["/panel", "Dashboard", "panel"], ["/pacientes", "Pacientes", "pacientes"], ["/anatomia", "Visor 3D", "modelo3d"], ["/controles", "Controles", "controles"]],
   paciente: [["/portal", "Mi evolución", "portal"]],
 };
 export const inicioDe = (rol: string) => MENU[rol]?.[0][0] ?? "/";
@@ -104,7 +104,7 @@ export function Marco({ children }: { children: ReactNode }) {
   return (
     <div className="orthosync-app min-h-screen lg:flex">
       <header className="flex items-center justify-between bg-noche px-4 py-3 text-white lg:hidden">
-        <span className="flex items-center gap-2 font-semibold"><img src="/img/logo-blanco.svg" alt="" className="h-7 w-7" />Orthosync</span>
+        <span className="flex items-center gap-2 font-semibold"><img src="/img/husky-guardian.svg" alt="" className="h-10 w-10" />ORTHO<span className="text-celeste">SYNC</span></span>
         <div className="flex items-center gap-2"><BotonTema className="text-sky-100 hover:bg-white/10" />
           <button className="rounded-md px-3 py-1.5 text-sm ring-1 ring-white/30" aria-expanded={abierto} onClick={() => setAbierto(!abierto)}>Menú</button></div>
       </header>
