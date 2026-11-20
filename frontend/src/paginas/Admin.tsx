@@ -1,6 +1,7 @@
 import { FormEvent, useState } from "react";
 import { api, fecha, pct, ROLES } from "../api";
 import { Cargando, Dato, Encabezado, Enlace, Mensaje, useDatos, useSesion, Ventana } from "../componentes";
+import { InicioClinico } from "./InicioClinico";
 
 export function Resumen() {
   const { datos: e, error } = useDatos("/admin/estadisticas");
@@ -9,18 +10,8 @@ export function Resumen() {
   const sinModelos = !e.modelos.tumor;
   return (
     <>
-      <div className="orthosync-hero relative mb-7 overflow-hidden rounded-[1.5rem] border border-celeste/25 px-6 py-8 text-white shadow-xl shadow-blue-950/10 sm:px-9 sm:py-10">
-        <div className="relative z-10 max-w-2xl">
-          <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-celeste/30 bg-celeste/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[.16em] text-celeste">ORTHOSYNC · Centro de control</div>
-          <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">Radiología inteligente<span className="text-celeste">.</span></h1>
-          <p className="mt-3 max-w-xl text-sm leading-relaxed text-sky-100/80 sm:text-base">Un espacio para gestionar pacientes, estudios y seguimiento clínico con apoyo de inteligencia artificial.</p>
-          <div className="mt-6 flex flex-wrap gap-3">
-            <Enlace a="/pacientes" className="inline-flex items-center rounded-xl bg-celeste px-5 py-2.5 text-sm font-bold text-noche shadow-lg shadow-cyan-500/20 transition hover:brightness-110">Ver pacientes</Enlace>
-            <Enlace a="/validacion" className="inline-flex items-center rounded-xl border border-white/25 bg-white/10 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-white/20">Validación del modelo</Enlace>
-          </div>
-        </div>
-        <img src="/img/logo-blanco.svg" alt="" className="pointer-events-none absolute -right-10 -bottom-20 h-80 w-80 opacity-[.13] sm:right-8 sm:-bottom-24 sm:h-[25rem] sm:w-[25rem]" />
-      </div>
+      <InicioClinico />
+      <div className="osh-admin-section-title mt-8 mb-5"><div><p className="osh-console-eyebrow">ADMINISTRACIÓN DE LA PLATAFORMA</p><h2>Resumen operativo</h2></div><Enlace a="/auditoria" className="osh-console-textlink">Auditoría del sistema →</Enlace></div>
       {e.solicitudes_pendientes > 0 && <div className="mb-5"><Mensaje tipo="alerta">Hay {e.solicitudes_pendientes} solicitud(es) de eliminación de datos pendientes. <Enlace a="/solicitudes" className="font-semibold underline">Revisarlas</Enlace></Mensaje></div>}
       {sinModelos && <div className="mb-5"><Mensaje tipo="alerta">Los modelos de análisis todavía no están instalados en el servidor. Los estudios se guardan y se analizarán cuando se copien.</Mensaje></div>}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
