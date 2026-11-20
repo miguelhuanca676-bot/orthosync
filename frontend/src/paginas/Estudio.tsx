@@ -128,6 +128,7 @@ export function EstudioDetalle() {
   return (
     <>
       <p className="mb-3 text-sm"><Enlace a={`/pacientes/${e.paciente_id}`} className="inline-flex items-center gap-1 text-azul hover:underline"><Icono n="volver" className="h-4 w-4" />Expediente del paciente</Enlace></p>
+      <section className="osh-clinical-banner mb-6" aria-label="Panel del estudio radiológico"><div className="osh-clinical-banner-content"><p className="osh-clinical-kicker"><span className="osh-live-dot"/> ORTHOSYNC · RADIOLOGÍA DIGITAL</p><h1>Evaluación <span>radiológica inteligente</span></h1><p>Estudio del {fecha(e.fecha_estudio)} · {HUESOS[f.hueso] || "Hueso por determinar"}</p><p className="osh-clinical-disclaimer">La interpretación de la IA requiere confirmación del especialista.</p></div><img src="/img/radiology-bg.svg" alt="" className="osh-clinical-banner-art"/></section>
       <Encabezado titulo={`Estudio del ${fecha(e.fecha_estudio)}`} detalle={<span className="flex flex-wrap items-center gap-x-3 gap-y-1"><span>Archivo {e.archivo_original}</span>
         {f.hueso && <span className="chip bg-cielo text-marino">{HUESOS[f.hueso]}{f.lado ? ` ${f.lado}` : ""}</span>}
         {e.opinion ? <span className="chip bg-panel text-fuerte ring-1 ring-linea">{OPINIONES[e.opinion]}</span> : listo && <span className="chip bg-amber-50 text-amber-800">Por valorar</span>}
@@ -138,9 +139,9 @@ export function EstudioDetalle() {
         <button className="boton-peligro" onClick={() => setBorrar(true)}>Eliminar</button>
       </Encabezado>
 
-      <div className="grid items-start gap-6 xl:grid-cols-[minmax(0,1fr)_420px]">
-        <section className="negatoscopio xl:sticky xl:top-20" aria-label="Imágenes del estudio">
-          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 px-4 py-3">
+      <div className="osh-study-layout grid items-start gap-6 xl:grid-cols-[minmax(0,1fr)_420px]">
+        <section className="osh-study-imaging negatoscopio xl:sticky xl:top-20" aria-label="Imágenes del estudio">
+          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 px-4 py-3"><span className="inline-flex items-center gap-2 text-[10px] font-extrabold uppercase tracking-[.1em] text-celeste"><Icono n="estudios" className="h-4 w-4"/> Visor radiológico</span>
             {listo ? (
               <div role="tablist" aria-label="Vista de la imagen" className="inline-flex rounded-lg bg-white/5 p-1 ring-1 ring-white/10">
                 {VISTAS.map(([k, n]) => (
