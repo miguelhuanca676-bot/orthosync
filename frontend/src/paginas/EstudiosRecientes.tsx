@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { api, fecha, HUESOS, useImagen } from "../api";
-import { Cargando, Enlace, Icono, Mensaje, useDatos } from "../componentes";
+import { Cargando, Enlace, Icono, IconoMarca, Mensaje, useDatos } from "../componentes";
 
 type Item = { id: string; paciente: string; codigo: string; fecha_estudio?: string; hueso?: string; estado_analisis?: string; opinion?: string; sospechoso?: boolean; };
 function MiniaturaEstudio({ item }: { item: Item }) {
@@ -46,14 +46,14 @@ export function EstudiosRecientes() {
   return <div className="osh-studies-page space-y-5">
     <section className="osh-clinical-banner"><div className="osh-clinical-banner-content">
       <p className="osh-clinical-kicker"><span className="osh-live-dot"/> ESTUDIOS RADIOLÓGICOS</p>
-      <h1>Explorador de <span>estudios clínicos</span></h1>
+      <div className="flex items-center gap-4"><img src="/img/asset-radiografias.webp" alt="" className="osh-banner-module-icon" onError={(ev)=>{ev.currentTarget.onerror=null;ev.currentTarget.src="/img/orthosync-radiografias.svg";}}/><h1>Explorador de <span>estudios clínicos</span></h1></div>
       <p>Revisa radiografías, análisis asistidos y valoraciones médicas de tus expedientes autorizados.</p>
       <p className="osh-clinical-disclaimer">Listado rápido de los estudios más recientes, hasta 12 expedientes y 20 estudios.</p>
     </div><img src="/img/radiology-bg.svg" alt="" className="osh-clinical-banner-art"/></section>
     {error && <Mensaje>{error}</Mensaje>}
     {errorEstudios && <Mensaje tipo="alerta">{errorEstudios}</Mensaje>}
     <section className="osh-console-card">
-      <div className="osh-console-cardhead"><div><span className="osh-console-eyebrow">EXPLORADOR AUTORIZADO</span><h2><Icono n="estudios"/> Últimos estudios</h2></div>
+      <div className="osh-console-cardhead"><div><span className="osh-console-eyebrow">EXPLORADOR AUTORIZADO</span><h2><IconoMarca n="estudios"/> Últimos estudios</h2></div>
         <Enlace a="/pacientes" className="osh-console-textlink">Todos los pacientes →</Enlace></div>
       <div className="osh-studies-toolbar">
         <div className="osh-studies-search"><Icono n="buscar" className="h-4 w-4"/><input type="search" aria-label="Buscar por paciente, expediente o hueso" placeholder="Paciente, código o hueso..." value={consulta} onChange={(e)=>setConsulta(e.target.value)}/></div>
