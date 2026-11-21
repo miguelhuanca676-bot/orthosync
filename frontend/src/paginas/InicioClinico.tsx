@@ -79,7 +79,7 @@ export function InicioClinico() {
         </div>
       </div>
       <div className="osh-console-illustration" aria-hidden="true">
-        <img src="/img/asset-dashboard.webp" alt="" onError={(ev) => { ev.currentTarget.onerror = null; ev.currentTarget.src="/img/radiology-bg.svg"; }}/>
+        <img src="/img/estudio-husky-rayos-x.webp" alt="" onError={(ev) => { ev.currentTarget.onerror = null; ev.currentTarget.src="/img/asset-dashboard.webp"; }}/>
       </div>
     </section>
     {error && <Mensaje>{error}</Mensaje>}
