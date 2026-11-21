@@ -185,7 +185,7 @@ export function Marco({ children }: { children: ReactNode }) {
 export function EscaneoCNN({ mensaje = "Analizando radiografía con inteligencia artificial" }: { mensaje?: string }) {
   return <div className="osh-scan-overlay" role="status" aria-live="polite" aria-label={mensaje}>
     <div className="osh-scan-card">
-      <img src="/img/cnn-escaneando.svg" alt="" className="osh-scan-illustration" />
+      <img src="/img/cnn-escaneando.gif" alt="" className="osh-scan-illustration" onError={(ev) => { ev.currentTarget.onerror = null; ev.currentTarget.src="/img/cnn-escaneando.svg"; }} />
       <div className="osh-scan-copy">
         <span className="osh-scan-status"><span className="osh-live-dot" /> MOTOR CNN ACTIVO</span>
         <h2>Escaneando radiografía<span className="osh-scan-dots" aria-hidden="true">...</span></h2>
