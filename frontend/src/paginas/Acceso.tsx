@@ -1,79 +1,75 @@
-import React, { FormEvent, lazy, Suspense, useEffect, useState } from "react";
-const Visor3D = lazy(() => import("../Visor3D"));
+import React, { FormEvent, useState } from "react";
 import { api } from "../api";
 import { BotonTema, Encabezado, Mensaje, PieLegal, useSesion } from "../componentes";
 
 export function Ingreso() {
   const { entrar } = useSesion();
-  const [correo, setCorreo] = useState(""); const [clave, setClave] = useState("");
-  const [error, setError] = useState(""); const [enviando, setEnviando] = useState(false);
-  const [vistaAmplia, setVistaAmplia] = useState(() => window.matchMedia("(min-width: 1024px)").matches);
-  useEffect(() => {
-    const media = window.matchMedia("(min-width: 1024px)");
-    const actualizar = () => setVistaAmplia(media.matches);
-    media.addEventListener("change", actualizar);
-    return () => media.removeEventListener("change", actualizar);
-  }, []);
+  const [correo, setCorreo] = useState("");
+  const [clave, setClave] = useState("");
+  const [error, setError] = useState("");
+  const [enviando, setEnviando] = useState(false);
+  const [mostrarClave, setMostrarClave] = useState(false);
   const enviar = async (e: FormEvent) => {
     e.preventDefault(); setError(""); setEnviando(true);
-    try { await entrar(correo, clave); } catch (err: any) { setError(err.message); } finally { setEnviando(false); }
+    try { await entrar(correo, clave); }
+    catch (err: any) { setError(err.message); }
+    finally { setEnviando(false); }
   };
   return (
-    <div className="osh-login min-h-screen lg:grid lg:grid-cols-[1.12fr_.88fr]">
-      <section className="osh-login-hero relative isolate hidden min-h-screen flex-col overflow-hidden px-8 pb-8 pt-9 text-white lg:flex xl:px-14">
+    <div className="osh-login osh-login-v4">
+      <section className="osh-login-hero osh-login-left relative isolate hidden text-white lg:flex" aria-label="ORTHOSYNC · Radiología por rayos X">
         <div className="osh-login-stars pointer-events-none absolute inset-0 -z-10"/>
-        <a href="/" className="relative z-10 inline-flex w-fit items-center gap-3">
-          <img src="/img/asset-husky.webp" alt="" className="h-16 w-16 object-contain drop-shadow-[0_0_15px_rgba(46,175,255,.36)]" onError={(ev) => { ev.currentTarget.onerror = null; ev.currentTarget.src="/img/husky-guardian.svg"; }}/>
-          <span><span className="block text-2xl font-extrabold italic uppercase tracking-[-.04em]">ORTHO<span className="text-celeste">SYNC</span></span><span className="mt-1 block text-[11px] uppercase tracking-[.2em] text-celeste/80">Rayos X · tumores en huesos largos</span></span>
+        <a href="/" className="osh-login-left-brand">
+          <img src="/img/asset-husky.webp" alt="" width="48" height="48"
+            onError={(ev) => { ev.currentTarget.onerror = null; ev.currentTarget.src="/img/husky-guardian.svg"; }}/>
+          <span><strong>ORTHO<span>SYNC</span></strong><small>RADIOLOGÍA POR RAYOS X</small></span>
         </a>
-        <div className="relative z-10 mx-auto flex w-full max-w-[760px] flex-1 flex-col justify-center py-12">
-          <span className="osh-kicker w-fit"><span className="osh-live-dot" /> RADIOLOGÍA · VISIÓN INTELIGENTE</span>
-          <h1 className="mt-6 max-w-[660px] text-[clamp(2.2rem,4vw,4.3rem)] font-extrabold leading-[1.06] tracking-[-.055em]">
-            Una nueva dimensión<br/>del <span className="text-celeste">análisis óseo.</span>
-          </h1>
-          <p className="mt-4 max-w-[580px] text-sm leading-7 text-sky-100/75 xl:text-base">Análisis asistido por inteligencia artificial, gestión clínica y visualización anatómica 3D en un solo lugar.</p>
-          <div className="osh-login-visual relative mt-7 overflow-hidden rounded-[26px] border border-celeste/30">
-            <img src="/img/asset-login.webp" alt="" aria-hidden="true" className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-30" onError={(ev)=>{ev.currentTarget.onerror=null;ev.currentTarget.src="/img/radiology-bg.svg";}}/>
-            <div className="flex items-center justify-between border-b border-white/10 px-5 py-3">
-              <span className="inline-flex items-center gap-2 text-xs font-bold text-white"><span className="osh-live-dot"/> VISUALIZACIÓN ANATÓMICA</span>
-              <span className="text-[10px] font-semibold tracking-[.12em] text-celeste">3D · REFERENCIA</span>
-            </div>
-            {vistaAmplia && <Suspense fallback={<div className="grid h-[320px] place-items-center text-sm text-sky-100/70">Preparando visor anatómico…</div>}>
-              <Visor3D hueso="femur" zona={null} alto={320}/>
-            </Suspense>}
-          </div>
-          <div className="mt-5 grid grid-cols-3 gap-3">
-            <div className="osh-login-feature"><span className="text-celeste">01</span><strong>Detección asistida</strong></div>
-            <div className="osh-login-feature"><span className="text-celeste">02</span><strong>Revisión médica</strong></div>
-            <div className="osh-login-feature"><span className="text-celeste">03</span><strong>Anatomía 3D</strong></div>
+        <div className="osh-login-editorial">
+          <span className="osh-login-eyebrow"><span className="osh-live-dot" /> TECNOLOGÍA CLÍNICA · IA</span>
+          <h1>La precisión comienza <span>con una imagen.</span></h1>
+          <p>Detección asistida de lesiones tumorales en huesos largos mediante radiografías e inteligencia artificial.</p>
+          <div className="osh-login-xray" aria-label="Ilustración de radiografía de fémur con lesión resaltada">
+            <img src="/img/asset-login.webp" alt="Ilustración de un hueso largo en rayos X con una región señalada para revisión" />
+            <div className="osh-login-xray-caption"><span className="osh-live-dot"/> IMAGEN ILUSTRATIVA · REVISIÓN PROFESIONAL</div>
           </div>
         </div>
-        <p className="relative z-10 text-[11px] text-sky-100/50">ORTHOSYNC · SpineBolivia · Prototipo académico de apoyo al diagnóstico</p>
+        <p className="osh-login-left-foot">ORTHOSYNC · Sistema académico de apoyo al diagnóstico</p>
       </section>
-      <main className="osh-login-right relative flex min-h-screen items-center justify-center px-5 py-14 sm:px-10">
-        <BotonTema className="absolute right-5 top-5 border border-linea bg-panel text-suave hover:text-fuerte" />
-        <div className="osh-login-card relative w-full max-w-[480px] overflow-hidden rounded-[30px] p-7 sm:p-10">
-          <a href="/" className="mb-8 flex items-center gap-3">
-            <img src="/img/asset-logo.webp" alt="ORTHOSYNC, radiología por rayos X" className="h-16 w-16 rounded-2xl border border-celeste/25 bg-noche p-1" onError={(ev)=>{ev.currentTarget.onerror=null;ev.currentTarget.src="/img/husky-guardian.svg";}}/>
-            <span><span className="block text-[23px] font-extrabold uppercase tracking-[.06em] text-fuerte">ORTHO<span className="text-celeste">SYNC</span></span><span className="text-[11px] font-semibold uppercase tracking-[.13em] text-suave">Acceso clínico seguro</span></span>
+      <main className="osh-login-right osh-login-form-area">
+        <BotonTema className="osh-login-theme-switch" />
+        <div className="osh-login-card osh-login-form-card">
+          <a href="/" className="osh-login-form-brand">
+            <img src="/img/asset-husky.webp" alt="" width="52" height="52"
+              onError={(ev) => { ev.currentTarget.onerror = null; ev.currentTarget.src="/img/husky-guardian.svg"; }}/>
+            <span><strong>ORTHO<span>SYNC</span></strong><small>ACCESO CLÍNICO SEGURO</small></span>
           </a>
-          <span className="osh-login-label">BIENVENIDO DE NUEVO</span>
-          <h2 className="mt-3 text-[clamp(1.65rem,3vw,2.25rem)] font-extrabold tracking-[-.045em] text-fuerte">Ingresa a tu cuenta</h2>
-          <p className="mt-2 text-sm leading-relaxed text-suave">Accede a tu espacio de trabajo, pacientes y estudios radiológicos.</p>
-          <form onSubmit={enviar} className="mt-8 space-y-5">
+          <div className="osh-login-form-heading">
+            <span className="osh-login-label">BIENVENIDO DE NUEVO</span>
+            <h2>Inicia sesión</h2>
+            <p>Accede a tus pacientes, estudios y herramientas de análisis.</p>
+          </div>
+          <form onSubmit={enviar} className="osh-login-fields">
             {error && <Mensaje>{error}</Mensaje>}
             <div>
               <label className="etiqueta" htmlFor="correo">Correo electrónico</label>
-              <input id="correo" type="email" autoComplete="username" required className="campo osh-login-input" placeholder="tu-correo@clinica.com" value={correo} onChange={(e) => setCorreo(e.target.value)}/>
+              <input id="correo" type="email" autoComplete="username" required className="campo osh-login-input"
+                placeholder="correo@clinica.com" value={correo} onChange={(e) => setCorreo(e.target.value)} />
             </div>
             <div>
               <label className="etiqueta" htmlFor="clave">Contraseña</label>
-              <input id="clave" type="password" autoComplete="current-password" required className="campo osh-login-input" placeholder="Ingresa tu contraseña" value={clave} onChange={(e) => setClave(e.target.value)}/>
+              <div className="osh-login-password-wrap">
+                <input id="clave" type={mostrarClave ? "text" : "password"} autoComplete="current-password" required
+                  className="campo osh-login-input" placeholder="Tu contraseña" value={clave} onChange={(e) => setClave(e.target.value)} />
+                <button type="button" className="osh-login-password-toggle" onClick={() => setMostrarClave((v) => !v)}
+                  aria-label={mostrarClave ? "Ocultar contraseña" : "Mostrar contraseña"}>{mostrarClave ? "Ocultar" : "Ver"}</button>
+              </div>
             </div>
-            <button className="boton osh-login-submit w-full" disabled={enviando}>{enviando ? "Ingresando…" : "Ingresar al sistema"}</button>
+            <button type="submit" className="boton osh-login-submit w-full" disabled={enviando}>
+              {enviando ? "Verificando acceso…" : "Entrar a ORTHOSYNC"}
+            </button>
           </form>
-          <div className="mt-7 flex items-start gap-3 rounded-xl border border-celeste/15 bg-celeste/5 p-3 text-xs leading-relaxed text-suave"><span className="text-lg text-celeste" aria-hidden="true">✦</span><span>Entorno de apoyo clínico. Los resultados de IA deben ser revisados por un profesional médico.</span></div>
-          <div className="mt-6 -mx-4"><PieLegal /></div>
+          <p className="osh-login-clinical-note">Herramienta de apoyo: toda interpretación requiere validación profesional.</p>
+          <a className="osh-login-home-link" href="/">← Volver a la página principal</a>
         </div>
       </main>
     </div>

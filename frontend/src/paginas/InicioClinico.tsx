@@ -59,7 +59,6 @@ export function InicioClinico() {
   const pacientes = Array.isArray(datos) ? datos : SIN_PACIENTES;
   const estudios = pacientes.reduce((sum, p) => sum + (Number(p.n_estudios) || 0), 0);
   const pendientes = pacientes.reduce((sum, p) => sum + (Number(p.por_valorar) || 0), 0);
-  const conEstudios = pacientes.filter((p) => Number(p.n_estudios) > 0).length;
   const medico = usuario?.rol === "traumatologo";
   const puedeValidar = medico || usuario?.rol === "administrador";
   const inicial = usuario?.nombre?.replace(/^(Dra?\.|Lic\.)\s*/, "").split(" ")[0] || "equipo";
@@ -68,42 +67,29 @@ export function InicioClinico() {
     {label:"Estudios radiológicos",valor:estudios,sub:"Total registrado",icon:"estudios"},
     {label:"Pendientes de revisión",valor:pendientes,sub:medico ? "Para valoración médica":"En expedientes disponibles",icon:"validacion"},
   ];
-  return <div className="osh-console space-y-4" aria-label="Dashboard clínico ORTHOSYNC">
+  return <div className="osh-console osh-console-v4" aria-label="Dashboard clínico ORTHOSYNC">
     <section className="osh-console-hero" aria-labelledby="osh-hero-title">
       <div className="osh-console-copy">
-        <span className="osh-system-status"><span className="osh-live-dot"/> PLATAFORMA DE RADIOLOGÍA · ORTHOSYNC</span>
-        <div className="osh-console-brand"><img src="/img/asset-husky.webp" alt="" className="osh-console-mascot" onError={(ev) => { ev.currentTarget.onerror = null; ev.currentTarget.src = "/img/husky-guardian.svg"; }}/>
-          <div><p className="osh-console-wordmark">ORTHO<span>SYNC</span></p>
-            <p className="osh-console-tagline">PRECISIÓN · INNOVACIÓN · SALUD</p></div>
-        </div>
-        <h1 id="osh-hero-title">Bienvenido, {inicial}. <span>Radiología inteligente en un solo lugar.</span></h1>
-        <p>IA aplicada al apoyo diagnóstico, expedientes y anatomía 3D. Cada hallazgo requiere revisión profesional.</p>
+        <span className="osh-system-status"><span className="osh-live-dot"/> INICIO · ÁREA CLÍNICA</span>
+        <h1 id="osh-hero-title">Bienvenido, {inicial}. <span>Tu espacio de radiología.</span></h1>
+        <p>Estudios por rayos X, expedientes y herramientas para la detección asistida de tumores en huesos largos.</p>
         <div className="osh-console-actions">
-          <Enlace a="/pacientes" className="osh-console-cta"><Icono n="pacientes"/> Explorar pacientes</Enlace>
-          {puedeValidar && <Enlace a="/validacion" className="osh-console-cta secondary"><Icono n="validacion"/> Validación de IA</Enlace>}
+          <Enlace a="/pacientes" className="osh-console-cta"><Icono n="pacientes"/> Consultar expedientes</Enlace>
+          {medico && <Enlace a="/estudios" className="osh-console-cta secondary"><Icono n="estudios"/> Ver estudios</Enlace>}
         </div>
       </div>
-      <div className="osh-console-illustration" aria-hidden="true"><img src="/img/asset-dashboard.webp" alt="" onError={(ev) => { ev.currentTarget.onerror = null; ev.currentTarget.src="/img/radiology-bg.svg"; }}/></div>
+      <div className="osh-console-illustration" aria-hidden="true">
+        <img src="/img/asset-dashboard.webp" alt="" onError={(ev) => { ev.currentTarget.onerror = null; ev.currentTarget.src="/img/radiology-bg.svg"; }}/>
+      </div>
     </section>
     {error && <Mensaje>{error}</Mensaje>}
-    <div className="osh-console-upper">
-      <div className="osh-console-tools" aria-label="Módulos del sistema">
-        {([
-          ["/pacientes","Pacientes","usuarios"],
-          ["/controles","Controles","controles"],
-          ["/validacion","Validación CNN","validacion"],
-          ["/cuenta","Mi cuenta","cuenta"],
-        ] as [string,string,string][]).filter(([ruta]) => ruta !== "/validacion" || puedeValidar).map(([ruta,titulo,icono])=>
-        <Enlace key={ruta} a={ruta} className="osh-console-tool"><IconoMarca n={icono} className="osh-img-icon" /><span>{titulo}</span></Enlace>)}
-      </div>
-      <div className="osh-console-metrics">
-        {indicadores.map((k)=><div key={k.label} className="osh-console-metric">
-          <span className="osh-console-metric-icon"><IconoMarca n={k.icon} className="osh-img-icon"/></span>
-          <div className="min-w-0 flex-1"><p>{k.label}</p><small>{k.sub}</small></div>
-          <strong>{datos?k.valor.toLocaleString("es-BO"):"—"}</strong>
-        </div>)}
-      </div>
-    </div>
+    <section className="osh-console-metrics" aria-label="Resumen de los expedientes autorizados">
+      {indicadores.map((k)=><div key={k.label} className="osh-console-metric">
+        <span className="osh-console-metric-icon"><IconoMarca n={k.icon} className="osh-img-icon"/></span>
+        <div className="min-w-0 flex-1"><p>{k.label}</p><small>{k.sub}</small></div>
+        <strong>{datos ? k.valor.toLocaleString("es-BO") : "—"}</strong>
+      </div>)}
+    </section>
     <div className="osh-console-panels">
       <section className="osh-console-card osh-console-anatomy" aria-labelledby="osh-title-anatomy">
         <div className="osh-console-cardhead"><div><span className="osh-console-eyebrow">VISUALIZACIÓN MÉDICA</span><h2 id="osh-title-anatomy"><Icono n="modelo3d"/> Visor 3D anatómico</h2></div><span className="osh-console-pill">Modelos de referencia</span></div>
@@ -130,22 +116,27 @@ export function InicioClinico() {
         </div>
       </section>
       <div className="osh-console-right">
-        <section className="osh-console-card" aria-labelledby="osh-title-studies"><div className="osh-console-cardhead">
-          <div><span className="osh-console-eyebrow">EXPEDIENTES AUTORIZADOS</span><h2 id="osh-title-studies"><IconoMarca n="estudios"/> Últimos estudios</h2></div>
-          <Enlace a="/pacientes" className="osh-console-textlink">Ver pacientes <span aria-hidden="true">→</span></Enlace></div>
-          {!datos?<div className="p-5"><Cargando/></div>:<EstudiosClinicos pacientes={pacientes} medico={medico}/>}
-        </section>
-        <section className="osh-console-card osh-console-analysis" aria-labelledby="osh-title-ai"><div className="osh-console-cardhead">
-          <div><span className="osh-console-eyebrow">SEGUIMIENTO CLÍNICO</span><h2 id="osh-title-ai"><IconoMarca n="validacion"/> Análisis con IA</h2></div>
-          <span className="osh-console-pill">Soporte a decisiones</span></div>
-          <div className="osh-console-analysis-body">
-            <div className="osh-console-gauge"><strong>{datos? conEstudios:"—"}</strong><span>Pacientes con estudios</span></div>
-            <div className="min-w-0 flex-1"><p className="text-sm font-bold text-white">{medico ? "Valoración del especialista":"Gestión de expedientes"}</p>
-              <p className="mt-2 text-xs leading-6 text-sky-100/65">{medico ? `Hay ${pendientes} estudio(s) por valorar de los expedientes autorizados.` : "El análisis de las radiografías corresponde al personal médico."}</p>
-              <Enlace a={puedeValidar?"/validacion":"/pacientes"} className="osh-console-analysis-link">{puedeValidar?"Ver métricas reales del modelo":"Ir a pacientes"} <span aria-hidden="true">↗</span></Enlace>
-            </div>
+        <section className="osh-console-card" aria-labelledby="osh-title-studies">
+          <div className="osh-console-cardhead">
+            <div><span className="osh-console-eyebrow">ACTIVIDAD RECIENTE</span>
+              <h2 id="osh-title-studies"><IconoMarca n="estudios"/> Últimos estudios</h2></div>
+            <Enlace a={medico ? "/estudios" : "/pacientes"} className="osh-console-textlink">
+              {medico ? "Ver todos" : "Ver pacientes"} <span aria-hidden="true">→</span>
+            </Enlace>
           </div>
-          <p className="osh-console-footnote">No se presentan porcentajes de precisión ni diagnósticos sin obtenerlos de una evaluación real.</p>
+          {!datos ? <div className="p-5"><Cargando/></div> : <EstudiosClinicos pacientes={pacientes} medico={medico}/>}
+        </section>
+        <section className="osh-console-card osh-console-guidance" aria-label="Flujo de análisis">
+          <div className="osh-console-cardhead">
+            <div><span className="osh-console-eyebrow">FLUJO DE TRABAJO</span>
+              <h2><Icono n="validacion" /> Análisis con criterio clínico</h2></div>
+          </div>
+          <div className="osh-console-guidance-copy">
+            <p>{medico ? "Estudios pendientes de revisión profesional: " + pendientes :
+              "Las radiografías y valoraciones se gestionan según los permisos de tu perfil."}</p>
+            <p>Los hallazgos de la CNN son orientativos y deben ser revisados por el especialista.</p>
+            {puedeValidar && <Enlace a="/validacion" className="osh-console-textlink">Consultar validación CNN <span aria-hidden="true">→</span></Enlace>}
+          </div>
         </section>
       </div>
     </div>

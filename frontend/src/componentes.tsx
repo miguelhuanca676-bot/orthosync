@@ -30,10 +30,10 @@ export function ProveedorSesion({ children }: { children: ReactNode }) {
 
 // ---------------------------------------------------------------- enlaces internos
 /** Enlace interno: navega sin escribir la ruta en ningún lado (ni en la barra de direcciones ni al pasar el mouse). */
-export function Enlace({ a, className, children, alHacer }: { a: string; className?: string; children: ReactNode; alHacer?: () => void }) {
+export function Enlace({ a, className, children, alHacer, actual = false }: { a: string; className?: string; children: ReactNode; alHacer?: () => void; actual?: boolean }) {
   const ir = useNavigate();
   return (
-    <a href="#" className={className} onClick={(e: MouseEvent) => { e.preventDefault(); alHacer?.(); ir(a); }}>{children}</a>
+    <a href="#" className={className} aria-current={actual ? "page" : undefined} onClick={(e: MouseEvent) => { e.preventDefault(); alHacer?.(); ir(a); }}>{children}</a>
   );
 }
 
@@ -53,6 +53,7 @@ const TRAZOS: Record<string, string> = {
   buscar: "M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14M20 20l-4-4",
   subir: "M12 16V4M7 9l5-5 5 5M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3",
   volver: "M15 18l-6-6 6-6",
+  cerrar: "M18 6 6 18M6 6l12 12",
   mas: "M12 5v14M5 12h14",
   controles: "M7 3v3M17 3v3M4 8h16M5 5h14a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1M9 14l2 2 4-4",
   validacion: "M4 20V10M10 20V4M16 20v-7M22 20H2",
@@ -113,67 +114,125 @@ export function Marco({ children }: { children: ReactNode }) {
   const [abierto, setAbierto] = useState(false);
   const [buscar, setBuscar] = useState("");
   const ir = useNavigate();
-  const { pathname } = useLocation();
+  const { pathname, key } = useLocation();
+
+  useEffect(() => { setAbierto(false); }, [pathname]);
+  useEffect(() => {
+    if (!abierto) return;
+    const cerrarConEscape = (ev: KeyboardEvent) => { if (ev.key === "Escape") setAbierto(false); };
+    const estiloOriginal = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", cerrarConEscape);
+    return () => { document.body.style.overflow = estiloOriginal; window.removeEventListener("keydown", cerrarConEscape); };
+  }, [abierto]);
+
   if (!usuario) return null;
-  const enlaces = [...MENU[usuario.rol], ["/cuenta", "Mi cuenta", "cuenta"] as [string, string, string]];
+  const enlaces = [...(MENU[usuario.rol] ?? []), ["/cuenta", "Mi cuenta", "cuenta"] as [string,string,string]];
   const personal = usuario.rol !== "paciente";
+  const inicio = inicioDe(usuario.rol);
+  const rutaRaiz = pathname === inicio || pathname === "/";
+  const detallePaciente = pathname.startsWith("/pacientes/");
+  const detalleEstudio = pathname.startsWith("/estudios/");
+  const etiquetaActual = detallePaciente ? "Expediente" : detalleEstudio ? "Radiografía" :
+    enlaces.find(([ruta]) => ruta === pathname)?.[1] ?? "Sección";
+  const rutaPadre = detallePaciente ? "/pacientes" : detalleEstudio ?
+    (usuario.rol === "traumatologo" ? "/estudios" : "/pacientes") : inicio;
   const iniciales = usuario.nombre.replace(/^(Dra?\.|Lic\.)\s*/, "").split(/\s+/).slice(0, 2).map((x) => x[0]).join("");
+  const volver = () => {
+    // En el historial del Router, regresa a la pantalla anterior.
+    // Una URL directa / recarga inicia en "default": usamos la ruta autorizada.
+    if (key && key !== "default") ir(-1);
+    else ir(rutaPadre);
+  };
+  const marca = <><img src="/img/asset-husky.webp" alt="" width="44" height="44"
+      className="osh-shell-logo" onError={(ev) => { ev.currentTarget.onerror = null; ev.currentTarget.src = "/img/husky-guardian.svg"; }} />
+    <span className="osh-shell-wordmark">ORTHO<span>SYNC</span><small>RAYOS X · HUESOS LARGOS</small></span></>;
+
   return (
-    <div className="orthosync-app min-h-screen lg:flex">
-      <header className="flex items-center justify-between bg-noche px-4 py-3 text-white lg:hidden">
-        <span className="flex items-center gap-2 font-semibold"><img src="/img/asset-logo.webp" alt="" className="h-10 w-10 object-contain" onError={(ev) => {ev.currentTarget.onerror=null; ev.currentTarget.src="/img/husky-guardian.svg";}} />ORTHO<span className="text-celeste">SYNC</span></span>
-        <div className="flex items-center gap-2"><BotonTema className="text-sky-100 hover:bg-white/10" />
-          <button className="rounded-md px-3 py-1.5 text-sm ring-1 ring-white/30" aria-expanded={abierto} onClick={() => setAbierto(!abierto)}>Menú</button></div>
+    <div className="orthosync-app osh-shell min-h-screen lg:flex">
+      <header className="osh-mobile-bar lg:hidden">
+        <button type="button" aria-label={abierto ? "Cerrar navegación" : "Abrir menú de navegación"}
+          aria-expanded={abierto} aria-controls="osh-mobile-navigation" onClick={() => setAbierto((v) => !v)}
+          className="osh-menu-toggle">
+          <svg viewBox="0 0 24 24" aria-hidden="true" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+            {abierto ? <path d="M5 5 19 19M19 5 5 19" /> : <path d="M4 6h16M4 12h16M4 18h16" />}
+          </svg>
+        </button>
+        <Enlace a={inicio} className="osh-mobile-brand">{marca}</Enlace>
+        <BotonTema className="osh-mobile-theme" />
       </header>
-      {abierto && <button type="button" aria-label="Cerrar menú lateral" className="fixed inset-0 z-40 bg-black/75 lg:hidden" onClick={() => setAbierto(false)} />}
-      <aside className={`${abierto ? "flex" : "hidden"} orthosync-sidebar fixed inset-y-0 left-0 z-50 max-h-screen w-[min(86vw,310px)] flex-col overflow-y-auto bg-noche text-white lg:sticky lg:top-0 lg:flex lg:h-screen lg:w-[250px] lg:shrink-0 lg:overflow-hidden xl:w-[272px]`}
-        style={{ backgroundImage: "radial-gradient(140% 50% at 0% 0%, rgba(92,200,245,.18), transparent 60%), radial-gradient(120% 45% at 100% 100%, rgba(124,77,219,.28), transparent 60%)" }}>
-        <div className="flex items-center justify-between border-b border-celeste/20 px-4 py-4 lg:hidden"><span className="flex items-center gap-2 text-sm font-extrabold"><img src="/img/asset-logo.webp" alt="" className="h-11 w-11 object-contain" onError={(ev) => {ev.currentTarget.onerror=null; ev.currentTarget.src="/img/husky-guardian.svg";}}/> ORTHO<span className="text-celeste">SYNC</span></span><button type="button" onClick={() => setAbierto(false)} aria-label="Cerrar menú" className="rounded-lg border border-white/20 px-3 py-2 text-xs font-semibold">Cerrar</button></div>
-        <div className="osh-brand-zone hidden flex-col items-center border-b border-celeste/15 px-5 pb-5 pt-6 lg:flex">
-          <img src="/img/asset-husky.webp" alt="Mascota husky blanco de ORTHOSYNC" className="osh-brand-wolf" onError={(ev) => {ev.currentTarget.onerror=null; ev.currentTarget.src="/img/husky-guardian.svg";}}/>
-          <p className="osh-brand-wordmark">ORTHO<span>SYNC</span></p>
-          <p className="mt-1 text-center text-[11px] leading-5 text-sky-100/70">Sistema inteligente de<br/>rayos X · tumores en huesos largos</p>
+
+      {abierto && <button type="button" className="osh-drawer-backdrop lg:hidden" aria-label="Cerrar menú lateral" onClick={() => setAbierto(false)} />}
+      <aside id="osh-mobile-navigation"
+        className={["orthosync-sidebar osh-navigation fixed inset-y-0 left-0 z-50 max-h-[100dvh] w-[min(86vw,290px)] flex-col text-white lg:sticky lg:top-0 lg:flex lg:h-screen lg:w-[238px] lg:shrink-0 xl:w-[252px]", abierto ? "flex" : "hidden"].join(" ")}
+        aria-label="Navegación lateral">
+        <div className="osh-side-heading">
+          <Enlace a={inicio} alHacer={() => setAbierto(false)} className="osh-side-brand">{marca}</Enlace>
+          <button type="button" className="osh-side-close lg:hidden" onClick={() => setAbierto(false)} aria-label="Cerrar navegación">
+            <Icono n="cerrar" className="h-5 w-5" />
+          </button>
         </div>
-        <nav aria-label="Secciones" className="flex-1 overflow-y-auto px-3 py-6">
-          <p className="mb-4 px-3 text-[10px] font-extrabold uppercase tracking-[.22em] text-celeste/60">Navegación principal</p>
-          <ul className="space-y-1.5">
-            {enlaces.map(([ruta, nombre, icono]) => {
-              const activo = pathname === ruta || pathname.startsWith(ruta + "/") || (ruta === "/pacientes" && pathname.startsWith("/estudios/"));
-              return (
-                <li key={ruta}>
-                  <Enlace a={ruta} alHacer={() => setAbierto(false)}
-                    className={`relative flex items-center gap-3 rounded-xl px-3.5 py-3 text-sm font-medium transition ${activo ? "bg-gradient-to-r from-azul/85 to-celeste/20 text-white shadow-lg shadow-blue-950/40 ring-1 ring-celeste/35" : "text-sky-100/75 hover:bg-white/10 hover:text-white"}`}>
-                    {activo && <span aria-hidden="true" className="absolute inset-y-2 left-0 w-[3px] rounded-full bg-celeste" />}
-                    <IconoMarca n={icono} className="osh-nav-icon" />{nombre}
-                  </Enlace>
-                </li>
-              );
+        <nav aria-label="Secciones de ORTHOSYNC" className="osh-side-navigation">
+          <p className="osh-side-caption">MENÚ PRINCIPAL</p>
+          <ul className="osh-side-list">
+            {enlaces.map(([ruta,nombre,icono]) => {
+              const activo = pathname === ruta || pathname.startsWith(ruta + "/") ||
+                (ruta === "/pacientes" && detallePaciente) ||
+                (ruta === "/estudios" && detalleEstudio);
+              return <li key={ruta}>
+                <Enlace a={ruta} actual={activo} alHacer={() => setAbierto(false)}
+                  className={"osh-side-link " + (activo ? "is-active" : "")}>
+                  <IconoMarca n={icono} className="osh-nav-icon" />
+                  <span>{nombre}</span>
+                  {activo && <span aria-hidden="true" className="osh-side-active-mark" />}
+                </Enlace>
+              </li>;
             })}
           </ul>
         </nav>
-        {personal && <div className="osh-sidebar-wolf hidden lg:block" aria-hidden="true"><img src="/img/asset-husky.webp" alt="" onError={(ev) => {ev.currentTarget.onerror=null; ev.currentTarget.src="/img/husky-guardian.svg";}} /></div>}
-        <div className="m-3 flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-3 shadow-lg shadow-black/10">
-          <span aria-hidden="true" className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-celeste to-violeta text-xs font-semibold">{iniciales}</span>
-          <div className="min-w-0 flex-1"><p className="truncate text-sm font-medium">{usuario.nombre}</p><p className="text-xs text-sky-200/70">{ROLES[usuario.rol]}</p></div>
-          <button title="Cerrar sesión" aria-label="Cerrar sesión" className="rounded-md p-1.5 text-sky-100/80 hover:bg-white/10 hover:text-white" onClick={async () => { await salir(); ir("/"); }}><Icono n="salir" /></button>
+        <div className="osh-side-account">
+          <span className="osh-user-initials" aria-hidden="true">{iniciales}</span>
+          <div className="min-w-0 flex-1"><p className="truncate font-bold">{usuario.nombre}</p><p className="truncate text-xs text-sky-200/65">{ROLES[usuario.rol]}</p></div>
+          <button type="button" title="Cerrar sesión" aria-label="Cerrar sesión" className="osh-signout"
+            onClick={async () => { await salir(); ir("/"); }}><Icono n="salir" /></button>
         </div>
       </aside>
+
       <div className="flex min-w-0 flex-1 flex-col">
-        <div className="osh-topbar sticky top-0 z-20 hidden items-center justify-between gap-6 border-b border-linea bg-panel/90 px-10 py-4 shadow-sm backdrop-blur-xl lg:flex">
-          <div className="flex items-center gap-3"><span className="osh-topbar-indicator"/><div><p className="text-[11px] font-bold uppercase tracking-[.16em] text-celeste">ORTHOSYNC · SISTEMA CLÍNICO</p><p className="mt-1 text-xs text-suave first-letter:uppercase">{hoy()}</p></div></div>
-          <div className="flex w-full max-w-md items-center justify-end gap-2">
-          {personal && (
-            <form role="search" className="relative w-full max-w-sm" onSubmit={(e) => { e.preventDefault(); ir("/pacientes", { state: { buscar } }); setBuscar(""); }}>
+        <div className="osh-topbar osh-desktop-topbar sticky top-0 z-20 hidden items-center justify-between gap-5 lg:flex">
+          <div className="min-w-0">
+            <p className="osh-topbar-eyebrow">ORTHOSYNC · RADIOLOGÍA POR RAYOS X</p>
+            <p className="osh-topbar-date first-letter:uppercase">{hoy()}</p>
+          </div>
+          <div className="osh-topbar-tools">
+            {personal && <form role="search" className="osh-topbar-search"
+              onSubmit={(e) => { e.preventDefault(); ir("/pacientes", { state: { buscar } }); setBuscar(""); }}>
               <label htmlFor="busqueda-global" className="sr-only">Buscar paciente</label>
-              <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-slate-400"><Icono n="buscar" className="h-4 w-4" /></span>
-              <input id="busqueda-global" type="search" placeholder="Buscar paciente por nombre, código o CI" className="campo pl-9" value={buscar} onChange={(e) => setBuscar(e.target.value)} />
-            </form>
-          )}
-          <BotonTema className="osh-topbar-theme border border-linea bg-panel text-suave hover:text-fuerte" />
-          <div className="osh-topbar-user flex shrink-0 items-center gap-2 rounded-xl border border-celeste/15 px-2.5 py-1.5"><span className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-azul to-violeta text-xs font-bold text-white">{iniciales}</span><span className="hidden xl:block"><span className="block max-w-36 truncate text-xs font-bold text-fuerte">{usuario.nombre}</span><span className="block text-[10px] text-suave">{ROLES[usuario.rol]}</span></span></div>
+              <Icono n="buscar" className="h-4 w-4" />
+              <input id="busqueda-global" type="search" placeholder="Buscar paciente" value={buscar}
+                onChange={(e) => setBuscar(e.target.value)} />
+            </form>}
+            <BotonTema className="osh-topbar-theme" />
+            <span className="osh-topbar-avatar" title={usuario.nombre}>{iniciales}</span>
           </div>
         </div>
-        <main className="w-full max-w-[1680px] flex-1 px-4 py-7 sm:px-6 lg:px-10 lg:py-10">{children}</main>
+
+        <main id="osh-contenido" className="osh-shell-content w-full max-w-[1680px] flex-1">
+          {!rutaRaiz && <div className="osh-breadcrumbs">
+            <button type="button" onClick={volver} className="osh-back-button" aria-label="Volver a la página anterior">
+              <Icono n="volver" className="h-4 w-4" /> Volver
+            </button>
+            <nav aria-label="Ruta de navegación" className="osh-breadcrumb-trail">
+              <Enlace a={inicio}>Inicio</Enlace>
+              {(detallePaciente || detalleEstudio) && <>
+                <span aria-hidden="true">/</span>
+                <Enlace a={rutaPadre}>{detallePaciente ? "Pacientes" : "Estudios"}</Enlace>
+              </>}
+              <span aria-hidden="true">/</span><span aria-current="page">{etiquetaActual}</span>
+            </nav>
+          </div>}
+          {children}
+        </main>
         <PieLegal />
       </div>
     </div>
