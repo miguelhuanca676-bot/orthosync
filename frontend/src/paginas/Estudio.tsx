@@ -114,7 +114,7 @@ export function EstudioDetalle() {
     } catch (x: any) { setEstado({ tipo: "error", texto: x.message }); }
     finally { setGenerando(false); }
   };
-  const puede3d = !!f.hueso && f.hueso !== "cadera";
+  const puede3d = !!f.hueso;
   const tono3d = f.opinion === "maligno" ? "maligno" : f.opinion === "benigno" ? "benigno" : "neutro";
   const aspecto = Object.entries(e.aspecto_sugerido ?? {})[0] as [string, number] | undefined;
   const tipo3d = (zona?.tipo || (aspecto ? TIPO_DE_ASPECTO[aspecto[0]] : null) || (f.opinion === "maligno" ? "cavidad" : f.opinion === "benigno" ? "crecimiento" : "mancha")) as any;
