@@ -2,7 +2,7 @@ import { FormEvent, useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { api, fechaLocal, edad as edadDe, EVOLUCIONES, fecha, HUESOS, OPINIONES, pct, useImagen } from "../api";
-import { Cargando, Encabezado, Enlace, Icono, Mensaje, useDatos, useSesion, Vacio, Ventana } from "../componentes";
+import { Cargando, Encabezado, Enlace, EscaneoCNN, Icono, Mensaje, useDatos, useSesion, Vacio, Ventana } from "../componentes";
 
 const VACIO = { nombres: "", apellidos: "", documento: "", fecha_nacimiento: "", sexo: "", telefono: "", tutor_nombre: "", tutor_documento: "" };
 const limpiar = (f: any) => Object.fromEntries(Object.entries(f).map(([k, v]) => [k, v === "" ? null : v]));
@@ -251,7 +251,8 @@ function SubirRadiografia({ pacienteId }: { pacienteId: string }) {
   };
   return (
     <section className="tarjeta" aria-labelledby="t-subir">
-      <h2 id="t-subir" className="subtitulo">Nueva radiografía</h2>
+      <h2 id="t-subir" className="subtitulo"><img src="/img/radiografia-orthosync.svg" alt="" className="osh-img-icon mr-2" />Nueva radiografía</h2>
+      {subiendo && <EscaneoCNN mensaje="Subiendo la radiografía y ejecutando el análisis CNN. Conserva esta pestaña abierta." />}
       {err && <div className="mt-3"><Mensaje>{err}</Mensaje></div>}
       <div className="mt-3"><label className="etiqueta" htmlFor="fe">Fecha del estudio</label><input id="fe" type="date" className="campo" value={fechaEst} onChange={(e) => setFechaEst(e.target.value)} /></div>
       <input ref={archivo} type="file" accept=".jpg,.jpeg,.png,.dcm,.dicom,.pdf" className="sr-only" id="arch" onChange={(e) => subir(e.target.files?.[0])} />
