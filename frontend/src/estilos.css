@@ -638,3 +638,297 @@ body {
  .osh-console-hero .osh-console-mascot { width:67px; height:67px; }
  .osh-scan-illustration { max-height:38dvh; }
 }
+
+
+/* ===================================================================
+   ORTHOSYNC 4.0 · interfaz responsive clínicamente orientada
+   Reglas finales para sustituir el layout recargado anterior.
+   =================================================================== */
+
+/* Navegación: un solo husky/identidad. Sin ilustración duplicada. */
+.orthosync-app.osh-shell { --osh-shell-bg: #06142b; min-width:0; }
+.osh-shell .osh-navigation {
+  background:linear-gradient(180deg,#081a36 0%,#06142d 100%)!important;
+  border-right:1px solid rgba(91,173,248,.18);
+  overflow:hidden;
+  box-shadow:none;
+}
+.osh-side-heading { padding:24px 17px 20px; border-bottom:1px solid rgba(114,175,231,.13); flex:none; position:relative; }
+.osh-side-brand,.osh-mobile-brand { display:flex; align-items:center; gap:11px; min-width:0; text-decoration:none; }
+.osh-shell-logo { width:46px; height:46px; flex:none; object-fit:contain; filter:drop-shadow(0 0 10px rgba(45,178,255,.2)); }
+.osh-shell-wordmark { display:block; color:#fff; font-weight:900; font-size:18px; font-style:italic; letter-spacing:-.04em; line-height:1.12; }
+.osh-shell-wordmark span { color:#5bd5ff; }
+.osh-shell-wordmark small { display:block; font-style:normal; color:#8cafd1; font-size:8px; margin-top:7px; letter-spacing:.09em; font-weight:700; }
+.osh-side-navigation { flex:1; min-height:0; overflow-y:auto; padding:23px 12px 12px; scrollbar-width:thin; scrollbar-color:#214a77 transparent; }
+.osh-side-caption { color:#779fc6; font-size:10px; letter-spacing:.15em; font-weight:800; padding:0 10px 13px; }
+.osh-side-list { display:grid; gap:4px; }
+.osh-side-link { position:relative; display:flex; align-items:center; min-height:45px; gap:13px; padding:8px 11px; border:1px solid transparent;
+  border-radius:11px; color:#aac6e2; font-weight:650; font-size:12px; letter-spacing:-.005em; transition:background .2s,color .2s; }
+.osh-side-link .osh-nav-icon { width:23px; height:23px; object-fit:contain; flex:none; }
+.osh-side-link:hover { background:rgba(47,136,220,.12); color:#fff; transform:none!important; }
+.osh-side-link.is-active { background:linear-gradient(115deg,rgba(34,115,218,.3),rgba(36,143,229,.12)); color:#fff;
+  border-color:rgba(75,189,255,.23); }
+.osh-side-active-mark { margin-left:auto; width:5px; height:5px; border-radius:50%; background:#5edbff; }
+.osh-side-account { display:flex; gap:10px; align-items:center; margin:10px 13px 14px; padding:12px 10px; border-top:1px solid rgba(133,195,248,.14);
+  font-size:11px; color:#f0f8ff; flex:none; }
+.osh-user-initials,.osh-topbar-avatar { flex:none; display:grid; place-items:center; width:34px; height:34px; border-radius:50%;
+  background:linear-gradient(140deg,#237bc6,#28b6df); color:white; font-size:11px; font-weight:850; }
+.osh-signout { display:grid; place-items:center; width:34px; height:34px; border-radius:8px; color:#9ec9ed; flex:none; }
+.osh-signout:hover { color:white; background:rgba(255,255,255,.09); }
+.osh-mobile-bar { position:sticky; top:0; z-index:30; background:#07172f; border-bottom:1px solid rgba(66,172,242,.23); padding:9px 14px;
+  align-items:center; justify-content:space-between; gap:10px; min-height:64px; }
+.osh-menu-toggle,.osh-mobile-theme,.osh-side-close { display:grid; place-items:center; flex:none; width:40px; height:40px; border:1px solid rgba(105,174,238,.25);
+  border-radius:10px; background:rgba(32,104,170,.14); color:#d7f6ff; }
+.osh-mobile-brand { flex:1; justify-content:center; }
+.osh-mobile-brand .osh-shell-logo { height:34px; width:34px; }
+.osh-mobile-brand .osh-shell-wordmark { font-size:16px; }
+.osh-mobile-brand .osh-shell-wordmark small { font-size:7px; margin-top:4px; }
+.osh-drawer-backdrop { position:fixed; inset:0; z-index:40; background:rgba(1,9,23,.78); backdrop-filter:blur(3px); }
+.osh-side-close { position:absolute; right:9px; top:25px; height:34px; width:34px; }
+.osh-desktop-topbar { min-height:73px; padding:12px clamp(16px,3vw,35px); border-bottom:1px solid rgba(100,171,231,.16);
+  background:#081a36!important; box-shadow:none; }
+.osh-topbar-eyebrow { font-size:9px; font-weight:800; letter-spacing:.12em; color:#5ccdfd; }
+.osh-topbar-date { font-size:11px; color:#a1bcd7; margin-top:5px; }
+.osh-topbar-tools { display:flex; align-items:center; justify-content:flex-end; min-width:0; gap:10px; }
+.osh-topbar-search { display:flex; gap:9px; align-items:center; border:1px solid #234c7c; background:#0b2547; border-radius:10px;
+  padding:0 12px; color:#87c8fa; width:min(25vw,270px); height:40px; }
+.osh-topbar-search input { min-width:0; width:100%; color:#e3f4ff; outline:0; border:0; background:transparent; font-size:12px; }
+.osh-topbar-search input::placeholder { color:#799dbf; }
+.osh-topbar-theme { width:40px; height:40px; border:1px solid rgba(78,165,241,.2); border-radius:10px; color:#9fd9ff; }
+.orthosync-app.osh-shell main.osh-shell-content,
+.orthosync-app.osh-shell:has(.osh-console) main.osh-shell-content {
+  max-width:1680px; width:100%; min-width:0; padding:clamp(15px,2.2vw,32px); margin-inline:auto;
+}
+.osh-breadcrumbs { display:flex; align-items:center; gap:14px; margin-bottom:18px; color:#9bb9d5; font-size:12px; flex-wrap:wrap; }
+.osh-back-button { display:inline-flex; align-items:center; gap:7px; font-size:12px; font-weight:750; padding:9px 12px;
+  border:1px solid #2d5580; border-radius:9px; color:#d0eeff; background:#102b4b; transition:background .2s; }
+.osh-back-button:hover { background:#1b416e; color:#fff; }
+.osh-breadcrumb-trail { display:flex; flex-wrap:wrap; align-items:center; gap:8px; }
+.osh-breadcrumb-trail a:hover { color:#68d7ff; text-decoration:underline; }
+.osh-breadcrumb-trail [aria-current="page"] { color:#d7f4ff; font-weight:750; }
+@media(max-width:1023px) {
+  .osh-shell .osh-navigation { box-shadow:18px 0 60px rgba(0,0,0,.5)!important; }
+  .osh-side-heading { padding-right:50px; }
+  .osh-breadcrumbs { margin-bottom:13px; }
+  .orthosync-app.osh-shell main.osh-shell-content { padding:16px; }
+}
+@media(max-width:450px) {
+  .osh-shell-wordmark small { letter-spacing:.04em; }
+  .osh-breadcrumbs { gap:9px; font-size:11px; }
+}
+
+/* Acceso: diseño compacto, desktop 100dvh, sin visor 3D redundante.
+   En pantallas extremadamente bajas se permite desplazamiento accesible. */
+.osh-login-v4 { display:grid; grid-template-columns:minmax(0,1.03fr) minmax(0,.97fr); height:100dvh; min-height:560px;
+  width:100%; overflow:hidden; background:#07172c; }
+.osh-login-v4 .osh-login-left { min-height:0; padding:clamp(20px,3vh,31px) clamp(26px,4vw,65px); flex-direction:column;
+  overflow:hidden; background:radial-gradient(circle at 80% 70%,rgba(32,123,206,.18),transparent 58%),#061832; }
+.osh-login-left:before { content:none; }
+.osh-login-left-brand { display:flex; align-items:center; gap:10px; width:max-content; text-decoration:none; flex:none; }
+.osh-login-left-brand img { width:48px; height:48px; object-fit:contain; }
+.osh-login-left-brand strong { display:block; color:white; letter-spacing:-.04em; font-size:19px; font-style:italic; font-weight:900; }
+.osh-login-left-brand strong span { color:#55dbff; }
+.osh-login-left-brand small { display:block; color:#a8d2ed; font-size:9px; letter-spacing:.11em; margin-top:3px; }
+.osh-login-editorial { flex:1; min-height:0; display:flex; flex-direction:column; justify-content:center; max-width:700px; padding:14px 0 4px; }
+.osh-login-eyebrow { display:inline-flex; width:max-content; align-items:center; gap:9px; color:#75dfff; font-weight:800; font-size:10px; letter-spacing:.11em; }
+.osh-login-editorial h1 { margin-top:14px; color:white; max-width:630px; font-size:clamp(29px,2.85vw,48px); font-weight:900; letter-spacing:-.06em; line-height:1.09; }
+.osh-login-editorial h1 span { color:#5fd6ff; }
+.osh-login-editorial>p { color:#b5cee7; font-size:clamp(12px,.88vw,14px); line-height:1.55; max-width:520px; margin-top:13px; }
+.osh-login-xray { position:relative; margin-top:clamp(14px,2.2vh,24px); overflow:hidden; border-radius:18px;
+  width:100%; height:clamp(150px,27vh,300px); max-height:35%; background:#0a2d55; border:1px solid rgba(70,189,255,.29); }
+.osh-login-xray img { display:block; width:100%; height:100%; object-fit:cover; object-position:45% 50%; }
+.osh-login-xray-caption { display:flex; align-items:center; gap:8px; position:absolute; bottom:0; left:0; right:0; padding:10px 14px;
+  background:linear-gradient(0deg,rgba(3,18,42,.94),transparent); font-size:9px; font-weight:800; letter-spacing:.07em; color:#c6efff; }
+.osh-login-left-foot { flex:none; font-size:10px; color:#799cbc; margin-top:12px; }
+.osh-login-v4 .osh-login-form-area { min-height:0; position:relative; display:flex; align-items:center; justify-content:center; padding:25px clamp(20px,5vw,74px);
+  overflow:hidden; background:radial-gradient(ellipse at 80% 40%,rgba(18,65,128,.10),transparent 65%),#08172f; }
+.osh-login-v4 .osh-login-form-card { position:relative; width:100%; max-width:455px; padding:clamp(24px,3.3vw,40px); border-radius:20px;
+  background:#0d203e; border:1px solid #254a75; box-shadow:0 16px 50px rgba(0,8,27,.24); overflow:visible; }
+.osh-login-form-brand { display:flex; align-items:center; gap:13px; margin-bottom:clamp(23px,4vh,39px); }
+.osh-login-form-brand img { width:52px; height:52px; object-fit:contain; }
+.osh-login-form-brand strong { font-size:20px; color:#fff; font-style:italic; font-weight:900; letter-spacing:-.05em; }
+.osh-login-form-brand strong span { color:#5bd6ff; }
+.osh-login-form-brand small { display:block; margin-top:5px; font-size:9px; font-weight:750; letter-spacing:.09em; color:#88b6dc; }
+.osh-login-v4 .osh-login-form-heading h2 { margin-top:11px; font-size:clamp(25px,2.5vw,33px); font-weight:850; letter-spacing:-.045em; color:#fff; line-height:1.15; }
+.osh-login-v4 .osh-login-form-heading p { margin-top:9px; font-size:13px; line-height:1.55; color:#a7c1dc; }
+.osh-login-fields { display:grid; gap:15px; margin-top:23px; }
+.osh-login-v4 .osh-login-fields .etiqueta { display:block; font-size:12px; color:#c3d7ea; margin-bottom:7px; }
+.osh-login-v4 .osh-login-input { min-height:45px; height:45px; background:#152d50; border:1px solid #31557e; color:white; font-size:13px; }
+.osh-login-v4 .osh-login-input::placeholder { color:#7a9fbe; }
+.osh-login-v4 .osh-login-submit { margin-top:4px; min-height:46px; border-radius:11px; background:linear-gradient(110deg,#269fe9,#63d6ff); color:#041d35; font-size:13px; font-weight:900; }
+.osh-login-v4 .osh-login-clinical-note { color:#86a9c5; line-height:1.5; font-size:11px; margin-top:21px; }
+.osh-login-home-link { display:inline-block; font-size:12px; color:#73dcff; margin-top:16px; font-weight:750; }
+.osh-login-home-link:hover { text-decoration:underline; }
+.osh-login-theme-switch { position:absolute; top:17px; right:20px; color:#a7cced; width:37px; height:37px; border-radius:10px; }
+.osh-login-password-wrap { position:relative; }
+.osh-login-password-wrap input { padding-right:73px; width:100%; }
+.osh-login-password-toggle { position:absolute; top:50%; right:10px; transform:translateY(-50%); border-radius:7px;
+  padding:6px 9px; color:#84dafe; font-weight:800; font-size:11px; }
+.osh-login-password-toggle:hover { background:rgba(75,189,248,.12); }
+@media(max-width:1023px) {
+ .osh-login-v4 { grid-template-columns:1fr; min-height:100dvh; height:100dvh; }
+ .osh-login-v4 .osh-login-form-area { padding:25px 20px; min-height:100dvh; overflow-y:auto; }
+ .osh-login-v4 .osh-login-form-card { max-width:440px; }
+}
+@media(max-height:720px) and (min-width:1024px) {
+ .osh-login-v4 .osh-login-left { padding-block:16px; }
+ .osh-login-editorial h1 { font-size:clamp(27px,2.4vw,38px); margin-top:10px; }
+ .osh-login-editorial>p { margin-top:8px; }
+ .osh-login-xray { margin-top:12px; height:clamp(115px,23vh,180px); }
+ .osh-login-v4 .osh-login-form-card { padding:22px 26px; }
+ .osh-login-form-brand { margin-bottom:18px; }
+ .osh-login-fields { margin-top:15px; gap:10px; }
+ .osh-login-v4 .osh-login-clinical-note { margin-top:13px; }
+ .osh-login-home-link { margin-top:10px; }
+}
+@media(max-height:559px) {
+ .osh-login-v4 { min-height:0; height:100dvh; }
+ .osh-login-v4 .osh-login-form-area { overflow-y:auto; justify-content:flex-start; }
+ .osh-login-v4 .osh-login-left { overflow:hidden; }
+}
+@media(max-width:500px) {
+ .osh-login-v4 .osh-login-form-card { padding:25px 22px; }
+ .osh-login-form-brand { margin-bottom:26px; }
+ .osh-login-v4 .osh-login-form-heading h2 { font-size:29px; }
+}
+
+/* Dashboard: priorización clara y eliminación de accesos redundantes. */
+.osh-console-v4 { display:grid; gap:16px; max-width:1640px; }
+.osh-console-v4 .osh-console-hero { min-height:235px; border-radius:22px; border-color:rgba(70,170,237,.35); box-shadow:0 16px 42px rgba(0,7,21,.16); }
+.osh-console-v4 .osh-console-copy { width:63%; max-width:780px; padding:30px 34px; }
+.osh-console-v4 .osh-console-copy h1 { font-size:clamp(26px,2.8vw,37px); margin-top:18px; line-height:1.16; }
+.osh-console-v4 .osh-console-copy>p { max-width:630px; font-size:13px; margin-top:11px; line-height:1.6; }
+.osh-console-v4 .osh-console-actions { margin-top:18px; }
+.osh-console-v4 .osh-console-illustration { width:51%; }
+.osh-console-v4 .osh-console-illustration::before { background:linear-gradient(90deg,#071b39 0%,rgba(5,25,51,.27) 33%,transparent 80%); }
+.osh-console-v4 .osh-console-metrics { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:13px; }
+.osh-console-v4 .osh-console-metric { min-width:0; min-height:91px; padding:17px 19px; gap:14px; flex-wrap:nowrap; border:1px solid #224c7b;
+  background:linear-gradient(125deg,#0b2547,#091a34); border-radius:16px; box-shadow:none; }
+.osh-console-v4 .osh-console-metric-icon { height:42px; width:42px; flex:0 0 42px; }
+.osh-console-v4 .osh-console-metric .osh-img-icon { width:40px; height:40px; }
+.osh-console-v4 .osh-console-metric p { color:#f0f8ff; font-size:12px; }
+.osh-console-v4 .osh-console-metric small { color:#89a9c9; font-size:10px; }
+.osh-console-v4 .osh-console-metric strong { margin-left:auto; font-size:clamp(24px,2.4vw,36px); flex:none; }
+.osh-console-v4 .osh-console-panels { grid-template-columns:minmax(0,1.2fr) minmax(310px,.8fr); align-items:start; gap:14px; }
+.osh-console-v4 .osh-console-right { display:grid; grid-template-columns:1fr; grid-template-rows:auto auto; align-items:start; gap:14px; }
+.osh-console-v4 .osh-console-card { border:1px solid #244e7c; border-radius:18px; box-shadow:none; }
+.osh-console-v4 .osh-console-cardhead { padding:17px 19px; gap:10px; }
+.osh-console-v4 .osh-console-bonelist { min-width:0; }
+.osh-console-v4 .osh-console-anatomy-body { grid-template-columns:125px minmax(0,1fr); gap:10px; }
+.osh-console-v4 .osh-console-bone { min-height:45px; padding:9px; font-size:11px; }
+.osh-console-v4 .osh-console-bone small { display:none; }
+.osh-console-v4 .osh-console-model { min-height:370px; }
+.osh-console-v4 .osh-console-model-placeholder { min-height:370px; }
+.osh-console-v4 .osh-console-guidance-copy { padding:21px 22px; display:grid; gap:14px; }
+.osh-console-v4 .osh-console-guidance-copy p { color:#aac6e1; font-size:12px; line-height:1.7; }
+.osh-console-v4 .osh-console-guidance-copy .osh-console-textlink { font-size:12px; }
+.osh-console-v4 .osh-study-list { padding:12px; }
+@media(max-width:1340px) {
+ .osh-console-v4 .osh-console-panels { grid-template-columns:1fr; }
+ .osh-console-v4 .osh-console-right { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+@media(max-width:900px) {
+ .osh-console-v4 .osh-console-hero { min-height:270px; }
+ .osh-console-v4 .osh-console-copy { width:100%; padding:25px; }
+ .osh-console-v4 .osh-console-copy h1 { max-width:520px; font-size:clamp(26px,4vw,35px); }
+ .osh-console-v4 .osh-console-copy>p { max-width:530px; }
+ .osh-console-v4 .osh-console-illustration { width:100%; opacity:.18; }
+ .osh-console-v4 .osh-console-metrics { grid-template-columns:repeat(3,minmax(0,1fr)); }
+ .osh-console-v4 .osh-console-right { grid-template-columns:1fr; }
+}
+@media(max-width:680px) {
+ .osh-console-v4 .osh-console-metrics { grid-template-columns:1fr; }
+ .osh-console-v4 .osh-console-metric { min-height:76px; }
+ .osh-console-v4 .osh-console-hero { min-height:275px; }
+ .osh-console-v4 .osh-console-copy { padding:22px; }
+ .osh-console-v4 .osh-console-copy h1 { font-size:clamp(26px,7vw,33px); }
+ .osh-console-v4 .osh-console-anatomy-body { grid-template-columns:1fr; }
+ .osh-console-v4 .osh-console-bonelist { display:flex; flex-direction:row; overflow-x:auto; flex-wrap:nowrap; }
+ .osh-console-v4 .osh-console-bone { flex:none; }
+ .osh-console-v4 .osh-console-model { min-height:300px; }
+ .osh-console-v4 .osh-console-model-placeholder { min-height:300px; }
+}
+@media(max-width:390px) {
+ .osh-console-v4 .osh-console-copy { padding:20px; }
+ .osh-console-v4 .osh-console-copy h1 { font-size:26px; }
+ .osh-console-v4 .osh-console-cta { padding:9px 11px; }
+ .osh-console-v4 .osh-console-metric { padding:13px; }
+}
+
+/* Portada pública: jerarquía editorial, fotografía radiológica e información confiable. */
+.osh-public-header { position:sticky; top:0; z-index:35; background:rgba(4,19,43,.98); border-bottom:1px solid rgba(84,188,245,.15);
+  backdrop-filter:blur(18px); }
+.osh-public-nav { display:flex; align-items:center; justify-content:space-between; gap:20px; min-height:76px; width:min(100%,1400px);
+  margin:auto; padding:10px clamp(20px,4vw,50px); }
+.osh-public-brand { display:flex; align-items:center; gap:10px; color:white; text-decoration:none; font-size:21px; font-weight:850; letter-spacing:-.035em; }
+.osh-public-brand img { width:42px; height:42px; object-fit:contain; }
+.osh-public-brand strong { color:#5acfff; }
+.osh-public-links { display:flex; align-items:center; gap:clamp(17px,2.6vw,38px); }
+.osh-public-links>a { font-size:13px; color:#adcae5; font-weight:650; transition:color .2s; }
+.osh-public-links>a:hover { color:#fff; }
+.osh-public-links .osh-public-login { padding:12px 19px; border-radius:10px; color:#06182f; background:#60d4ff; font-weight:850; }
+.osh-public-links .osh-public-login:hover { background:#a3eaff; color:#06182f; }
+.osh-public-menu-toggle { display:none; width:44px; height:44px; border:1px solid rgba(111,180,241,.28);
+  border-radius:10px; color:#bfeaff; align-items:center; justify-content:center; }
+.osh-public-hero-v4 { background:radial-gradient(ellipse at 85% 40%,rgba(18,93,172,.27),transparent 57%),
+  linear-gradient(120deg,#06152e,#082247 60%,#061b37); min-height:min(760px,calc(100dvh - 76px)); }
+.osh-public-hero-wrap { width:min(100%,1400px); margin:auto; display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:clamp(25px,4vw,65px);
+  padding:clamp(60px,7vw,100px) clamp(20px,4vw,50px) clamp(50px,6vw,80px); align-items:center; }
+.osh-public-copy { min-width:0; }
+.osh-public-kicker { display:inline-flex; gap:10px; align-items:center; color:#7edfff; text-transform:uppercase; letter-spacing:.13em;
+  font-size:10px; font-weight:800; padding:8px 11px; border-radius:30px; border:1px solid rgba(85,211,255,.3); }
+.osh-public-copy h1 { margin-top:25px; max-width:650px; font-size:clamp(42px,4.55vw,70px); letter-spacing:-.065em; line-height:1.06; color:#fff; font-weight:900; }
+.osh-public-copy h1 span { color:#65d6ff; }
+.osh-public-lead { margin-top:24px; font-size:clamp(16px,1.5vw,19px); max-width:610px; color:#d3e7f8; line-height:1.55; }
+.osh-public-context { margin-top:13px; max-width:570px; color:#99b8d1; font-size:14px; line-height:1.7; }
+.osh-public-actions { display:flex; flex-wrap:wrap; gap:12px; margin-top:29px; }
+.osh-public-actions a { display:inline-flex; align-items:center; justify-content:center; gap:15px; border-radius:10px; padding:13px 19px; font-size:13px; font-weight:850; transition:transform .2s; }
+.osh-public-actions a:hover { transform:translateY(-2px); }
+.osh-public-primary { background:#5ecfff; color:#051a35; box-shadow:0 9px 24px rgba(36,164,234,.16); }
+.osh-public-secondary { color:#d7edff; border:1px solid rgba(119,184,241,.35); background:rgba(34,82,137,.23); }
+.osh-public-trust { display:flex; flex-wrap:wrap; gap:7px 17px; margin-top:32px; padding-top:19px; border-top:1px solid rgba(117,183,242,.15); }
+.osh-public-trust span { color:#8fb7d9; font-size:11px; }
+.osh-public-trust span:before { content:"✓"; color:#57d5e9; padding-right:7px; }
+.osh-public-image-column { min-width:0; }
+.osh-public-xray-figure { position:relative; aspect-ratio:1.04; max-height:520px; overflow:hidden; border-radius:22px;
+  border:1px solid rgba(73,175,247,.28); background:#081c3b; box-shadow:0 28px 70px rgba(0,6,22,.32); }
+.osh-public-xray-figure>img { width:100%; height:100%; object-fit:cover; object-position:28% center; filter:saturate(1.05); }
+.osh-public-xray-figure:after { content:""; position:absolute; pointer-events:none; inset:0; background:linear-gradient(0deg,rgba(4,20,47,.8),transparent 30%); }
+.osh-public-xray-figure figcaption { position:absolute; z-index:2; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap;
+  gap:7px; bottom:0; left:0; right:0; padding:17px; }
+.osh-public-scan-label { display:inline-flex; align-items:center; gap:9px; padding:8px 11px; background:rgba(8,37,71,.85); border:1px solid #2a719c;
+  border-radius:9px; color:#a7eaff; font-weight:850; letter-spacing:.07em; font-size:10px; }
+.osh-public-image-note { color:#a6c5db; font-size:10px; }
+.osh-public-hero-bottom { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px; width:min(100%,1400px);
+  margin:auto; padding:0 clamp(20px,4vw,50px) 24px; color:#8cb7da; font-size:10px; letter-spacing:.04em; }
+.osh-public-hero-bottom>span:first-child { font-weight:900; color:#7dd8ff; letter-spacing:.19em; }
+.osh-public-hero-bottom a { color:#c4efff; }
+@media(max-width:900px) {
+ .osh-public-hero-wrap { grid-template-columns:1fr; gap:30px; padding-block:65px 38px; }
+ .osh-public-copy h1 { max-width:740px; font-size:clamp(42px,7vw,62px); }
+ .osh-public-image-column { max-width:680px; width:100%; }
+ .osh-public-xray-figure { aspect-ratio:1.5; max-height:420px; }
+}
+@media(max-width:760px) {
+ .osh-public-nav { min-height:66px; }
+ .osh-public-brand { font-size:19px; }
+ .osh-public-menu-toggle { display:flex; }
+ .osh-public-links { display:none; position:absolute; top:100%; left:0; right:0; flex-direction:column; align-items:stretch;
+   gap:0; padding:12px 22px 20px; background:#081b38; border-bottom:1px solid #22517c; box-shadow:0 24px 45px rgba(0,4,16,.35); }
+ .osh-public-links.is-open { display:flex; }
+ .osh-public-links a { padding:13px 10px; }
+ .osh-public-links .osh-public-login { margin-top:8px; text-align:center; }
+ .osh-public-hero-wrap { padding-top:55px; }
+ .osh-public-copy h1 { font-size:clamp(38px,8.7vw,56px); }
+ .osh-public-hero-bottom { display:none; }
+ .osh-public-trust { margin-top:21px; }
+}
+@media(max-width:420px) {
+ .osh-public-copy h1 { font-size:38px; }
+ .osh-public-actions { display:grid; }
+ .osh-public-xray-figure { aspect-ratio:1; }
+ .osh-public-xray-figure figcaption { padding:12px; }
+}
+@media(prefers-reduced-motion:reduce) {
+ .osh-side-link,.osh-public-actions a,.osh-public-links a { transition:none; }
+}
