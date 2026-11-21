@@ -958,3 +958,33 @@ body {
 @media(prefers-reduced-motion:reduce) {
  .osh-side-link,.osh-public-actions a,.osh-public-links a { transition:none; }
 }
+
+/* Banner radiológico: imagen aprobada de husky blanco y hueso largo.
+   El gradiente reserva espacio legible para datos clínicos en el lado izquierdo. */
+.osh-clinical-banner-art.osh-study-husky-banner-art {
+  width: 74%;
+  opacity: .96;
+  object-position: 78% center;
+  mask-image: linear-gradient(90deg,transparent 0%,rgba(0,0,0,.28) 22%,black 53%);
+}
+.osh-clinical-banner:has(.osh-study-husky-banner-art) {
+  background: linear-gradient(110deg,#071a39 5%,#0b2b53 85%);
+}
+.osh-clinical-banner:has(.osh-study-husky-banner-art) .osh-clinical-banner-content {
+  max-width: 68%;
+  text-shadow: 0 2px 12px rgba(0,8,22,.45);
+}
+@media(max-width:850px) {
+  .osh-clinical-banner-art.osh-study-husky-banner-art {
+    width: 100%;
+    object-position: 75% center;
+    opacity: .34;
+    mask-image: linear-gradient(90deg,transparent 0%,rgba(0,0,0,.60) 35%,black 100%);
+  }
+  .osh-clinical-banner:has(.osh-study-husky-banner-art) .osh-clinical-banner-content {
+    max-width: 100%;
+  }
+}
+@media(max-width:480px) {
+  .osh-clinical-banner-art.osh-study-husky-banner-art { opacity: .24; }
+}
