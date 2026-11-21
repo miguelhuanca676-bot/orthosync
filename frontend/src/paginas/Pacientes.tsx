@@ -2,7 +2,7 @@ import { FormEvent, useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { api, fechaLocal, edad as edadDe, EVOLUCIONES, fecha, HUESOS, OPINIONES, pct, useImagen } from "../api";
-import { Cargando, Encabezado, Enlace, Icono, Mensaje, useDatos, useSesion, Vacio, Ventana } from "../componentes";
+import { Cargando, Encabezado, Enlace, EscaneoCNN, Icono, Mensaje, useDatos, useSesion, Vacio, Ventana } from "../componentes";
 
 const VACIO = { nombres: "", apellidos: "", documento: "", fecha_nacimiento: "", sexo: "", telefono: "", tutor_nombre: "", tutor_documento: "" };
 const limpiar = (f: any) => Object.fromEntries(Object.entries(f).map(([k, v]) => [k, v === "" ? null : v]));
@@ -72,7 +72,7 @@ export function Pacientes() {
   const FILTROS: [typeof filtro, string, number][] = [["todos", "Todos", datos?.length ?? 0], ...(medico ? [["valorar", "Por valorar", pendientes.length] as [typeof filtro, string, number]] : []), ["sin", "Sin estudios", (datos ?? []).filter((p) => p.n_estudios === 0).length]];
   return (
     <>
-      <div className="osh-patient-hero relative mb-6 overflow-hidden rounded-[25px] border border-celeste/25 p-6 sm:p-8"><span className="osh-kicker"><span className="osh-live-dot"/> GESTIÓN CLÍNICA</span><div className="relative z-10 mt-4 flex flex-wrap items-end justify-between gap-5"><div><h1 className="text-3xl font-extrabold tracking-[-.04em] text-white sm:text-4xl">Expedientes de <span className="text-celeste">pacientes</span></h1><p className="mt-3 max-w-lg text-sm leading-relaxed text-sky-100/75">Consulta historiales autorizados, estudios radiológicos y seguimiento médico desde un mismo espacio.</p></div><div className="flex gap-3"><div className="osh-patient-count"><span>{datos ? datos.length : "—"}</span><small>Pacientes</small></div><div className="osh-patient-count"><span>{datos ? totalEstudios : "—"}</span><small>Estudios</small></div></div></div><img src="/img/logo-blanco.svg" alt="" className="pointer-events-none absolute -right-9 -top-14 h-64 w-64 opacity-[.10]"/></div>
+      <div className="osh-patient-hero relative mb-6 overflow-hidden rounded-[25px] border border-celeste/25 p-6 sm:p-8"><span className="osh-kicker"><span className="osh-live-dot"/> GESTIÓN CLÍNICA</span><div className="relative z-10 mt-4 flex flex-wrap items-end justify-between gap-5"><div><div className="flex items-center gap-3"><img src="/img/asset-pacientes.webp" alt="" className="osh-banner-module-icon" onError={(ev)=>{ev.currentTarget.onerror=null;ev.currentTarget.src="/img/orthosync-pacientes.svg";}}/><h1 className="text-3xl font-extrabold tracking-[-.04em] text-white sm:text-4xl">Expedientes de <span className="text-celeste">pacientes</span></h1></div><p className="mt-3 max-w-lg text-sm leading-relaxed text-sky-100/75">Consulta historiales autorizados, estudios radiológicos y seguimiento médico desde un mismo espacio.</p></div><div className="flex gap-3"><div className="osh-patient-count"><span>{datos ? datos.length : "—"}</span><small>Pacientes</small></div><div className="osh-patient-count"><span>{datos ? totalEstudios : "—"}</span><small>Estudios</small></div></div></div><img src="/img/logo-blanco.svg" alt="" className="pointer-events-none absolute -right-9 -top-14 h-64 w-64 opacity-[.10]"/></div>
       <Encabezado titulo="Directorio clínico" detalle={datos ? `${datos.length} expedientes y ${totalEstudios} estudios${buscar ? ` que coinciden con «${buscar}»` : ""}` : "Cargando expedientes"}>
         <button className="boton" onClick={() => setNuevo(true)}><Icono n="mas" className="h-4 w-4" />Nuevo paciente</button>
       </Encabezado>
@@ -251,7 +251,8 @@ function SubirRadiografia({ pacienteId }: { pacienteId: string }) {
   };
   return (
     <section className="tarjeta" aria-labelledby="t-subir">
-      <h2 id="t-subir" className="subtitulo">Nueva radiografía</h2>
+      <h2 id="t-subir" className="subtitulo"><img src="/img/orthosync-radiografias.svg" alt="" className="osh-img-icon mr-2" />Nueva radiografía</h2>
+      {subiendo && <EscaneoCNN mensaje="Subiendo la radiografía y ejecutando el análisis CNN. Conserva esta pestaña abierta." />}
       {err && <div className="mt-3"><Mensaje>{err}</Mensaje></div>}
       <div className="mt-3"><label className="etiqueta" htmlFor="fe">Fecha del estudio</label><input id="fe" type="date" className="campo" value={fechaEst} onChange={(e) => setFechaEst(e.target.value)} /></div>
       <input ref={archivo} type="file" accept=".jpg,.jpeg,.png,.dcm,.dicom,.pdf" className="sr-only" id="arch" onChange={(e) => subir(e.target.files?.[0])} />

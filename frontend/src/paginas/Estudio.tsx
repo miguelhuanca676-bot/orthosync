@@ -1,7 +1,7 @@
 import React, { FormEvent, lazy, Suspense, useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { api, EVOLUCIONES, fecha, fechaLocal, HUESOS, OPINIONES, pct, useImagen } from "../api";
-import { Cargando, Encabezado, Enlace, Icono, Mensaje, useDatos, Ventana } from "../componentes";
+import { Cargando, Encabezado, Enlace, EscaneoCNN, Icono, Mensaje, useDatos, Ventana } from "../componentes";
 
 const Visor3D = lazy(() => import("../Visor3D"));
 
@@ -75,6 +75,7 @@ export function EstudioDetalle() {
   const [msg3d, setMsg3d] = useState("");
   const capturar3d = useRef<(() => string) | null>(null);
   const [generando, setGenerando] = useState(false);
+  const [reanalizando, setReanalizando] = useState(false);
   useEffect(() => { if (e && !zona) setZona(e.zona_3d ?? { posicion: 0.5, extension: 0.15 }); }, [e, zona]);
   useEffect(() => {
     if (e && !f) setF({ hueso: e.hueso ?? Object.keys(e.hueso_sugerido ?? {})[0] ?? "", lado: e.lado ?? "", opinion: e.opinion ?? "", proximo_control: e.proximo_control ?? "",
@@ -127,6 +128,7 @@ export function EstudioDetalle() {
 
   return (
     <>
+      {reanalizando && <EscaneoCNN mensaje="La CNN está revisando nuevamente la radiografía. El resultado se actualizará al finalizar." />}
       <p className="mb-3 text-sm"><Enlace a={`/pacientes/${e.paciente_id}`} className="inline-flex items-center gap-1 text-azul hover:underline"><Icono n="volver" className="h-4 w-4" />Expediente del paciente</Enlace></p>
       <section className="osh-clinical-banner mb-6" aria-label="Panel del estudio radiológico"><div className="osh-clinical-banner-content"><p className="osh-clinical-kicker"><span className="osh-live-dot"/> ORTHOSYNC · RADIOLOGÍA DIGITAL</p><h1>Evaluación <span>radiológica inteligente</span></h1><p>Estudio del {fecha(e.fecha_estudio)} · {HUESOS[f.hueso] || "Hueso por determinar"}</p><p className="osh-clinical-disclaimer">La interpretación de la IA requiere confirmación del especialista.</p></div><img src="/img/radiology-bg.svg" alt="" className="osh-clinical-banner-art"/></section>
       <Encabezado titulo={`Estudio del ${fecha(e.fecha_estudio)}`} detalle={<span className="flex flex-wrap items-center gap-x-3 gap-y-1"><span>Archivo {e.archivo_original}</span>
@@ -135,7 +137,12 @@ export function EstudioDetalle() {
         {e.publicado && <span className="chip bg-lavanda text-violeta">Visible para el paciente</span>}</span>}>
         <button className="boton" disabled={generando} onClick={descargarInforme} title="Incluye la vista 3D si está abierta">{generando ? "Generando…" : "Descargar informe PDF"}</button>
         <button className="boton-claro" onClick={() => setRecorte(true)}>Ajustar recorte</button>
-        {!listo && <button className="boton-claro" onClick={async () => actualizar(await api.post(`/estudios/${id}/analizar`))}>Analizar de nuevo</button>}
+        {!listo && <button className="boton-claro" disabled={reanalizando} onClick={async () => {
+          setReanalizando(true); setEstado(null);
+          try { actualizar(await api.post(`/estudios/${id}/analizar`)); }
+          catch (x: any) { setEstado({ tipo: "error", texto: x.message || "No se pudo volver a analizar la radiografía." }); }
+          finally { setReanalizando(false); }
+        }}>{reanalizando ? "Escaneando…" : "Analizar de nuevo"}</button>}
         <button className="boton-peligro" onClick={() => setBorrar(true)}>Eliminar</button>
       </Encabezado>
 
@@ -332,6 +339,7 @@ function Recortar({ estudioId, alCerrar, alListo }: { estudioId: string; alCerra
   );
   return (
     <Ventana titulo="Ajustar recorte" alCerrar={alCerrar}>
+      {enviando && <EscaneoCNN mensaje="Reprocesando la radiografía con el recorte seleccionado y ejecutando la CNN." />}
       <p className="text-sm text-suave">Deja dentro del recuadro solo la radiografía. Al aplicar, el sistema la analiza de nuevo.</p>
       {err && <div className="mt-3"><Mensaje>{err}</Mensaje></div>}
       <div className="relative mx-auto mt-4 w-fit overflow-hidden rounded-lg bg-noche">
