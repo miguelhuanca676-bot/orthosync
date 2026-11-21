@@ -59,61 +59,55 @@
   <body class="bg-white">
     <a href="#contenido" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:text-marino">Saltar al contenido</a>
 
-    <header class="absolute inset-x-0 top-0 z-20 border-b border-white/10 bg-[#06142b]/40 backdrop-blur-md">
-      <nav class="mx-auto flex max-w-7xl items-center justify-between px-6 py-5" aria-label="Principal">
-        <a href="/" class="flex items-center gap-2.5 text-white">
-          <img src="/img/logo-blanco.svg?v=orthosync-2026" alt="Mascota husky de ORTHOSYNC" width="44" height="44" class="h-11 w-11 rounded-xl border border-celeste/40 bg-white/10 p-1" />
-          <span class="text-xl font-extrabold uppercase tracking-[.08em]">Ortho<span class="text-celeste">sync</span></span>
+    <header class="osh-public-header">
+      <nav class="osh-public-nav" aria-label="Navegación principal">
+        <a href="/" class="osh-public-brand" aria-label="ORTHOSYNC, inicio">
+          <img src="/img/asset-husky.webp" alt="" width="42" height="42"/>
+          <span>ORTHO<strong>SYNC</strong></span>
         </a>
-        <ul class="hidden items-center gap-8 text-sm font-medium text-sky-100/80 md:flex">
-          <li><a class="hover:text-white" href="#funciones">Funciones</a></li>
-          <li><a class="hover:text-white" href="#como-funciona">Cómo funciona</a></li>
-          <li><a class="hover:text-white" href="#roles">Para quién</a></li>
-          <li><a class="hover:text-white" href="#limites">Alcance</a></li>
-        </ul>
-        <a href="/app" class="rounded-xl bg-celeste px-5 py-2.5 text-sm font-bold text-noche shadow-lg shadow-sky-500/20 hover:bg-white">Abrir sistema</a>
+        <button type="button" class="osh-public-menu-toggle" aria-label="Abrir navegación" aria-expanded="false" aria-controls="osh-public-links">
+          <svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+        <div class="osh-public-links" id="osh-public-links">
+          <a href="#funciones">Funciones</a>
+          <a href="#como-funciona">Cómo funciona</a>
+          <a href="#roles">Perfiles</a>
+          <a href="#limites">Alcance</a>
+          <a href="/app" class="osh-public-login">Ingresar al sistema <span aria-hidden="true">↗</span></a>
+        </div>
       </nav>
     </header>
 
     <main id="contenido">
-      <section class="orthosync-public-hero relative isolate overflow-hidden bg-noche">
-        <div class="absolute inset-0 -z-10 bg-[radial-gradient(55%_60%_at_78%_35%,rgba(31,95,214,0.35),transparent_65%),radial-gradient(45%_55%_at_5%_100%,rgba(124,77,219,0.35),transparent_60%)]"></div>
-        <div class="absolute inset-0 -z-10 opacity-[0.07] [background-image:linear-gradient(rgba(255,255,255,.6)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.6)_1px,transparent_1px)] [background-size:56px_56px] [mask-image:radial-gradient(70%_70%_at_70%_40%,#000,transparent)]"></div>
-        <div class="mx-auto grid min-h-[760px] max-w-7xl items-center gap-16 px-6 pb-24 pt-36 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:pt-44">
-          <div>
-            <p class="mb-6 inline-flex items-center gap-2 rounded-full border border-celeste/30 bg-celeste/10 px-4 py-2 text-xs font-bold uppercase tracking-[.12em] text-celeste"><span aria-hidden="true" class="h-2 w-2 rounded-full bg-celeste shadow-[0_0_14px_#5cc8f5]"></span> ORTHOSYNC · Medical Premium</p>
-            <h1 class="max-w-xl text-4xl font-extrabold leading-[1.06] tracking-[-0.055em] text-white md:text-[64px]">Radiología <span class="text-celeste">inteligente.</span><br/>Una nueva forma de analizar imágenes óseas.</h1>
-            <p class="mt-6 max-w-lg text-lg leading-relaxed text-sky-100/80">Orthosync combina inteligencia artificial, herramientas de análisis de radiografías y modelos anatómicos 3D de referencia para apoyar las decisiones del traumatólogo, sin sustituir su valoración.</p>
-            <div class="mt-9 flex flex-wrap gap-3">
-              <a href="/app" class="rounded-xl bg-celeste px-7 py-3.5 text-base font-extrabold text-noche shadow-lg shadow-sky-500/20 transition hover:-translate-y-0.5 hover:bg-white">Ingresar a ORTHOSYNC</a>
-              <a href="#como-funciona" class="rounded-xl border border-white/25 bg-white/10 px-6 py-3.5 text-base font-semibold text-white transition hover:bg-white/20">Conoce la plataforma</a>
+      <section class="orthosync-public-hero osh-public-hero-v4" aria-labelledby="osh-public-title">
+        <div class="osh-public-hero-wrap">
+          <div class="osh-public-copy">
+            <p class="osh-public-kicker"><span aria-hidden="true" class="osh-live-dot"></span> ORTHOSYNC · RADIOLOGÍA INTELIGENTE</p>
+            <h1 id="osh-public-title">Una mirada más precisa a <span>los huesos largos.</span></h1>
+            <p class="osh-public-lead">Tecnología de rayos X e inteligencia artificial para apoyar la detección y evaluación de lesiones tumorales óseas.</p>
+            <p class="osh-public-context">Un entorno clínico para el análisis radiográfico, la gestión de estudios y la valoración del profesional.</p>
+            <div class="osh-public-actions">
+              <a href="/app" class="osh-public-primary">Acceder a ORTHOSYNC <span aria-hidden="true">↗</span></a>
+              <a href="#como-funciona" class="osh-public-secondary">Descubrir cómo funciona <span aria-hidden="true">↓</span></a>
             </div>
-            <dl class="mt-12 grid max-w-lg grid-cols-3 gap-6 border-t border-white/10 pt-6">
-              <div><dt class="text-xs text-sky-200/70">Detección de lesión</dt><dd class="mt-1 text-xl font-semibold text-white sm:text-2xl">AUC 0,95</dd></div>
-              <div><dt class="text-xs text-sky-200/70">Radiografías de prueba</dt><dd class="mt-1 text-xl font-semibold text-white sm:text-2xl">530</dd></div>
-              <div><dt class="text-xs text-sky-200/70">Archivos que acepta</dt><dd class="mt-1.5 text-base font-semibold leading-snug text-white">JPG, PNG, DICOM y PDF</dd></div>
-            </dl>
+            <div class="osh-public-trust">
+              <span>Radiografías</span><span>Detección asistida por CNN</span><span>Revisión médica</span>
+            </div>
           </div>
-
-          <figure class="orthosync-public-figure relative mx-auto w-full max-w-[640px] pb-16 lg:pb-10" aria-label="Vista del sistema con datos de ejemplo">
-            <div class="negatoscopio border border-celeste/30 shadow-[0_24px_90px_rgba(0,147,255,0.16)]">
-              <div class="flex items-center justify-between border-b border-white/10 px-4 py-3 text-sm">
-                <span class="font-semibold text-white">Explorador anatómico 3D</span>
-                <span class="rounded-full bg-celeste/15 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-celeste">Vista ilustrativa</span>
-              </div>
-              <img src="/img/3d-lesion.webp" alt="Fémur en 3D con una lesión lítica marcada en rojo cerca de la rodilla" width="1100" height="712" fetchpriority="high" class="block w-full" />
-            </div>
-            <div class="negatoscopio absolute -bottom-6 -right-4 hidden w-[120px] px-3 pb-2 pt-3 sm:block lg:-right-10">
-              <img src="/img/3d-hueso.webp" alt="" width="264" height="718" class="mx-auto block h-[170px] w-auto" />
-              <p class="pt-2 text-center text-[11px] leading-tight text-sky-100/70">Vista completa</p>
-            </div>
-            <div class="absolute -bottom-2 left-4 w-[290px] rounded-xl border border-white/10 bg-[#0d1b38]/95 p-4 text-sm shadow-2xl shadow-black/40 backdrop-blur sm:-left-8">
-              <p class="rounded-md border-l-4 border-red-400 bg-red-400/10 px-3 py-2 text-[13px] font-medium text-red-100">Lesión sospechosa: revisar</p>
-              <div class="mt-3"><div class="flex justify-between text-sky-100/70"><span>Lesión</span><span class="font-semibold text-white">87,4 %</span></div><div class="mt-1.5 h-1.5 rounded-full bg-white/10"><div class="h-full w-[87%] rounded-full bg-red-400"></div></div></div>
-              <div class="mt-3"><div class="flex justify-between text-sky-100/70"><span>Aspecto maligno</span><span class="font-semibold text-white">64,0 %</span></div><div class="mt-1.5 h-1.5 rounded-full bg-white/10"><div class="h-full w-[64%] rounded-full bg-amber-400"></div></div></div>
-              <p class="mt-3 text-[13px] text-sky-100/70">Aspecto sugerido: <span class="text-white">lítica</span></p>
-            </div>
-          </figure>
+          <div class="osh-public-image-column">
+            <figure class="osh-public-xray-figure">
+              <img src="/img/asset-login.webp" width="1600" height="900" fetchpriority="high" alt="Imagen ilustrativa de radiografía de fémur con una región señalada para análisis" />
+              <figcaption>
+                <span class="osh-public-scan-label"><span class="osh-live-dot"></span> ANÁLISIS DE RAYOS X</span>
+                <span class="osh-public-image-note">Imagen ilustrativa, no un diagnóstico real</span>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+        <div class="osh-public-hero-bottom">
+          <span>ORTHOSYNC</span>
+          <span>Radiología por rayos X · Tumores en huesos largos</span>
+          <a href="#funciones">Explorar funciones <span aria-hidden="true">↓</span></a>
         </div>
       </section>
 
@@ -216,6 +210,23 @@
         <span>Contacto: <span data-clinica="correo"></span></span>
       </nav>
     </footer>
+    <script>
+      (() => {
+        const toggle = document.querySelector(".osh-public-menu-toggle");
+        const menu = document.querySelector("#osh-public-links");
+        if (!toggle || !menu) return;
+        const cerrar = () => { menu.classList.remove("is-open"); toggle.setAttribute("aria-expanded", "false"); toggle.setAttribute("aria-label", "Abrir navegación"); };
+        toggle.addEventListener("click", () => {
+          const abrir = !menu.classList.contains("is-open");
+          menu.classList.toggle("is-open", abrir);
+          toggle.setAttribute("aria-expanded", String(abrir));
+          toggle.setAttribute("aria-label", abrir ? "Cerrar navegación" : "Abrir navegación");
+        });
+        menu.querySelectorAll("a").forEach(a => a.addEventListener("click", cerrar));
+        document.addEventListener("keydown", e => { if (e.key === "Escape") cerrar(); });
+        document.addEventListener("click", e => { if (!menu.contains(e.target) && !toggle.contains(e.target)) cerrar(); });
+      })();
+    </script>
     <script src="/clinica.js" defer></script>
     <script src="/aviso-cookies.js" defer></script>
   </body>
