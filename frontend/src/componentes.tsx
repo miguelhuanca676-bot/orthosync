@@ -130,7 +130,7 @@ export function Marco({ children }: { children: ReactNode }) {
         style={{ backgroundImage: "radial-gradient(140% 50% at 0% 0%, rgba(92,200,245,.18), transparent 60%), radial-gradient(120% 45% at 100% 100%, rgba(124,77,219,.28), transparent 60%)" }}>
         <div className="flex items-center justify-between border-b border-celeste/20 px-4 py-4 lg:hidden"><span className="flex items-center gap-2 text-sm font-extrabold"><img src="/img/asset-logo.webp" alt="" className="h-11 w-11 object-contain" onError={(ev) => {ev.currentTarget.onerror=null; ev.currentTarget.src="/img/husky-guardian.svg";}}/> ORTHO<span className="text-celeste">SYNC</span></span><button type="button" onClick={() => setAbierto(false)} aria-label="Cerrar menú" className="rounded-lg border border-white/20 px-3 py-2 text-xs font-semibold">Cerrar</button></div>
         <div className="osh-brand-zone hidden flex-col items-center border-b border-celeste/15 px-5 pb-5 pt-6 lg:flex">
-          <img src="/img/asset-logo.webp" alt="Mascota husky blanco de ORTHOSYNC" className="osh-brand-wolf" onError={(ev) => {ev.currentTarget.onerror=null; ev.currentTarget.src="/img/husky-guardian.svg";}}/>
+          <img src="/img/asset-husky.webp" alt="Mascota husky blanco de ORTHOSYNC" className="osh-brand-wolf" onError={(ev) => {ev.currentTarget.onerror=null; ev.currentTarget.src="/img/husky-guardian.svg";}}/>
           <p className="osh-brand-wordmark">ORTHO<span>SYNC</span></p>
           <p className="mt-1 text-center text-[11px] leading-5 text-sky-100/70">Sistema inteligente de<br/>rayos X · tumores en huesos largos</p>
         </div>
