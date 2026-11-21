@@ -165,6 +165,21 @@ export function Marco({ children }: { children: ReactNode }) {
 }
 
 // ---------------------------------------------------------------- piezas
+/** Interfaz de progreso: se muestra mientras la petición real a la CNN continúa. No simula porcentajes. */
+export function EscaneoCNN({ mensaje = "Analizando radiografía con inteligencia artificial" }: { mensaje?: string }) {
+  return <div className="osh-scan-overlay" role="status" aria-live="polite" aria-label={mensaje}>
+    <div className="osh-scan-card">
+      <img src="/img/cnn-escaneando.svg" alt="" className="osh-scan-illustration" />
+      <div className="osh-scan-copy">
+        <span className="osh-scan-status"><span className="osh-live-dot" /> MOTOR CNN ACTIVO</span>
+        <h2>Escaneando radiografía<span className="osh-scan-dots" aria-hidden="true">...</span></h2>
+        <p>{mensaje}</p>
+        <p className="osh-scan-notice">La imagen se está procesando. El resultado requiere revisión profesional.</p>
+        <div className="osh-scan-progress" aria-hidden="true"><span /></div>
+      </div>
+    </div>
+  </div>;
+}
 export const Cargando = () => <p className="py-10 text-center text-sm text-suave" role="status">Cargando…</p>;
 
 export function Mensaje({ tipo = "error", children }: { tipo?: "error" | "ok" | "info" | "alerta"; children: ReactNode }) {
