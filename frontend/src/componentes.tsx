@@ -69,6 +69,7 @@ export function BotonTema({ className = "" }: { className?: string }) {
   const cambiar = () => {
     const nuevo = !oscuro;
     document.documentElement.classList.toggle("oscuro", nuevo);
+    document.documentElement.classList.toggle("osh-light", !nuevo);
     try { localStorage.setItem("orthosync.tema", nuevo ? "oscuro" : "claro"); } catch { /* sin almacenamiento: dura hasta recargar */ }
     setOscuro(nuevo);
   };
