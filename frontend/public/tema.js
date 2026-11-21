@@ -5,4 +5,5 @@
   try { t = localStorage.getItem("orthosync.tema"); } catch (e) { /* sin almacenamiento */ }
   if (!t) t = window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches ? "oscuro" : "claro";
   if (t === "oscuro") document.documentElement.classList.add("oscuro");
+  else document.documentElement.classList.add("osh-light");
 })();
