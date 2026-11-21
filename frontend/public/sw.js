@@ -1,8 +1,8 @@
 // Service worker de Orthosync: permite instalar la app y abrirla más rápido.
 // Solo guarda archivos públicos (código, estilos, imágenes de la interfaz). NUNCA guarda respuestas de /api/,
 // así que ningún dato de pacientes queda en el dispositivo.
-const VERSION = "orthosync-v2-20261120";
-const BASICOS = ["/app", "/manifest.webmanifest", "/img/logo.svg", "/img/logo-blanco.svg", "/img/icono-192.png"];
+const VERSION = "orthosync-v4-responsive-20261120";
+const BASICOS = ["/app", "/manifest.webmanifest", "/img/asset-husky.webp", "/img/asset-dashboard.webp", "/img/asset-login.webp", "/img/icono-192.png"];
 
 self.addEventListener("install", (e) => {
   e.waitUntil(caches.open(VERSION).then((c) => c.addAll(BASICOS)).then(() => self.skipWaiting()));
