@@ -675,16 +675,16 @@ body {
   background:linear-gradient(140deg,#237bc6,#28b6df); color:white; font-size:11px; font-weight:850; }
 .osh-signout { display:grid; place-items:center; width:34px; height:34px; border-radius:8px; color:#9ec9ed; flex:none; }
 .osh-signout:hover { color:white; background:rgba(255,255,255,.09); }
-.osh-mobile-bar { display:flex; position:sticky; top:0; z-index:30; background:#07172f; border-bottom:1px solid rgba(66,172,242,.23); padding:9px 14px;
+.osh-mobile-bar { position:sticky; top:0; z-index:30; background:#07172f; border-bottom:1px solid rgba(66,172,242,.23); padding:9px 14px;
   align-items:center; justify-content:space-between; gap:10px; min-height:64px; }
-.osh-menu-toggle,.osh-mobile-theme,.osh-side-close { display:grid; place-items:center; flex:none; width:40px; height:40px; border:1px solid rgba(105,174,238,.25);
+.osh-menu-toggle,.osh-mobile-theme { display:grid; place-items:center; flex:none; width:40px; height:40px; border:1px solid rgba(105,174,238,.25);
   border-radius:10px; background:rgba(32,104,170,.14); color:#d7f6ff; }
 .osh-mobile-brand { flex:1; justify-content:center; }
 .osh-mobile-brand .osh-shell-logo { height:34px; width:34px; }
 .osh-mobile-brand .osh-shell-wordmark { font-size:16px; }
 .osh-mobile-brand .osh-shell-wordmark small { font-size:7px; margin-top:4px; }
 .osh-drawer-backdrop { position:fixed; inset:0; z-index:40; background:rgba(1,9,23,.78); backdrop-filter:blur(3px); }
-.osh-side-close { position:absolute; right:9px; top:25px; height:34px; width:34px; }
+.osh-side-close { display:none; position:absolute; right:9px; top:25px; height:34px; width:34px; }
 .osh-desktop-topbar { min-height:73px; padding:12px clamp(16px,3vw,35px); border-bottom:1px solid rgba(100,171,231,.16);
   background:#081a36!important; box-shadow:none; }
 .osh-topbar-eyebrow { font-size:9px; font-weight:800; letter-spacing:.12em; color:#5ccdfd; }
@@ -706,7 +706,33 @@ body {
 .osh-breadcrumb-trail { display:flex; flex-wrap:wrap; align-items:center; gap:8px; }
 .osh-breadcrumb-trail a:hover { color:#68d7ff; text-decoration:underline; }
 .osh-breadcrumb-trail [aria-current="page"] { color:#d7f4ff; font-weight:750; }
+/* The CSS components must honor the same 1024px breakpoint as Tailwind's lg:.
+   A previous unconditional display:flex on .osh-mobile-bar overrode lg:hidden,
+   creating a phantom left column and a duplicate mobile menu on desktop. */
+@media(min-width:1024px) {
+  .osh-shell > .osh-mobile-bar,
+  .osh-shell > .osh-drawer-backdrop,
+  .osh-shell .osh-side-close { display:none!important; }
+  .osh-shell > .osh-navigation {
+    position:sticky;
+    top:0;
+    bottom:auto;
+    left:auto;
+    height:100dvh;
+    max-height:100dvh;
+  }
+}
 @media(max-width:1023px) {
+  .osh-shell > .osh-mobile-bar { display:flex; }
+  .osh-shell > .osh-navigation {
+    position:fixed;
+    top:0;
+    bottom:0;
+    left:0;
+    height:100dvh;
+    max-height:100dvh;
+  }
+  .osh-shell .osh-side-close { display:grid; }
   .osh-shell .osh-navigation { box-shadow:18px 0 60px rgba(0,0,0,.5)!important; }
   .osh-side-heading { padding-right:50px; }
   .osh-breadcrumbs { margin-bottom:13px; }
