@@ -108,8 +108,10 @@ export function Marco({ children }: { children: ReactNode }) {
         <div className="flex items-center gap-2"><BotonTema className="text-sky-100 hover:bg-white/10" />
           <button className="rounded-md px-3 py-1.5 text-sm ring-1 ring-white/30" aria-expanded={abierto} onClick={() => setAbierto(!abierto)}>Menú</button></div>
       </header>
-      <aside className={`${abierto ? "flex" : "hidden"} orthosync-sidebar flex-col bg-noche text-white lg:sticky lg:top-0 lg:flex lg:h-screen lg:w-[250px] xl:w-[272px] lg:shrink-0`}
+      {abierto && <button type="button" aria-label="Cerrar menú lateral" className="fixed inset-0 z-40 bg-black/75 lg:hidden" onClick={() => setAbierto(false)} />}
+      <aside className={`${abierto ? "flex" : "hidden"} orthosync-sidebar fixed inset-y-0 left-0 z-50 max-h-screen w-[min(86vw,310px)] flex-col overflow-y-auto bg-noche text-white lg:sticky lg:top-0 lg:flex lg:h-screen lg:w-[250px] lg:shrink-0 lg:overflow-hidden xl:w-[272px]`}
         style={{ backgroundImage: "radial-gradient(140% 50% at 0% 0%, rgba(92,200,245,.18), transparent 60%), radial-gradient(120% 45% at 100% 100%, rgba(124,77,219,.28), transparent 60%)" }}>
+        <div className="flex items-center justify-between border-b border-celeste/20 px-4 py-4 lg:hidden"><span className="flex items-center gap-2 text-sm font-extrabold"><img src="/img/husky-guardian.svg" alt="" className="h-11 w-11"/> ORTHO<span className="text-celeste">SYNC</span></span><button type="button" onClick={() => setAbierto(false)} aria-label="Cerrar menú" className="rounded-lg border border-white/20 px-3 py-2 text-xs font-semibold">Cerrar</button></div>
         <div className="osh-brand-zone hidden flex-col items-center border-b border-celeste/15 px-5 pb-5 pt-6 lg:flex">
           <img src="/img/husky-guardian.svg" alt="Mascota husky blanco de ORTHOSYNC" className="osh-brand-wolf" />
           <p className="osh-brand-wordmark">ORTHO<span>SYNC</span></p>
