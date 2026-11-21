@@ -55,7 +55,7 @@ export function InicioClinico() {
   const { datos, error } = useDatos<any[]>("/pacientes?buscar=");
   const [hueso, setHueso] = useState("femur");
   
-  const [mostrar3d, setMostrar3d] = useState(false);
+  const [mostrar3d, setMostrar3d] = useState(() => window.matchMedia("(min-width: 1024px)").matches);
   const pacientes = Array.isArray(datos) ? datos : SIN_PACIENTES;
   const estudios = pacientes.reduce((sum, p) => sum + (Number(p.n_estudios) || 0), 0);
   const pendientes = pacientes.reduce((sum, p) => sum + (Number(p.por_valorar) || 0), 0);
