@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" role="img" aria-labelledby="title desc">
+<title id="title">ORTHOSYNC · Escaneando radiografía</title>
+<desc id="desc">Un husky blanco supervisa el escaneo de un hueso largo con un haz de luz cian animado.</desc>
+<defs>
+ <linearGradient id="n" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0c3160"/><stop offset="1" stop-color="#06132c"/></linearGradient>
+ <linearGradient id="bone" x1=".2" y1="0" x2=".9" y2="1"><stop stop-color="#fff"/><stop offset=".55" stop-color="#8ec7e5"/><stop offset="1" stop-color="#3b94d6"/></linearGradient>
+ <linearGradient id="scan" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#50e2ff" stop-opacity="0"/><stop offset=".5" stop-color="#69eaff" stop-opacity=".95"/><stop offset="1" stop-color="#4aaaff" stop-opacity="0"/></linearGradient>
+ <filter id="glow"><feGaussianBlur stdDeviation="7"/></filter>
+</defs>
+<rect width="640" height="400" rx="28" fill="url(#n)"/>
+<g opacity=".25" fill="none" stroke="#43c6ff" stroke-width=".8"><path d="M0 65h640M0 130h640M0 195h640M0 260h640M0 325h640M65 0v400M130 0v400M195 0v400M260 0v400M325 0v400M390 0v400M455 0v400M520 0v400M585 0v400"/></g>
+<circle cx="435" cy="187" r="150" fill="none" stroke="#1b80d8" stroke-width="5" stroke-dasharray="118 18 42 18" opacity=".7"/>
+<circle cx="435" cy="187" r="120" fill="none" stroke="#57dbff" opacity=".25" stroke-width="2"/>
+<!-- original geometric husky profile, looking toward radiography -->
+<g transform="translate(28 60)">
+ <path d="M24 187 36 82 81 111 131 92 157 10 172 120 185 170 143 217 79 224Z" fill="#edf7ff" stroke="#5fcaff" stroke-width="5"/>
+ <path d="M36 98 88 133 131 118 158 44 155 153 135 174 85 202 46 179Z" fill="#152f56"/>
+ <path d="M76 133 107 126 119 147 101 160 78 154Z" fill="#d9f7ff"/>
+ <path d="M90 137 108 131 99 143Z" fill="#47e5ff"/>
+ <path d="M122 155 173 153 185 169 148 178 112 173Z" fill="#f5fdff"/>
+ <path d="M169 158 184 161 178 170Z" fill="#061b39"/>
+ <path d="M116 177Q144 190 164 177" fill="none" stroke="#11365e" stroke-width="3"/>
+ <path d="M44 201Q99 231 169 202L166 229Q107 254 41 225Z" fill="#155a9b" stroke="#61eaff" stroke-width="4"/>
+ <path d="M95 225h33v29H95z" fill="#052145" stroke="#45d4ff" stroke-width="3"/>
+ <path d="M111 230v20m-10-10h20" stroke="#74f4ff" stroke-width="4"/>
+</g>
+<!-- X-ray long bone -->
+<g transform="translate(360 50)">
+ <rect x="10" y="2" width="148" height="282" rx="16" fill="#071b3d" fill-opacity=".72" stroke="#42d4ff" stroke-width="3"/>
+ <path d="M72 35Q55 8 36 27Q19 46 42 67L64 81 62 226Q26 254 49 271Q64 281 84 261 107 282 126 270Q148 246 106 223L101 81 119 66Q144 54 126 27Q102 4 87 36Z" fill="url(#bone)" fill-opacity=".75" stroke="#93eaff" stroke-width="3"/>
+ <path d="M79 79V227M71 80v143M87 82v143" fill="none" stroke="#d7ffff" stroke-opacity=".4" stroke-width="2"/>
+ <ellipse cx="84" cy="155" rx="29" ry="28" fill="#ff557f" opacity=".35" filter="url(#glow)"/>
+ <ellipse cx="84" cy="155" rx="23" ry="21" fill="#fc537e" fill-opacity=".7" stroke="#ffc7d8" stroke-width="2"/>
+ <path d="M66 152 75 142 91 150 100 161 91 168 75 161Z" fill="none" stroke="#ffdae0" stroke-width="2"/>
+ <g fill="none" stroke="#77ebff" stroke-width="3"><path d="M43 132v-14h18M105 118h18v14M43 180v14h18M105 194h18v-14"/></g>
+ <g><rect x="14" y="35" width="140" height="7" rx="4" fill="#5deaff" filter="url(#glow)" opacity=".8">
+  <animate attributeName="y" values="35;267;35" dur="2.7s" repeatCount="indefinite"/>
+ </rect>
+ <rect x="13" y="35" width="142" height="4" rx="2" fill="#95faff">
+  <animate attributeName="y" values="35;267;35" dur="2.7s" repeatCount="indefinite"/>
+ </rect></g>
+</g>
+<g fill="#9deeff" font-family="Arial, sans-serif" font-weight="bold" text-anchor="middle">
+<text x="320" y="363" font-size="26" letter-spacing="5">ESCANEANDO</text>
+<circle cx="483" cy="354" r="4"><animate attributeName="opacity" values=".15;1;.15" dur="1.2s" repeatCount="indefinite"/></circle>
+<circle cx="500" cy="354" r="4"><animate attributeName="opacity" values=".15;.15;1;.15" dur="1.2s" repeatCount="indefinite"/></circle>
+<circle cx="517" cy="354" r="4"><animate attributeName="opacity" values="1;.15;.15;1" dur="1.2s" repeatCount="indefinite"/></circle>
+</g>
+</svg>

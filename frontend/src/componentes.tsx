@@ -63,6 +63,22 @@ export const Icono = ({ n, className = "h-[18px] w-[18px]" }: { n: string; class
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className={className}><path d={TRAZOS[n]} /></svg>
 );
 
+const MARCA_ICONOS: Record<string, [string, string]> = {
+  pacientes: ["asset-pacientes.webp", "orthosync-pacientes.svg"],
+  usuarios: ["asset-pacientes.webp", "orthosync-pacientes.svg"],
+  estudios: ["asset-radiografias.webp", "orthosync-radiografias.svg"],
+  validacion: ["asset-cnn.webp", "orthosync-cnn.svg"],
+  auditoria: ["asset-historial.webp", "orthosync-historial.svg"],
+  controles: ["asset-historial.webp", "orthosync-historial.svg"],
+};
+/** Iconografía propia para las secciones radiológicas, con respaldo SVG incorporado. */
+export function IconoMarca({ n, className = "osh-img-icon" }: { n: string; className?: string }) {
+  const imagen = MARCA_ICONOS[n];
+  if (!imagen) return <Icono n={n} className={className} />;
+  return <img src={`/img/${imagen[0]}`} alt="" className={className} loading="lazy"
+    onError={(ev) => { const img = ev.currentTarget; if (!img.src.endsWith(imagen[1])) img.src = `/img/${imagen[1]}`; }}/>;
+}
+
 // ---------------------------------------------------------------- tema claro / oscuro
 export function BotonTema({ className = "" }: { className?: string }) {
   const [oscuro, setOscuro] = useState(() => document.documentElement.classList.contains("oscuro"));
@@ -105,18 +121,18 @@ export function Marco({ children }: { children: ReactNode }) {
   return (
     <div className="orthosync-app min-h-screen lg:flex">
       <header className="flex items-center justify-between bg-noche px-4 py-3 text-white lg:hidden">
-        <span className="flex items-center gap-2 font-semibold"><img src="/img/husky-guardian.svg" alt="" className="h-10 w-10" />ORTHO<span className="text-celeste">SYNC</span></span>
+        <span className="flex items-center gap-2 font-semibold"><img src="/img/asset-logo.webp" alt="" className="h-10 w-10 object-contain" onError={(ev) => {ev.currentTarget.onerror=null; ev.currentTarget.src="/img/husky-guardian.svg";}} />ORTHO<span className="text-celeste">SYNC</span></span>
         <div className="flex items-center gap-2"><BotonTema className="text-sky-100 hover:bg-white/10" />
           <button className="rounded-md px-3 py-1.5 text-sm ring-1 ring-white/30" aria-expanded={abierto} onClick={() => setAbierto(!abierto)}>Menú</button></div>
       </header>
       {abierto && <button type="button" aria-label="Cerrar menú lateral" className="fixed inset-0 z-40 bg-black/75 lg:hidden" onClick={() => setAbierto(false)} />}
       <aside className={`${abierto ? "flex" : "hidden"} orthosync-sidebar fixed inset-y-0 left-0 z-50 max-h-screen w-[min(86vw,310px)] flex-col overflow-y-auto bg-noche text-white lg:sticky lg:top-0 lg:flex lg:h-screen lg:w-[250px] lg:shrink-0 lg:overflow-hidden xl:w-[272px]`}
         style={{ backgroundImage: "radial-gradient(140% 50% at 0% 0%, rgba(92,200,245,.18), transparent 60%), radial-gradient(120% 45% at 100% 100%, rgba(124,77,219,.28), transparent 60%)" }}>
-        <div className="flex items-center justify-between border-b border-celeste/20 px-4 py-4 lg:hidden"><span className="flex items-center gap-2 text-sm font-extrabold"><img src="/img/husky-guardian.svg" alt="" className="h-11 w-11"/> ORTHO<span className="text-celeste">SYNC</span></span><button type="button" onClick={() => setAbierto(false)} aria-label="Cerrar menú" className="rounded-lg border border-white/20 px-3 py-2 text-xs font-semibold">Cerrar</button></div>
+        <div className="flex items-center justify-between border-b border-celeste/20 px-4 py-4 lg:hidden"><span className="flex items-center gap-2 text-sm font-extrabold"><img src="/img/asset-logo.webp" alt="" className="h-11 w-11 object-contain" onError={(ev) => {ev.currentTarget.onerror=null; ev.currentTarget.src="/img/husky-guardian.svg";}}/> ORTHO<span className="text-celeste">SYNC</span></span><button type="button" onClick={() => setAbierto(false)} aria-label="Cerrar menú" className="rounded-lg border border-white/20 px-3 py-2 text-xs font-semibold">Cerrar</button></div>
         <div className="osh-brand-zone hidden flex-col items-center border-b border-celeste/15 px-5 pb-5 pt-6 lg:flex">
-          <img src="/img/husky-guardian.svg" alt="Mascota husky blanco de ORTHOSYNC" className="osh-brand-wolf" />
+          <img src="/img/asset-husky.webp" alt="Mascota husky blanco de ORTHOSYNC" className="osh-brand-wolf" onError={(ev) => {ev.currentTarget.onerror=null; ev.currentTarget.src="/img/husky-guardian.svg";}}/>
           <p className="osh-brand-wordmark">ORTHO<span>SYNC</span></p>
-          <p className="mt-1 text-center text-[11px] leading-5 text-sky-100/70">Sistema inteligente de<br/>radiología ortopédica</p>
+          <p className="mt-1 text-center text-[11px] leading-5 text-sky-100/70">Sistema inteligente de<br/>rayos X · tumores en huesos largos</p>
         </div>
         <nav aria-label="Secciones" className="flex-1 overflow-y-auto px-3 py-6">
           <p className="mb-4 px-3 text-[10px] font-extrabold uppercase tracking-[.22em] text-celeste/60">Navegación principal</p>
@@ -128,14 +144,14 @@ export function Marco({ children }: { children: ReactNode }) {
                   <Enlace a={ruta} alHacer={() => setAbierto(false)}
                     className={`relative flex items-center gap-3 rounded-xl px-3.5 py-3 text-sm font-medium transition ${activo ? "bg-gradient-to-r from-azul/85 to-celeste/20 text-white shadow-lg shadow-blue-950/40 ring-1 ring-celeste/35" : "text-sky-100/75 hover:bg-white/10 hover:text-white"}`}>
                     {activo && <span aria-hidden="true" className="absolute inset-y-2 left-0 w-[3px] rounded-full bg-celeste" />}
-                    <Icono n={icono} />{nombre}
+                    <IconoMarca n={icono} className="osh-nav-icon" />{nombre}
                   </Enlace>
                 </li>
               );
             })}
           </ul>
         </nav>
-        {personal && <div className="osh-sidebar-wolf hidden lg:block" aria-hidden="true"><img src="/img/husky-guardian.svg" alt="" /></div>}
+        {personal && <div className="osh-sidebar-wolf hidden lg:block" aria-hidden="true"><img src="/img/asset-husky.webp" alt="" onError={(ev) => {ev.currentTarget.onerror=null; ev.currentTarget.src="/img/husky-guardian.svg";}} /></div>}
         <div className="m-3 flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-3 shadow-lg shadow-black/10">
           <span aria-hidden="true" className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-celeste to-violeta text-xs font-semibold">{iniciales}</span>
           <div className="min-w-0 flex-1"><p className="truncate text-sm font-medium">{usuario.nombre}</p><p className="text-xs text-sky-200/70">{ROLES[usuario.rol]}</p></div>
@@ -165,6 +181,21 @@ export function Marco({ children }: { children: ReactNode }) {
 }
 
 // ---------------------------------------------------------------- piezas
+/** Interfaz de progreso: se muestra mientras la petición real a la CNN continúa. No simula porcentajes. */
+export function EscaneoCNN({ mensaje = "Analizando radiografía con inteligencia artificial" }: { mensaje?: string }) {
+  return <div className="osh-scan-overlay" role="status" aria-live="polite" aria-label={mensaje}>
+    <div className="osh-scan-card">
+      <img src="/img/cnn-escaneando.gif" alt="" className="osh-scan-illustration" onError={(ev) => { ev.currentTarget.onerror = null; ev.currentTarget.src="/img/cnn-escaneando.svg"; }} />
+      <div className="osh-scan-copy">
+        <span className="osh-scan-status"><span className="osh-live-dot" /> MOTOR CNN ACTIVO</span>
+        <h2>Escaneando radiografía<span className="osh-scan-dots" aria-hidden="true">...</span></h2>
+        <p>{mensaje}</p>
+        <p className="osh-scan-notice">La imagen se está procesando. El resultado requiere revisión profesional.</p>
+        <div className="osh-scan-progress" aria-hidden="true"><span /></div>
+      </div>
+    </div>
+  </div>;
+}
 export const Cargando = () => <p className="py-10 text-center text-sm text-suave" role="status">Cargando…</p>;
 
 export function Mensaje({ tipo = "error", children }: { tipo?: "error" | "ok" | "info" | "alerta"; children: ReactNode }) {
