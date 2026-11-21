@@ -5,7 +5,10 @@ import "./estilos.css";
 import { Cargando, inicioDe, Marco, NoEncontrado, ProveedorSesion, useSesion } from "./componentes";
 import { AceptarTerminos, CambioObligatorio, Ingreso, MiCuenta } from "./paginas/Acceso";
 import { Auditoria, Resumen, Solicitudes, Usuarios } from "./paginas/Admin";
+import { InicioClinico } from "./paginas/InicioClinico";
 import { EstudioDetalle } from "./paginas/Estudio";
+import { EstudiosRecientes } from "./paginas/EstudiosRecientes";
+import { Biblioteca3D } from "./paginas/Biblioteca3D";
 import { PacienteDetalle, Pacientes } from "./paginas/Pacientes";
 import { Portal } from "./paginas/Portal";
 import { Controles, Validacion } from "./paginas/Clinica";
@@ -102,14 +105,17 @@ createRoot(document.getElementById("raiz")!).render(
             <Route path="/auditoria" element={<Auditoria />} />
           </Route>
           <Route element={<Protegida roles={PERSONAL} />}>
+            <Route path="/panel" element={<InicioClinico />} />
             <Route path="/pacientes" element={<Pacientes />} />
             <Route path="/pacientes/:id" element={<PacienteDetalle />} />
             <Route path="/controles" element={<Controles />} />
+            <Route path="/anatomia" element={<Biblioteca3D />} />
           </Route>
           <Route element={<Protegida roles={["administrador", "traumatologo"]} />}>
             <Route path="/validacion" element={<Validacion />} />
           </Route>
           <Route element={<Protegida roles={["traumatologo"]} />}>
+            <Route path="/estudios" element={<EstudiosRecientes />} />
             <Route path="/estudios/:id" element={<EstudioDetalle />} />
           </Route>
           <Route element={<Protegida roles={["paciente"]} />}>

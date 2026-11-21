@@ -72,7 +72,8 @@ export function Pacientes() {
   const FILTROS: [typeof filtro, string, number][] = [["todos", "Todos", datos?.length ?? 0], ...(medico ? [["valorar", "Por valorar", pendientes.length] as [typeof filtro, string, number]] : []), ["sin", "Sin estudios", (datos ?? []).filter((p) => p.n_estudios === 0).length]];
   return (
     <>
-      <Encabezado titulo="Pacientes" detalle={datos ? `${datos.length} expedientes y ${totalEstudios} estudios${buscar ? ` que coinciden con «${buscar}»` : ""}` : "Cargando expedientes"}>
+      <div className="osh-patient-hero relative mb-6 overflow-hidden rounded-[25px] border border-celeste/25 p-6 sm:p-8"><span className="osh-kicker"><span className="osh-live-dot"/> GESTIÓN CLÍNICA</span><div className="relative z-10 mt-4 flex flex-wrap items-end justify-between gap-5"><div><h1 className="text-3xl font-extrabold tracking-[-.04em] text-white sm:text-4xl">Expedientes de <span className="text-celeste">pacientes</span></h1><p className="mt-3 max-w-lg text-sm leading-relaxed text-sky-100/75">Consulta historiales autorizados, estudios radiológicos y seguimiento médico desde un mismo espacio.</p></div><div className="flex gap-3"><div className="osh-patient-count"><span>{datos ? datos.length : "—"}</span><small>Pacientes</small></div><div className="osh-patient-count"><span>{datos ? totalEstudios : "—"}</span><small>Estudios</small></div></div></div><img src="/img/logo-blanco.svg" alt="" className="pointer-events-none absolute -right-9 -top-14 h-64 w-64 opacity-[.10]"/></div>
+      <Encabezado titulo="Directorio clínico" detalle={datos ? `${datos.length} expedientes y ${totalEstudios} estudios${buscar ? ` que coinciden con «${buscar}»` : ""}` : "Cargando expedientes"}>
         <button className="boton" onClick={() => setNuevo(true)}><Icono n="mas" className="h-4 w-4" />Nuevo paciente</button>
       </Encabezado>
       <div className={`grid gap-6 ${medico ? "xl:grid-cols-[minmax(0,1fr)_340px]" : ""}`}>
@@ -94,7 +95,7 @@ export function Pacientes() {
           {!datos ? <Cargando /> : lista.length === 0 ? (
             <div className="tarjeta"><Vacio titulo={buscar ? "Sin resultados" : filtro !== "todos" ? "Nada en este filtro" : "Aún no hay pacientes"}>{buscar ? "Prueba con otro nombre, código o documento." : filtro !== "todos" ? "Cambia el filtro para ver los demás expedientes." : "Registra el primero con el botón Nuevo paciente."}</Vacio></div>
           ) : (
-            <div className="overflow-hidden rounded-xl border border-linea bg-panel">
+            <div className="osh-patient-table overflow-hidden rounded-[20px] border border-linea bg-panel shadow-lg shadow-black/5">
               <table className="w-full text-left text-sm">
                 <thead className="border-b border-linea bg-superficie/60 text-[13px] text-suave">
                   <tr><th className="px-4 py-2.5 font-medium">Paciente</th><th className="hidden px-4 py-2.5 font-medium md:table-cell">Documento</th>
@@ -174,25 +175,25 @@ export function PacienteDetalle() {
   return (
     <>
       <p className="mb-3 text-sm"><Enlace a="/pacientes" className="inline-flex items-center gap-1 text-azul hover:underline"><Icono n="volver" className="h-4 w-4" />Pacientes</Enlace></p>
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
+      <div className="osh-patient-detail-hero mb-6 flex flex-wrap items-center justify-between gap-4 rounded-[24px] border border-celeste/25 px-5 py-6 sm:px-7">
         <div className="flex items-center gap-4">
           <Avatar p={p} grande />
           <div>
-            <h1 className="titulo">{p.nombres} {p.apellidos}</h1>
-            <p className="mt-1 flex flex-wrap gap-x-4 gap-y-1 text-sm text-suave">
+            <h1 className="text-[clamp(1.45rem,3vw,2.3rem)] font-extrabold tracking-tight text-white">{p.nombres} {p.apellidos}</h1>
+            <p className="mt-1 flex flex-wrap gap-x-4 gap-y-1 text-sm text-sky-100/75">
               <span>Expediente {p.codigo}</span>{anios != null && <span>{anios} años</span>}{sexo && <span>{sexo}</span>}
               {p.es_menor && <span className="chip bg-lavanda text-violeta">Menor de edad</span>}
             </p>
           </div>
         </div>
         <div className="flex flex-wrap gap-2">
-          <button className="boton-claro" onClick={() => setEditar(true)}>Editar datos</button>
-          {!p.tiene_cuenta && <button className="boton-claro" onClick={() => setCuenta({})}>Crear acceso del paciente</button>}
+          <button className="rounded-xl border border-white/25 bg-white/10 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-white/20" onClick={() => setEditar(true)}>Editar datos</button>
+          {!p.tiene_cuenta && <button className="rounded-xl border border-celeste/40 bg-celeste/10 px-4 py-2.5 text-sm font-semibold text-celeste transition hover:bg-celeste/20" onClick={() => setCuenta({})}>Crear acceso del paciente</button>}
         </div>
       </div>
       <div className="grid items-start gap-6 xl:grid-cols-[340px_minmax(0,1fr)]">
         <div className="space-y-6 xl:sticky xl:top-20">
-          <section className="tarjeta" aria-labelledby="t-ficha">
+          <section className="tarjeta osh-detail-card" aria-labelledby="t-ficha">
             <h2 id="t-ficha" className="subtitulo">Ficha</h2>
             <dl className="mt-3 divide-y divide-linea text-sm">
               {([["Documento", p.documento ?? "—"], ["Nacimiento", fecha(p.fecha_nacimiento)], ["Teléfono", p.telefono ?? "—"],
