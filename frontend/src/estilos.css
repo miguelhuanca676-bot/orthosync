@@ -614,3 +614,27 @@ body {
 @media(prefers-reduced-motion:reduce) {
  .osh-scan-progress span,.osh-scan-dots { animation:none; }
 }
+
+
+/* Fotografía oficial elegida por el usuario y emblemas de la nueva identidad. */
+.osh-banner-module-icon { flex:none; width:65px; height:65px; object-fit:contain;
+ filter:drop-shadow(0 0 20px rgba(64,182,255,.35)); }
+.osh-login-hero:before { background-image:linear-gradient(90deg,rgba(4,14,31,.64),rgba(4,14,31,.20)),
+ url('/img/asset-login.webp'), url('/img/radiology-bg.svg');
+ background-position:center,center center,center;
+ background-size:cover; background-repeat:no-repeat; opacity:.8; }
+.osh-console-hero .osh-console-illustration img { object-fit:cover; object-position:80% 50%; }
+.osh-brand-zone .osh-brand-wolf { width:160px; height:160px; }
+.osh-sidebar-wolf img { width:170px; height:170px; }
+.osh-console-hero .osh-console-mascot { width:96px; height:96px; object-fit:contain; }
+.osh-console-tool .osh-img-icon { width:47px; height:47px; }
+.osh-console-metric-icon { width:45px; height:45px; }
+.osh-console-metric .osh-img-icon { width:45px; height:45px; }
+.osh-clinical-banner-content .osh-banner-module-icon { min-width:60px; }
+.osh-scan-illustration { aspect-ratio: 16/10; object-fit:contain; background:#07172f; }
+@media(max-width:640px) {
+ .osh-banner-module-icon { width:45px; height:45px; }
+ .osh-brand-zone .osh-brand-wolf { width:112px; height:112px; }
+ .osh-console-hero .osh-console-mascot { width:67px; height:67px; }
+ .osh-scan-illustration { max-height:38dvh; }
+}
