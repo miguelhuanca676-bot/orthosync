@@ -497,3 +497,50 @@ body {
  .osh-clinical-banner { min-height:170px; }
  .orthosync-app :is(table, .overflow-x-auto) { max-width:100%; }
 }
+
+
+/* Functional anatomical library and protected radiology studies explorer */
+.osh-anatomy-layout { display:grid; grid-template-columns:260px minmax(0,1fr); gap:16px; align-items:start; }
+.osh-anatomy-menu { position:sticky; top:92px; }
+.osh-anatomy-options { display:grid; gap:7px; padding:13px; }
+.osh-anatomy-option { display:flex; align-items:center; gap:12px; width:100%; min-height:62px; text-align:left; border:1px solid rgba(78,165,247,.2); border-radius:12px; padding:11px; background:rgba(22,77,141,.16); color:#cde5fa; transition:background .16s,border-color .16s,box-shadow .16s; }
+.osh-anatomy-option svg { color:#5acfff; flex:none; }
+.osh-anatomy-option span:nth-child(2) { flex:1; min-width:0; }
+.osh-anatomy-option strong { display:block; font-size:13px; font-weight:750; }
+.osh-anatomy-option small { display:block; margin-top:3px; color:#7ba7c8; font-size:10px; }
+.osh-anatomy-option>span:last-child { color:#65d6ff; }
+.osh-anatomy-option:hover,.osh-anatomy-option.is-active { border-color:#5dd4ff; background:linear-gradient(110deg,rgba(18,111,220,.76),rgba(7,49,117,.66)); color:white; box-shadow:0 0 14px rgba(39,168,255,.16); }
+.osh-anatomy-viewer { padding:12px; background:radial-gradient(ellipse at 50% 35%,rgba(14,113,209,.21),transparent 60%),#071932; }
+.osh-anatomy-viewer .negatoscopio { box-shadow:none; border:1px solid rgba(77,187,250,.18); }
+.osh-anatomy-bottom { display:flex; justify-content:space-between; gap:12px; align-items:center; padding:15px 19px; border-top:1px solid rgba(87,172,245,.17); }
+.osh-anatomy-bottom p { max-width:540px; color:#95bcd9; font-size:11px; line-height:1.6; }
+.osh-studies-toolbar { display:flex; gap:12px; align-items:center; justify-content:space-between; padding:16px 18px; flex-wrap:wrap; }
+.osh-studies-search { display:flex; align-items:center;gap:10px; border:1px solid rgba(76,162,238,.4); border-radius:12px; background:rgba(8,29,65,.83); color:#78d7ff; padding:0 13px; flex:1 1 250px; }
+.osh-studies-search input { width:100%; min-height:43px; min-width:0; font-size:12px; font-family:inherit; background:transparent; border:none; outline:none; color:#ebf7ff; }
+.osh-studies-search input::placeholder { color:#759abe; }
+.osh-studies-filters { display:flex; gap:5px; flex-wrap:wrap; }
+.osh-studies-filters button { padding:9px 12px; border-radius:9px; border:1px solid transparent; color:#94b9d9; font-size:11px; font-weight:750; background:rgba(34,99,165,.13); }
+.osh-studies-filters button.is-active { border-color:#44c9ff; color:#dbfaff; background:rgba(26,132,223,.24); }
+.osh-studies-filters button:hover { color:white; }
+.osh-studies-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; padding:0 17px 18px; }
+.osh-studies-card { min-width:0; display:flex; gap:12px; align-items:center; border:1px solid rgba(71,167,249,.24); border-radius:14px; background:linear-gradient(120deg,rgba(22,73,130,.28),rgba(7,31,69,.65)); padding:11px; transition:background .2s,border-color .2s; }
+.osh-studies-card:hover { border-color:#52c8ff; background:rgba(23,98,183,.33); }
+.osh-studies-preview { width:83px; height:80px; flex:0 0 auto; display:grid; place-items:center; border-radius:10px; border:1px solid rgba(96,202,255,.2); overflow:hidden; background:radial-gradient(circle,#133f75,#041328); color:#63d7ff; }
+.osh-studies-preview img { display:block; max-width:100%; width:100%; height:100%; object-fit:contain; }
+@media(max-width:1150px) { .osh-anatomy-layout { grid-template-columns:215px minmax(0,1fr); } }
+@media(max-width:850px) {
+ .osh-anatomy-layout { grid-template-columns:1fr; }
+ .osh-anatomy-menu { position:static; }
+ .osh-anatomy-options { display:flex; gap:8px; overflow-x:auto; padding:11px; }
+ .osh-anatomy-option { flex:0 0 auto; width:145px; }
+ .osh-studies-grid { grid-template-columns:1fr; }
+ .osh-anatomy-viewer { padding:7px; }
+}
+@media(max-width:470px) {
+ .osh-studies-preview { width:65px; height:68px; }
+ .osh-studies-card { padding:8px; gap:8px; }
+ .osh-studies-toolbar { padding:10px; }
+ .osh-studies-grid { padding:0 10px 12px; }
+ .osh-study-status { padding:5px; font-size:9px; }
+ .osh-anatomy-bottom { align-items:flex-start; flex-direction:column; }
+}
