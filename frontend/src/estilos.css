@@ -550,3 +550,20 @@ body {
   .orthosync-sidebar { width:min(86vw,310px)!important; border-right:1px solid #317eae!important; border-bottom:0; box-shadow:18px 0 60px rgba(0,0,0,.48); }
   .orthosync-sidebar nav { max-height:none; }
 }
+
+
+/* Contrast-preserving light mode. Sidebar and anatomy workstation stay navy by design. */
+.osh-light .orthosync-app {
+ --color-superficie:#f1f6fd; --color-panel:#fff; --color-linea:#d8e4f3;
+ --color-tinta:#142b4b; --color-fuerte:#0a2240; --color-suave:#586d88;
+ --color-cielo:#e5f3ff; --color-marino:#1269bb; --color-azul:#2079de;
+ background:linear-gradient(180deg,#f1f6fd,#eaf2fc); color:#142b4b;
+}
+.osh-light .orthosync-app .tarjeta { background:linear-gradient(145deg,#fff,#f7faff); border-color:#d3e4f4; box-shadow:0 9px 30px rgba(22,59,118,.08); }
+.osh-light .orthosync-app .campo { background:#fff; border-color:#d0deed; color:#142b4b; }
+.osh-light .orthosync-app .campo::placeholder { color:#8191a7; }
+.osh-light .orthosync-app .boton-claro { background:#fff; border-color:#cedeed; color:#155c9c; }
+.osh-light .orthosync-app .boton-claro:hover { background:#eaf5fe; }
+.osh-light .orthosync-app .osh-admin-section-title h2 { color:#123456; }
+.osh-light .orthosync-app:has(.osh-console) { background:linear-gradient(180deg,#dceafb,#f4f8ff); }
+.osh-light .orthosync-app:has(.osh-console) .osh-console { color:#f0f9ff; }
