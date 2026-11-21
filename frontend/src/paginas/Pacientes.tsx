@@ -251,7 +251,7 @@ function SubirRadiografia({ pacienteId }: { pacienteId: string }) {
   };
   return (
     <section className="tarjeta" aria-labelledby="t-subir">
-      <h2 id="t-subir" className="subtitulo"><img src="/img/radiografia-orthosync.svg" alt="" className="osh-img-icon mr-2" />Nueva radiografía</h2>
+      <h2 id="t-subir" className="subtitulo"><img src="/img/orthosync-radiografias.svg" alt="" className="osh-img-icon mr-2" />Nueva radiografía</h2>
       {subiendo && <EscaneoCNN mensaje="Subiendo la radiografía y ejecutando el análisis CNN. Conserva esta pestaña abierta." />}
       {err && <div className="mt-3"><Mensaje>{err}</Mensaje></div>}
       <div className="mt-3"><label className="etiqueta" htmlFor="fe">Fecha del estudio</label><input id="fe" type="date" className="campo" value={fechaEst} onChange={(e) => setFechaEst(e.target.value)} /></div>
