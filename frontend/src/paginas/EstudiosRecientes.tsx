@@ -49,7 +49,7 @@ export function EstudiosRecientes() {
       <div className="flex items-center gap-4"><img src="/img/asset-radiografias.webp" alt="" className="osh-banner-module-icon" onError={(ev)=>{ev.currentTarget.onerror=null;ev.currentTarget.src="/img/orthosync-radiografias.svg";}}/><h1>Explorador de <span>estudios clínicos</span></h1></div>
       <p>Revisa radiografías, análisis asistidos y valoraciones médicas de tus expedientes autorizados.</p>
       <p className="osh-clinical-disclaimer">Listado rápido de los estudios más recientes, hasta 12 expedientes y 20 estudios.</p>
-    </div><img src="/img/radiology-bg.svg" alt="" className="osh-clinical-banner-art"/></section>
+    </div><img src="/img/estudio-husky-rayos-x.webp" alt="" className="osh-clinical-banner-art osh-radiology-husky-art" onError={(ev) => { ev.currentTarget.onerror = null; ev.currentTarget.src = "/img/asset-dashboard.webp"; }}/></section>
     {error && <Mensaje>{error}</Mensaje>}
     {errorEstudios && <Mensaje tipo="alerta">{errorEstudios}</Mensaje>}
     <section className="osh-console-card">

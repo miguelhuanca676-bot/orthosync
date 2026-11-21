@@ -26,7 +26,7 @@ export function Biblioteca3D() {
         <p>Modelos óseos de referencia en alta resolución con rotación, zoom y control de cámara.</p>
         <p className="osh-clinical-disclaimer">No se genera una reconstrucción específica de un paciente a partir de una radiografía 2D.</p>
       </div>
-      <img src="/img/radiology-bg.svg" alt="" className="osh-clinical-banner-art"/>
+      <img src="/img/estudio-husky-rayos-x.webp" alt="" className="osh-clinical-banner-art osh-radiology-husky-art" onError={(ev) => { ev.currentTarget.onerror = null; ev.currentTarget.src = "/img/asset-dashboard.webp"; }}/>
     </section>
     <div className="osh-anatomy-layout">
       <aside className="osh-anatomy-menu osh-console-card" aria-label="Elegir hueso">

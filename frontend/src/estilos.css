@@ -988,3 +988,67 @@ body {
 @media(max-width:480px) {
   .osh-clinical-banner-art.osh-study-husky-banner-art { opacity: .24; }
 }
+
+/* Identidad visual unificada: husky blanco y radiografía de hueso largo.
+   Se reutiliza el arte aprobado por el usuario en cada cabecera clínica. */
+.osh-clinical-banner:has(.osh-radiology-husky-art) {
+  background:linear-gradient(105deg,#071a38,#09284d 72%,#071931);
+}
+.osh-clinical-banner-art.osh-radiology-husky-art {
+  width:76%;
+  opacity:.94;
+  object-position:80% center;
+  mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.25) 20%,black 50%);
+}
+.osh-clinical-banner:has(.osh-radiology-husky-art) .osh-clinical-banner-content {
+  max-width:69%;
+  text-shadow:0 2px 12px rgba(0,7,21,.4);
+}
+.osh-patient-hero { isolation:isolate; }
+.osh-patient-husky-art {
+  position:absolute;
+  z-index:0;
+  inset:0 0 0 auto;
+  width:73%;
+  height:100%;
+  pointer-events:none;
+  object-fit:cover;
+  object-position:81% center;
+  opacity:.75;
+  mask-image:linear-gradient(90deg,transparent,rgba(0,0,0,.24) 26%,black 70%);
+}
+.osh-patient-hero > :not(.osh-patient-husky-art) { position:relative; z-index:1; }
+.osh-patient-detail-husky {
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+}
+.osh-patient-detail-husky::before {
+  content:"";
+  position:absolute;
+  z-index:-1;
+  inset:0;
+  pointer-events:none;
+  background-image:linear-gradient(90deg,rgba(7,22,47,.9),rgba(7,24,50,.75) 62%,rgba(7,24,50,.35)),
+    url('/img/estudio-husky-rayos-x.webp');
+  background-size:cover;
+  background-position:center,75% center;
+  opacity:.85;
+}
+.osh-console-v4 .osh-console-illustration img {
+  object-position:80% 50%;
+}
+@media(max-width:850px) {
+  .osh-clinical-banner-art.osh-radiology-husky-art {
+    width:100%;
+    opacity:.28;
+    object-position:78% center;
+    mask-image:linear-gradient(90deg,transparent 0%,black 48%);
+  }
+  .osh-clinical-banner:has(.osh-radiology-husky-art) .osh-clinical-banner-content { max-width:100%; }
+  .osh-patient-husky-art { width:100%;opacity:.22; }
+}
+@media(max-width:480px) {
+  .osh-clinical-banner-art.osh-radiology-husky-art { opacity:.18; }
+  .osh-patient-husky-art { opacity:.15; }
+}
