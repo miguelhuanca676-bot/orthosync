@@ -61,6 +61,7 @@ export function InicioClinico() {
   const pendientes = pacientes.reduce((sum, p) => sum + (Number(p.por_valorar) || 0), 0);
   const conEstudios = pacientes.filter((p) => Number(p.n_estudios) > 0).length;
   const medico = usuario?.rol === "traumatologo";
+  const puedeValidar = medico || usuario?.rol === "administrador";
   const inicial = usuario?.nombre?.replace(/^(Dra?\.|Lic\.)\s*/, "").split(" ")[0] || "equipo";
   const indicadores = [
     {label:"Pacientes registrados",valor:pacientes.length,sub:"Expedientes autorizados",icon:"usuarios"},
@@ -79,7 +80,7 @@ export function InicioClinico() {
         <p>IA aplicada al apoyo diagnóstico, expedientes y anatomía 3D. Cada hallazgo requiere revisión profesional.</p>
         <div className="osh-console-actions">
           <Enlace a="/pacientes" className="osh-console-cta"><Icono n="pacientes"/> Explorar pacientes</Enlace>
-          <Enlace a="/validacion" className="osh-console-cta secondary"><Icono n="validacion"/> Validación de IA</Enlace>
+          {puedeValidar && <Enlace a="/validacion" className="osh-console-cta secondary"><Icono n="validacion"/> Validación de IA</Enlace>}
         </div>
       </div>
       <div className="osh-console-illustration" aria-hidden="true"><img src="/img/radiology-bg.svg" alt=""/></div>
@@ -92,7 +93,7 @@ export function InicioClinico() {
           ["/controles","Controles","controles"],
           ["/validacion","Validación CNN","validacion"],
           ["/cuenta","Mi cuenta","cuenta"],
-        ] as [string,string,string][]).filter(([ruta]) => ruta !== "/validacion" || medico).map(([ruta,titulo,icono])=>
+        ] as [string,string,string][]).filter(([ruta]) => ruta !== "/validacion" || puedeValidar).map(([ruta,titulo,icono])=>
         <Enlace key={ruta} a={ruta} className="osh-console-tool"><Icono n={icono} className="h-7 w-7"/><span>{titulo}</span></Enlace>)}
       </div>
       <div className="osh-console-metrics">
@@ -141,7 +142,7 @@ export function InicioClinico() {
             <div className="osh-console-gauge"><strong>{datos? conEstudios:"—"}</strong><span>Pacientes con estudios</span></div>
             <div className="min-w-0 flex-1"><p className="text-sm font-bold text-white">{medico ? "Valoración del especialista":"Gestión de expedientes"}</p>
               <p className="mt-2 text-xs leading-6 text-sky-100/65">{medico ? `Hay ${pendientes} estudio(s) por valorar de los expedientes autorizados.` : "El análisis de las radiografías corresponde al personal médico."}</p>
-              <Enlace a={medico?"/validacion":"/pacientes"} className="osh-console-analysis-link">{medico?"Ver métricas reales del modelo":"Ir a pacientes"} <span aria-hidden="true">↗</span></Enlace>
+              <Enlace a={puedeValidar?"/validacion":"/pacientes"} className="osh-console-analysis-link">{puedeValidar?"Ver métricas reales del modelo":"Ir a pacientes"} <span aria-hidden="true">↗</span></Enlace>
             </div>
           </div>
           <p className="osh-console-footnote">No se presentan porcentajes de precisión ni diagnósticos sin obtenerlos de una evaluación real.</p>
