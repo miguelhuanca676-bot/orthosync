@@ -143,3 +143,427 @@ body {
 @media (max-width: 640px) {
   .orthosync-public-hero h1 { text-wrap: balance; }
 }
+
+
+/* ORTHOSYNC 2.0 — interfaz clínica reconstruida.
+   El sistema usa valores de la API para toda cifra clínica. */
+.osh-dashboard, .osh-login { --osh-ice: #56d8ff; --osh-deep: #071326; }
+.orthosync-sidebar {
+  background: radial-gradient(ellipse at 30% -10%, rgba(35,157,255,.19), transparent 65%),
+              linear-gradient(180deg, #07172f 0%, #07152d 58%, #050d1f 100%) !important;
+  box-shadow: 8px 0 38px rgba(2, 13, 31, .13);
+}
+.orthosync-sidebar nav a { font-weight: 600; letter-spacing: -.014em; }
+.orthosync-sidebar nav a:hover { transform: translateX(2px); }
+.osh-sidebar-assistant {
+  background: linear-gradient(130deg, rgba(25,117,223,.18), rgba(32,193,246,.06));
+  border: 1px solid rgba(78,196,250,.21);
+  box-shadow: inset 0 1px rgba(255,255,255,.045);
+}
+.osh-topbar { box-shadow: 0 1px 24px rgba(0, 16, 35, .08); }
+.osh-dashboard-hero {
+  min-height: 325px;
+  background: radial-gradient(circle at 75% 45%, rgba(45,163,255,.32), transparent 43%),
+              radial-gradient(circle at 15% 110%, rgba(52,62,208,.18), transparent 60%),
+              linear-gradient(122deg, #06152e 5%, #0a2a56 52%, #06142d 100%);
+  box-shadow: 0 26px 54px rgba(6,22,57,.17);
+}
+.osh-dashboard-hero::before, .osh-login-visual::before, .osh-model-viewport::before {
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image: linear-gradient(rgba(113,207,255,.11) 1px, transparent 1px),
+                    linear-gradient(90deg,rgba(113,207,255,.11) 1px, transparent 1px);
+  background-size: 34px 34px;
+  mask-image: radial-gradient(ellipse at 75% 50%, black, transparent 75%);
+}
+.osh-kicker {
+  display: inline-flex; align-items: center; gap: .625rem;
+  padding: .55rem .85rem; border-radius: 999px;
+  border: 1px solid rgba(86,216,255,.35); color: #70dbff;
+  background: rgba(44,173,246,.10);
+  font-size: 10px; font-weight: 800; letter-spacing: .15em;
+}
+.osh-live-dot { display: inline-block; height: 8px; width: 8px; flex-shrink: 0;
+  border-radius: 50%; background: #40e6b5; box-shadow: 0 0 17px rgba(64,230,181,.9); }
+.osh-hero-emblem { position: absolute; width: 315px; height: 315px; right: 2.5%; top: 5%;
+  display: grid; place-items: center; pointer-events: none; opacity: .88; }
+.osh-hero-emblem img { width: 225px; height: 225px; filter: drop-shadow(0 14px 35px rgba(50,181,254,.35)); }
+.osh-hero-ring { position: absolute; inset: 0; border: 2px solid rgba(93,211,255,.2);
+  border-radius: 50%; box-shadow: 0 0 0 23px rgba(57,144,244,.055), 0 0 80px rgba(56,154,254,.2); }
+.osh-hero-grid { position: absolute; bottom: 0; inset-inline: 0; height: 52%;
+  background: linear-gradient(transparent 0%, rgba(4,13,33,.35) 100%); pointer-events: none; }
+.osh-primary-link, .osh-outline-link { display: inline-flex; min-height: 43px; gap: .6rem; align-items: center;
+  justify-content: center; padding: .7rem 1.1rem; border-radius: 13px; font-size: 13px; font-weight: 800;
+  transition: transform .2s ease, background-color .2s ease; }
+.osh-primary-link { background: linear-gradient(100deg, #43cbff,#87e4ff); color: #061a38;
+  box-shadow: 0 10px 24px rgba(64,204,255,.2); }
+.osh-outline-link { color: white; border: 1px solid rgba(255,255,255,.25); background: rgba(255,255,255,.08); }
+.osh-primary-link:hover, .osh-outline-link:hover { transform: translateY(-2px); }
+.osh-outline-link:hover { background: rgba(255,255,255,.14); }
+.osh-kpi { background: linear-gradient(135deg, var(--color-panel), color-mix(in srgb, var(--color-panel), var(--color-celeste) 5%));
+  border: 1px solid color-mix(in srgb, var(--color-linea), var(--color-celeste) 20%);
+  box-shadow: 0 10px 35px rgba(5,31,81,.07);
+  transition: border-color .2s, transform .2s, box-shadow .2s;
+}
+.osh-kpi:hover { transform: translateY(-3px); border-color: rgba(64,195,251,.45);
+  box-shadow: 0 16px 44px rgba(5,31,81,.13); }
+.osh-kpi-icon { display: grid; height: 48px; width: 48px; place-items: center; color: #4ecbff;
+  border: 1px solid rgba(58,182,243,.22); border-radius: 14px;
+  background: linear-gradient(150deg, rgba(56,198,248,.16), rgba(60,93,239,.08)); }
+.osh-feature-panel { background: linear-gradient(145deg, #07162d 0%, #0a2345 75%, #091934 100%);
+  box-shadow: 0 15px 40px rgba(6,19,41,.15); }
+.osh-model-viewport { position: relative; background: radial-gradient(ellipse at 50% 50%,rgba(28,114,221,.15),transparent 65%); }
+.osh-model-viewport > * { position: relative; }
+.osh-action-tile { display: flex; flex-direction: column; align-items: flex-start; gap: .65rem;
+  min-height: 96px; padding: 1rem; border-radius: 15px; color: #dff4ff; font-size: 12px; font-weight: 700;
+  background: rgba(66,150,255,.09); border: 1px solid rgba(116,199,255,.15);
+  transition: transform .2s, background-color .2s, border-color .2s; }
+.osh-action-tile svg { color: #5bd3ff; }
+.osh-action-tile:hover { background: rgba(45,159,255,.2); border-color: rgba(91,211,255,.45); transform: translateY(-2px); }
+.osh-login { background: var(--color-superficie); }
+.osh-login-hero {
+  background: radial-gradient(ellipse at 64% 55%,rgba(31,133,243,.32),transparent 55%),
+              radial-gradient(ellipse at 0% 85%,rgba(94,75,229,.23),transparent 54%),
+              linear-gradient(135deg,#07142b,#0b2953 66%,#08162f);
+}
+.osh-login-stars { background-image: linear-gradient(rgba(90,182,255,.055) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(90,182,255,.055) 1px,transparent 1px);
+  background-size: 52px 52px; }
+.osh-login-visual { background: rgba(5,20,46,.65); box-shadow: 0 20px 70px rgba(0,22,61,.32); }
+.osh-login-visual > * { position: relative; }
+.osh-login-visual .negatoscopio { border-radius: 0; border: none; box-shadow: none; }
+.osh-login-feature { display:flex; flex-direction:column; gap:.4rem; padding: 12px;
+  background: rgba(16,112,226,.13); border-radius: 13px; border: 1px solid rgba(93,211,255,.17);
+  font-size:11px; line-height:1.4; color: #d6efff; }
+.osh-login-feature span { font-weight: 900; letter-spacing: .1em; font-size: 10px; }
+.osh-login-right { background: radial-gradient(ellipse at 80% 20%,rgba(31,126,225,.10),transparent 55%),var(--color-superficie); }
+.osh-login-card { background: var(--color-panel); border: 1px solid var(--color-linea);
+  box-shadow: 0 26px 85px rgba(5,26,60,.16); }
+.osh-login-label { display:inline-block; font-weight:800; font-size:10px; letter-spacing:.19em; color:var(--color-azul); }
+.osh-login-input { min-height: 50px; border-radius: 13px; padding-left: 16px; padding-right: 16px; }
+.osh-login-submit { min-height: 51px; font-size: 14px; border-radius: 13px; }
+@media (max-width: 1250px) {
+  .osh-hero-emblem { right: -80px; opacity: .28; }
+}
+@media (max-width: 750px) {
+  .osh-dashboard-hero { min-height: 340px; }
+  .osh-hero-emblem { top: auto; bottom: -120px; right: -100px; opacity: .2; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .osh-kpi, .osh-primary-link, .osh-outline-link, .osh-action-tile { transition: none; }
+}
+
+/* Expedientes y ficha del paciente */
+.osh-patient-hero, .osh-patient-detail-hero {
+  background: radial-gradient(ellipse at 86% 15%, rgba(53,169,255,.25), transparent 52%),
+    linear-gradient(115deg, #07152d, #0d2b56 70%, #08152e);
+  box-shadow: 0 22px 45px rgba(2,23,51,.14);
+}
+.osh-patient-count { min-width: 100px; padding: 13px 15px; border-radius: 14px;
+  border: 1px solid rgba(100,217,255,.25); background: rgba(80,163,250,.10); }
+.osh-patient-count span { display:block; color: #fff; font-size: 25px; font-weight:800; letter-spacing:-.04em; }
+.osh-patient-count small { color:#9bdcf7; font-size:10px; font-weight:650; text-transform:uppercase; letter-spacing:.08em; }
+.osh-patient-table thead { background: color-mix(in srgb, var(--color-panel), var(--color-azul) 6%); }
+.osh-patient-table th { padding-top: 17px; padding-bottom:17px; font-size: 11px; text-transform: uppercase; letter-spacing:.07em; font-weight:750; }
+.osh-patient-table tbody tr { transition: background-color .18s ease; }
+.osh-patient-table tbody tr:hover { background: color-mix(in srgb, var(--color-panel), var(--color-celeste) 12%); }
+.osh-detail-card { border-top: 2px solid rgba(77,206,255,.36); }
+
+
+/* ORTHOSYNC · Radiology Command Center 3.0
+   La interfaz usa rutas y valores reales: ningún diagnóstico simulado. */
+.osh-console { --osh-cyan:#54d9ff; --osh-blue:#137eff; --osh-ink:#041127; max-width:1800px; }
+.orthosync-app:has(.osh-console) { background: #051127; color: #e9f3ff; }
+.orthosync-app:has(.osh-console) main { max-width: 1900px; padding: 16px 20px 28px; }
+.orthosync-app:has(.osh-console) .osh-topbar { background: #07152d; border-color:#1b3c69; color:#bdd4f2; }
+.orthosync-app:has(.osh-console) footer { color:#7893b6; }
+.osh-console-hero {
+  isolation:isolate; position:relative; overflow:hidden; min-height:294px; border-radius:32px;
+  border:1px solid rgba(48,191,255,.52);
+  background:radial-gradient(ellipse at 70% 60%,rgba(6,98,205,.24),transparent 55%),
+  linear-gradient(120deg,#071d40 0%,#041932 57%,#041128 100%);
+  box-shadow:inset 0 0 0 1px rgba(103,208,255,.06),0 0 24px rgba(12,125,251,.14),0 20px 48px rgba(0,6,18,.32);
+}
+.osh-console-hero::after { content:""; position:absolute; pointer-events:none; inset:0; border-radius:inherit;
+  background:linear-gradient(120deg,transparent 32%,rgba(56,184,255,.12) 42%,transparent 50%),
+    radial-gradient(ellipse at 96% 0%,rgba(29,165,255,.22),transparent 42%);
+  mix-blend-mode:screen; }
+.osh-console-copy { position:relative; z-index:2; width:67%; max-width:790px; padding:29px 34px 26px; }
+.osh-system-status { display:inline-flex; gap:10px; align-items:center; color:#70d9ff; text-transform:uppercase; letter-spacing:.15em; font-weight:750; font-size:10px; }
+.osh-console-brand { display:flex; align-items:center; gap:14px; margin-top:13px; }
+.osh-console-mascot { width:86px; height:86px; object-fit:contain; filter:drop-shadow(0 0 10px rgba(39,169,255,.32)); }
+.osh-console-wordmark { color:white; font-size:clamp(29px,3.6vw,54px); font-weight:900; font-style:italic; letter-spacing:-.055em; line-height:1.07;
+ text-shadow:0 2px 19px rgba(0,12,36,.4); }
+.osh-console-wordmark span { color:#5fdbff; }
+.osh-console-tagline { margin-top:5px; color:#a9d8f7; font-size:10px; font-weight:700; letter-spacing:.17em; }
+.osh-console-copy h1 { margin-top:12px; max-width:650px; font-size:clamp(19px,2vw,29px); font-weight:850; letter-spacing:-.045em; line-height:1.2; color:white; }
+.osh-console-copy h1 span { color:#69dcff; }
+.osh-console-copy>p { max-width:600px; margin-top:9px; color:#b9d1e7; font-size:12px; line-height:1.7; }
+.osh-console-actions { display:flex; flex-wrap:wrap; gap:9px; margin-top:15px; }
+.osh-console-cta { display:inline-flex; gap:9px; align-items:center; border-radius:12px; padding:10px 14px; background:linear-gradient(120deg,#18a3ff,#44d5ff); color:#02152b;
+ box-shadow:0 0 22px rgba(29,178,255,.25); font-size:12px; font-weight:850; transition:transform .2s,box-shadow .2s; }
+.osh-console-cta.secondary { color:#cef3ff; background:rgba(15,106,192,.15); border:1px solid rgba(83,202,255,.38); box-shadow:none; }
+.osh-console-cta:hover { transform:translateY(-2px); box-shadow:0 0 28px rgba(29,178,255,.3); }
+.osh-console-illustration { position:absolute; inset:0 0 0 auto; width:53%; z-index:1; pointer-events:none; }
+.osh-console-illustration::before { content:""; position:absolute; inset:0; z-index:1; background:linear-gradient(90deg,#061934 0%,transparent 26%,transparent 85%,rgba(4,16,36,.18) 100%); }
+.osh-console-illustration img { width:100%; height:100%; object-fit:cover; object-position:center 40%; filter:saturate(1.12); }
+.osh-console-upper { display:grid; grid-template-columns:minmax(0,1.65fr) minmax(280px,1fr); gap:15px; }
+.osh-console-tools { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; }
+.osh-console-tool { display:flex; align-items:center; justify-content:center; flex-direction:column; gap:9px; min-height:112px; border:1px solid #2873b8; border-radius:17px;
+ color:#e1f3ff; font-weight:730; font-size:12px; text-align:center; box-shadow:inset 0 1px rgba(116,221,255,.12);
+ background:linear-gradient(160deg,rgba(22,90,159,.55),rgba(6,26,60,.7)); transition:border-color .2s,transform .2s,box-shadow .2s; }
+.osh-console-tool svg { color:#69dcff; stroke-width:1.8; filter:drop-shadow(0 0 7px rgba(47,182,255,.4)); }
+.osh-console-tool:hover { border-color:#67e3ff; transform:translateY(-3px); box-shadow:0 0 20px rgba(39,158,255,.22); }
+.osh-console-metrics { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; }
+.osh-console-metric { min-width:0; display:flex; gap:10px; align-items:center; flex-wrap:wrap; padding:13px; border:1px solid #2b80c6; border-radius:17px;
+ background:linear-gradient(125deg,rgba(11,51,105,.84),rgba(5,23,52,.96)); box-shadow:inset 0 1px rgba(116,221,255,.09),0 0 15px rgba(23,127,230,.08); }
+.osh-console-metric-icon { display:flex; width:34px; height:34px; align-items:center; justify-content:center; color:#54d9ff; flex:0 0 auto; }
+.osh-console-metric p { color:#f1faff; font-size:11px; font-weight:720; line-height:1.3; }
+.osh-console-metric small { display:block; color:#89afd1; font-size:10px; line-height:1.35; margin-top:3px; }
+.osh-console-metric strong { font-size:clamp(18px,2vw,28px); font-weight:850; letter-spacing:-.045em; color:#fff; margin-left:auto; }
+.osh-console-panels { display:grid; grid-template-columns:minmax(0,1.32fr) minmax(320px,.85fr); align-items:stretch; gap:14px; }
+.osh-console-right { display:grid; grid-template-rows:minmax(0,1.12fr) minmax(0,.88fr); gap:14px; min-width:0; }
+.osh-console-card { position:relative; min-width:0; overflow:hidden; border-radius:24px; border:1px solid #296fbb;
+ background:linear-gradient(145deg,#081b3a,#07172e 70%,#091c3e); box-shadow:inset 0 0 0 1px rgba(70,201,255,.06),0 10px 35px rgba(0,9,31,.26); }
+.osh-console-cardhead { display:flex; gap:12px; align-items:center; justify-content:space-between; border-bottom:1px solid rgba(87,172,245,.17); padding:17px 19px 13px; }
+.osh-console-cardhead h2 { display:flex; align-items:center; gap:9px; color:#f1faff; font-size:clamp(15px,1.45vw,20px); font-weight:850; letter-spacing:-.035em; }
+.osh-console-cardhead h2 svg { height:23px; width:23px; color:#4bd4ff; }
+.osh-console-eyebrow { display:block; margin-bottom:4px; color:#64c6fb; font-size:9px; font-weight:750; letter-spacing:.16em; text-transform:uppercase; }
+.osh-console-pill { display:inline-flex; flex:none; padding:5px 9px; border:1px solid rgba(39,183,248,.28); border-radius:7px; background:rgba(35,139,235,.12); color:#81d9ff; font-size:10px; font-weight:750; }
+.osh-console-anatomy { display:flex; flex-direction:column; }
+.osh-console-anatomy-body { display:grid; flex:1; grid-template-columns:170px minmax(0,1fr); padding:12px; gap:12px; }
+.osh-console-bonelist { display:flex; flex-direction:column; gap:7px; }
+.osh-console-bone { display:flex; min-height:48px; align-items:center; gap:9px; padding:10px; border:1px solid #254d80; border-radius:11px; text-align:left;
+ background:linear-gradient(120deg,rgba(20,62,112,.66),rgba(5,25,57,.86)); color:#c9e5fa; font-size:12px; font-weight:700; transition:background .15s,border-color .15s; }
+.osh-console-bone svg { flex:none; color:#6bcfff; }
+.osh-console-bone small { color:#5287b7; margin-left:auto; font-size:9px; }
+.osh-console-bone.is-active,.osh-console-bone:hover { color:white; border-color:#57d8ff; background:linear-gradient(110deg,rgba(22,113,220,.95),rgba(15,61,137,.84)); box-shadow:inset 0 0 16px rgba(37,154,255,.16),0 0 13px rgba(29,161,254,.22); }
+.osh-console-model { position:relative; overflow:hidden; border-radius:15px; min-height:423px; border:1px solid rgba(58,158,240,.18); background:radial-gradient(ellipse at 60% 45%,rgba(26,102,198,.26),transparent 65%),#05152d; }
+.osh-console-model .negatoscopio { border-radius:12px; box-shadow:none; }
+.osh-console-model-placeholder { display:flex; min-height:421px; flex-direction:column; justify-content:flex-end; align-items:flex-start; position:relative; overflow:hidden; padding:26px; }
+.osh-console-model-bg { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:80% 25%; opacity:.75; }
+.osh-console-model-placeholder>p,.osh-console-model-placeholder>h3,.osh-console-model-placeholder>button { position:relative; z-index:1; }
+.osh-console-model-placeholder h3 { font-size:clamp(28px,3vw,39px); line-height:1.15; font-weight:850; color:white; margin-top:7px; }
+.osh-console-model-placeholder p:nth-last-of-type(1) { font-size:12px; line-height:1.5; color:#c3e1f4; margin-top:7px; max-width:220px; }
+.osh-console-launch { display:inline-flex; align-items:center; gap:9px; margin-top:17px; padding:12px 16px; border:1px solid #4bd4ff; border-radius:11px;
+ color:#041a33; background:linear-gradient(115deg,#48c3ff,#80ecff); font-size:12px; font-weight:850; box-shadow:0 0 20px rgba(36,182,251,.24); }
+.osh-console-launch:hover { background:#a8edff; }
+.osh-console-anatomy-footer { display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; padding:12px 18px; font-size:10px; color:#93b9da; background:rgba(14,50,91,.4); }
+.osh-console-anatomy-footer>span:first-child { display:flex; gap:8px; align-items:center; color:#bde8fc; }
+.osh-console-textlink { display:flex; gap:7px; align-items:center; flex:none; font-size:11px; font-weight:800; color:#5cdeff; }
+.osh-console-textlink:hover { text-decoration:underline; }
+.osh-study-list { padding:7px 12px 12px; display:grid; gap:7px; }
+.osh-study-item { display:flex; align-items:center; gap:11px; min-width:0; padding:10px; border:1px solid rgba(54,148,243,.22); border-radius:12px;
+ background:rgba(27,81,148,.18); transition:border-color .18s,background .18s; }
+.osh-study-item:hover { border-color:#3ebeff; background:rgba(36,134,226,.17); }
+.osh-study-icon { display:grid; place-items:center; height:37px; width:37px; flex:0 0 auto; border-radius:9px; border:1px solid rgba(79,200,255,.35); background:#0b335d; color:#73d6ff; }
+.osh-study-status { flex:none; border-radius:999px; padding:5px 8px; font-size:10px; font-weight:800; }
+.osh-study-status.is-ready { color:#6ce6b4; background:rgba(41,172,121,.12); }
+.osh-study-status.is-pending { color:#f6d88d; background:rgba(188,128,30,.16); }
+.osh-empty-study { padding:24px; color:#a0c3dc; line-height:1.6; font-size:12px; }
+.osh-console-analysis-body { display:flex; gap:22px; align-items:center; padding:17px 20px 12px; }
+.osh-console-gauge { flex:0 0 135px; display:flex; flex-direction:column; align-items:center; justify-content:center; width:135px; height:135px; border-radius:50%;
+ border:11px solid #30bcff; box-shadow:0 0 0 4px rgba(38,126,218,.12),inset 0 0 24px rgba(25,121,217,.16),0 0 24px rgba(34,166,247,.16);
+ background:radial-gradient(circle,#0d3766,#071b3c); text-align:center; }
+.osh-console-gauge strong { color:#fff; font-weight:900; font-size:39px; line-height:1; letter-spacing:-.06em; }
+.osh-console-gauge span { margin-top:8px; color:#b3daf0; max-width:80px; line-height:1.3; font-size:10px; }
+.osh-console-analysis-link { display:inline-flex; margin-top:14px; padding:9px 12px; gap:6px; border-radius:9px; border:1px solid #168cda; color:#84e7ff; font-size:11px; font-weight:800; background:rgba(25,108,195,.22); }
+.osh-console-analysis-link:hover { background:rgba(25,144,222,.32); }
+.osh-console-footnote { padding:0 19px 14px; color:#82a6c8; font-size:10px; line-height:1.5; }
+@media(max-width:1550px) {
+  .osh-console-upper { grid-template-columns:1fr; }
+  .osh-console-metrics { grid-template-columns:repeat(3,minmax(0,1fr)); }
+  .osh-console-metric { min-height:83px; }
+}
+@media(max-width:1250px) {
+  .osh-console-panels { grid-template-columns:1fr; }
+  .osh-console-right { grid-template-columns:repeat(2,minmax(0,1fr)); grid-template-rows:auto; }
+  .osh-console-hero { min-height:270px; }
+  .osh-console-copy { width:73%; }
+}
+@media(max-width:850px) {
+  .orthosync-app:has(.osh-console) main { padding:13px; }
+  .osh-console-hero { border-radius:23px; min-height:280px; }
+  .osh-console-copy { width:100%; padding:25px; }
+  .osh-console-illustration { width:90%; opacity:.24; }
+  .osh-console-tools { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .osh-console-right { grid-template-columns:1fr; }
+  .osh-console-wordmark { font-size:35px; }
+  .osh-console-mascot { width:66px; height:66px; }
+}
+@media(max-width:510px) {
+ .osh-console-tools { gap:8px; }
+ .osh-console-tool { min-height:82px; border-radius:12px; }
+ .osh-console-metrics { grid-template-columns:1fr; }
+ .osh-console-metric { min-height:66px; }
+ .osh-console-anatomy-body { grid-template-columns:1fr; padding:8px; }
+ .osh-console-bonelist { display:flex; flex-direction:row; flex-wrap:nowrap; overflow-x:auto; gap:7px; padding:4px 1px; }
+ .osh-console-bone { flex:0 0 auto; min-height:44px; }
+ .osh-console-bone small { display:none; }
+ .osh-console-model { min-height:350px; }
+ .osh-console-model-placeholder { min-height:350px; }
+ .osh-console-card { border-radius:18px; }
+ .osh-console-cardhead { padding:14px; }
+ .osh-console-cardhead h2 { font-size:15px; }
+ .osh-console-pill { display:none; }
+ .osh-console-analysis-body { flex-direction:column; align-items:flex-start; gap:15px; }
+ .osh-console-gauge { width:112px; height:112px; flex-basis:112px; border-width:8px; }
+ .osh-console-gauge strong { font-size:32px; }
+}
+
+
+/* Shell premium consistent for administration, radiology and patient workflow */
+.orthosync-app {
+ --color-superficie:#07142b; --color-panel:#0c1e3b; --color-linea:#244c77;
+ --color-tinta:#e2efff; --color-fuerte:#f3f9ff; --color-suave:#92afcb;
+ --color-cielo:#112b4c; --color-lavanda:#241e4d;
+ --color-marino:#74bfff; --color-violeta:#ac9cff; --color-azul:#4b98ff;
+ background:radial-gradient(ellipse 72% 50% at 82% 10%,rgba(20,85,165,.13),transparent 68%),#061126;
+ color:#e6f3ff;
+}
+.orthosync-app .tarjeta {
+ background:linear-gradient(145deg,#0d2243,#091b37);
+ border:1px solid #28527d;
+ box-shadow:inset 0 1px rgba(97,194,247,.07),0 12px 35px rgba(0,12,36,.18);
+ border-radius:20px;
+}
+.orthosync-app .tarjeta:hover { border-color:#3679af; }
+.orthosync-app .subtitulo { font-size:16px; font-weight:800; letter-spacing:-.02em; }
+.orthosync-app .campo {
+ background:#0c1f3e; border:1px solid #2a4a73; color:#e9f6ff;
+ border-radius:12px; min-height:45px;
+}
+.orthosync-app .campo:focus { border-color:#3ec4ff; box-shadow:0 0 0 3px rgba(54,184,255,.13); }
+.orthosync-app .campo::placeholder { color:#7796ba; }
+.orthosync-app .boton { background:linear-gradient(115deg,#1979ed,#13b8f4); border:1px solid rgba(132,225,255,.24); box-shadow:0 6px 22px rgba(16,136,244,.22); }
+.orthosync-app .boton-claro { background:#10274a; color:#abddff; border-color:#315c8a; }
+.orthosync-app .boton-claro:hover { background:#16335e; }
+.orthosync-app :is(table thead, .bg-superficie\/60) { border-color:#275179; }
+.orthosync-app table tbody tr:hover { background:rgba(43,133,228,.10); }
+.orthosync-sidebar { position:relative; overflow:hidden; background:#06142c!important; border-right:1px solid #175b91; }
+.orthosync-sidebar::before { content:"";pointer-events:none;position:absolute;inset:0;background:
+ radial-gradient(ellipse at 55% 13%,rgba(11,95,194,.24),transparent 48%),
+ linear-gradient(180deg,rgba(6,33,76,.1),#040d20); }
+.orthosync-sidebar > * { position:relative; z-index:1; }
+.osh-brand-zone { background:radial-gradient(ellipse at 50% 50%,rgba(35,151,251,.14),transparent 75%); }
+.osh-brand-wolf { display:block; width:142px;height:142px;object-fit:contain;filter:drop-shadow(0 8px 20px rgba(19,140,231,.28)); }
+.osh-brand-wordmark { margin-top:-10px; font-size:25px; font-style:italic; font-weight:950; letter-spacing:-.07em; text-shadow:0 0 19px rgba(21,155,244,.35); }
+.osh-brand-wordmark span { color:#54d7ff; }
+.orthosync-sidebar nav a { padding-top:13px;padding-bottom:13px;border:1px solid transparent; }
+.orthosync-sidebar nav a:hover { border-color:rgba(67,177,249,.20); background:rgba(18,94,191,.19); }
+.orthosync-sidebar nav a:has(.bg-celeste) { border-color:rgba(83,193,255,.46); }
+.osh-sidebar-wolf { margin:0 12px 12px; height:112px; overflow:hidden; position:relative; border-radius:17px;
+ background:radial-gradient(ellipse at 60% 100%,rgba(35,123,215,.26),transparent 80%); }
+.osh-sidebar-wolf img { display:block; position:absolute; width:165px;height:165px; bottom:-33px;left:50%;transform:translateX(-50%);opacity:.93; }
+.osh-topbar { min-height:72px; background:#07172f!important; border-bottom-color:#22466d!important; }
+.osh-topbar-indicator { width:10px;height:10px;border-radius:50%;background:#35e5b7;box-shadow:0 0 16px rgba(53,229,183,.6); }
+.osh-topbar-theme { width:43px!important;height:43px!important; border-radius:13px!important; }
+.osh-topbar-user { background:rgba(28,99,182,.12); }
+.osh-admin-section-title { display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px; }
+.osh-admin-section-title h2 { font-size:23px; font-weight:850;letter-spacing:-.04em;color:#f7fbff; }
+.orthosync-app .negatoscopio { border-color:#1d67a6; }
+@media(max-width:1023px) {
+ .orthosync-sidebar { width:100%;border-bottom:1px solid #285a88; }
+ .orthosync-sidebar nav { max-height:65vh; }
+ .orthosync-app .osh-topbar { display:none; }
+}
+@media(min-width:1024px) and (max-width:1270px) {
+ .orthosync-sidebar { max-width:236px; }
+ .orthosync-app .osh-topbar { padding-inline:18px; }
+ .orthosync-app main { padding-inline:16px; }
+ .osh-brand-wolf { width:116px;height:116px; }
+}
+
+
+/* Radiology study, CNN validation and scheduled clinical follow-up */
+.osh-clinical-banner { isolation:isolate; position:relative; min-height:183px; border:1px solid rgba(67,183,253,.5); border-radius:23px; overflow:hidden;
+ background:radial-gradient(ellipse at 73% 50%,rgba(22,106,222,.25),transparent 59%),linear-gradient(110deg,#071e43,#092b52 65%,#06152f);
+ box-shadow:0 16px 38px rgba(3,17,41,.2),inset 0 0 0 1px rgba(130,217,255,.045); }
+.osh-clinical-banner-content { position:relative; z-index:2; padding:26px 32px; max-width:680px; }
+.osh-clinical-kicker { display:flex; align-items:center; gap:10px; color:#61d5ff; font-size:10px; font-weight:850; letter-spacing:.16em; text-transform:uppercase; }
+.osh-clinical-banner h1 { margin-top:14px; font-size:clamp(25px,3vw,40px); font-weight:900; line-height:1.12; letter-spacing:-.045em; color:#fff; }
+.osh-clinical-banner h1 span { color:#5cdaff; }
+.osh-clinical-banner-content>p:not(.osh-clinical-kicker) { margin-top:10px; font-size:13px; line-height:1.65; color:#cae1fa; }
+.osh-clinical-banner-content>.osh-clinical-disclaimer { color:#8caccd!important; font-size:11px!important; margin-top:6px!important; }
+.osh-clinical-banner-art { position:absolute; right:0; top:0; width:48%; height:100%;object-fit:cover;object-position:70% 35%;opacity:.67;mask-image:linear-gradient(90deg,transparent,black 40%); }
+.osh-study-layout .negatoscopio { border:1px solid rgba(47,180,245,.37); background-color:#06152c; box-shadow:0 16px 48px rgba(0,11,35,.22); }
+.osh-study-layout .tarjeta { border-top:2px solid rgba(45,169,234,.3); }
+.osh-study-imaging { outline:1px solid rgba(59,197,251,.1); outline-offset:4px; }
+.orthosync-app .chip { font-weight:750; letter-spacing:.005em; }
+.orthosync-app .tarjeta :is(input,textarea,select,button) { font-family:inherit; }
+@media(max-width:850px) {
+ .osh-clinical-banner-content { padding:22px; }
+ .osh-clinical-banner-art { width:72%;opacity:.25; }
+ .osh-clinical-banner h1 { font-size:27px; }
+ .osh-clinical-banner { min-height:170px; }
+ .orthosync-app :is(table, .overflow-x-auto) { max-width:100%; }
+}
+
+
+/* Functional anatomical library and protected radiology studies explorer */
+.osh-anatomy-layout { display:grid; grid-template-columns:260px minmax(0,1fr); gap:16px; align-items:start; }
+.osh-anatomy-menu { position:sticky; top:92px; }
+.osh-anatomy-options { display:grid; gap:7px; padding:13px; }
+.osh-anatomy-option { display:flex; align-items:center; gap:12px; width:100%; min-height:62px; text-align:left; border:1px solid rgba(78,165,247,.2); border-radius:12px; padding:11px; background:rgba(22,77,141,.16); color:#cde5fa; transition:background .16s,border-color .16s,box-shadow .16s; }
+.osh-anatomy-option svg { color:#5acfff; flex:none; }
+.osh-anatomy-option span:nth-child(2) { flex:1; min-width:0; }
+.osh-anatomy-option strong { display:block; font-size:13px; font-weight:750; }
+.osh-anatomy-option small { display:block; margin-top:3px; color:#7ba7c8; font-size:10px; }
+.osh-anatomy-option>span:last-child { color:#65d6ff; }
+.osh-anatomy-option:hover,.osh-anatomy-option.is-active { border-color:#5dd4ff; background:linear-gradient(110deg,rgba(18,111,220,.76),rgba(7,49,117,.66)); color:white; box-shadow:0 0 14px rgba(39,168,255,.16); }
+.osh-anatomy-viewer { padding:12px; background:radial-gradient(ellipse at 50% 35%,rgba(14,113,209,.21),transparent 60%),#071932; }
+.osh-anatomy-viewer .negatoscopio { box-shadow:none; border:1px solid rgba(77,187,250,.18); }
+.osh-anatomy-bottom { display:flex; justify-content:space-between; gap:12px; align-items:center; padding:15px 19px; border-top:1px solid rgba(87,172,245,.17); }
+.osh-anatomy-bottom p { max-width:540px; color:#95bcd9; font-size:11px; line-height:1.6; }
+.osh-studies-toolbar { display:flex; gap:12px; align-items:center; justify-content:space-between; padding:16px 18px; flex-wrap:wrap; }
+.osh-studies-search { display:flex; align-items:center;gap:10px; border:1px solid rgba(76,162,238,.4); border-radius:12px; background:rgba(8,29,65,.83); color:#78d7ff; padding:0 13px; flex:1 1 250px; }
+.osh-studies-search input { width:100%; min-height:43px; min-width:0; font-size:12px; font-family:inherit; background:transparent; border:none; outline:none; color:#ebf7ff; }
+.osh-studies-search input::placeholder { color:#759abe; }
+.osh-studies-filters { display:flex; gap:5px; flex-wrap:wrap; }
+.osh-studies-filters button { padding:9px 12px; border-radius:9px; border:1px solid transparent; color:#94b9d9; font-size:11px; font-weight:750; background:rgba(34,99,165,.13); }
+.osh-studies-filters button.is-active { border-color:#44c9ff; color:#dbfaff; background:rgba(26,132,223,.24); }
+.osh-studies-filters button:hover { color:white; }
+.osh-studies-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; padding:0 17px 18px; }
+.osh-studies-card { min-width:0; display:flex; gap:12px; align-items:center; border:1px solid rgba(71,167,249,.24); border-radius:14px; background:linear-gradient(120deg,rgba(22,73,130,.28),rgba(7,31,69,.65)); padding:11px; transition:background .2s,border-color .2s; }
+.osh-studies-card:hover { border-color:#52c8ff; background:rgba(23,98,183,.33); }
+.osh-studies-preview { width:83px; height:80px; flex:0 0 auto; display:grid; place-items:center; border-radius:10px; border:1px solid rgba(96,202,255,.2); overflow:hidden; background:radial-gradient(circle,#133f75,#041328); color:#63d7ff; }
+.osh-studies-preview img { display:block; max-width:100%; width:100%; height:100%; object-fit:contain; }
+@media(max-width:1150px) { .osh-anatomy-layout { grid-template-columns:215px minmax(0,1fr); } }
+@media(max-width:850px) {
+ .osh-anatomy-layout { grid-template-columns:1fr; }
+ .osh-anatomy-menu { position:static; }
+ .osh-anatomy-options { display:flex; gap:8px; overflow-x:auto; padding:11px; }
+ .osh-anatomy-option { flex:0 0 auto; width:145px; }
+ .osh-studies-grid { grid-template-columns:1fr; }
+ .osh-anatomy-viewer { padding:7px; }
+}
+@media(max-width:470px) {
+ .osh-studies-preview { width:65px; height:68px; }
+ .osh-studies-card { padding:8px; gap:8px; }
+ .osh-studies-toolbar { padding:10px; }
+ .osh-studies-grid { padding:0 10px 12px; }
+ .osh-study-status { padding:5px; font-size:9px; }
+ .osh-anatomy-bottom { align-items:flex-start; flex-direction:column; }
+}
+
+/* Responsive drawer: keep clinical navigation accessible without pushing content. */
+@media(max-width:1023px) {
+  .orthosync-sidebar { width:min(86vw,310px)!important; border-right:1px solid #317eae!important; border-bottom:0; box-shadow:18px 0 60px rgba(0,0,0,.48); }
+  .orthosync-sidebar nav { max-height:none; }
+}
+
+
+/* Contrast-preserving light mode. Sidebar and anatomy workstation stay navy by design. */
+.osh-light .orthosync-app {
+ --color-superficie:#f1f6fd; --color-panel:#fff; --color-linea:#d8e4f3;
+ --color-tinta:#142b4b; --color-fuerte:#0a2240; --color-suave:#586d88;
+ --color-cielo:#e5f3ff; --color-marino:#1269bb; --color-azul:#2079de;
+ background:linear-gradient(180deg,#f1f6fd,#eaf2fc); color:#142b4b;
+}
+.osh-light .orthosync-app .tarjeta { background:linear-gradient(145deg,#fff,#f7faff); border-color:#d3e4f4; box-shadow:0 9px 30px rgba(22,59,118,.08); }
+.osh-light .orthosync-app .campo { background:#fff; border-color:#d0deed; color:#142b4b; }
+.osh-light .orthosync-app .campo::placeholder { color:#8191a7; }
+.osh-light .orthosync-app .boton-claro { background:#fff; border-color:#cedeed; color:#155c9c; }
+.osh-light .orthosync-app .boton-claro:hover { background:#eaf5fe; }
+.osh-light .orthosync-app .osh-admin-section-title h2 { color:#123456; }
+.osh-light .orthosync-app:has(.osh-console) { background:linear-gradient(180deg,#dceafb,#f4f8ff); }
+.osh-light .orthosync-app:has(.osh-console) .osh-console { color:#f0f9ff; }

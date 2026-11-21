@@ -11,7 +11,7 @@ function EstudioPaciente({ e }: { e: any }) {
   const [verImagen, setVerImagen] = useState(false);
   const [ver3d, setVer3d] = useState(false);
   const [errPdf, setErrPdf] = useState(false);
-  const hay3d = e.hay_lesion && e.zona_3d && e.hueso && e.hueso !== "cadera";
+  const hay3d = e.hay_lesion && e.zona_3d && e.hueso;
   const url = useImagen(verImagen ? e.id : null, "radiografia");
   return (
     <li className="relative pl-8">
